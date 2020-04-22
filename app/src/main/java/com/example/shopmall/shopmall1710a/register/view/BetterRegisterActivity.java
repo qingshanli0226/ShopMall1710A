@@ -47,8 +47,6 @@ public class BetterRegisterActivity extends AppCompatActivity implements IBaseVi
     private void login() {
         registerPresenter.addParmas(nameEditText.getText().toString(), passwordEditText.getText().toString());
         registerPresenter.postHttpData(0);
-        startActivity(new Intent(BetterRegisterActivity.this, BetterLoginActivity.class));
-        BetterRegisterActivity.this.finish();
     }
 
 
@@ -70,13 +68,14 @@ public class BetterRegisterActivity extends AppCompatActivity implements IBaseVi
     }
 
     @Override
-    public void onHtttpReceived(int requestCode, RegisterBean data) {
+    public void onHttpReceived(int requestCode, RegisterBean data) {
         Toast.makeText(this, "注册成功", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent();
         intent.putExtra("name",nameEditText.getText().toString());
         intent.putExtra("password",passwordEditText.getText().toString());
         setResult(2,intent);
-        finish();
+        startActivity(new Intent(BetterRegisterActivity.this, BetterLoginActivity.class));
+        BetterRegisterActivity.this.finish();
     }
 
     @Override

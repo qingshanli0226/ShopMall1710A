@@ -28,6 +28,12 @@ public class BetterLoginActivity extends AppCompatActivity implements IBaseView<
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login1);
 
+//        Intent intent = getIntent();
+//        if (intent!=null){
+//            nameEditText.setText(intent.getStringExtra("name"));
+//            passwordEditText.setText(intent.getStringExtra("password"));
+//        }
+
         loginPresenter = new BetterLoginPresenter();
         loginPresenter.attachView(this);
 
@@ -60,22 +66,21 @@ public class BetterLoginActivity extends AppCompatActivity implements IBaseView<
     private void login() {
         loginPresenter.addParmas(nameEditText.getText().toString(), passwordEditText.getText().toString());
         loginPresenter.postHttpData(0);
-        startActivity(new Intent(BetterLoginActivity.this, HomeActivity.class));
-        BetterLoginActivity.this.finish();
+
     }
 
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
         loginPresenter.detachView();
     }
 
     @Override
-    public void onHtttpReceived(int requstCode, BetterLoginBean data) {
+    public void onHttpReceived(int requstCode, BetterLoginBean data) {
         Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
-
+        startActivity(new Intent(BetterLoginActivity.this, HomeActivity.class));
+        BetterLoginActivity.this.finish();
     }
 
 

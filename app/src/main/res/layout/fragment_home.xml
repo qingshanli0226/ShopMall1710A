@@ -1,14 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
+              android:orientation="vertical"
              tools:context=".home.view.HomeFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment"/>
-
-</FrameLayout>
+            <LinearLayout android:layout_width="match_parent" android:layout_height="70dp" android:background="#F44336" android:orientation="horizontal">
+                <EditText android:layout_width="0dp" android:layout_height="40dp" android:layout_gravity="center_vertical" android:layout_weight="1" android:background="#fff" android:hint="请输入搜索内容" android:id="@+id/fragment_home_find_et"/>
+                <Button android:textColor="#fff" android:layout_width="70dp" android:layout_height="50dp" android:layout_gravity="center_vertical" android:drawableTop="@mipmap/write" android:text="消息" android:background="@null" android:id="@+id/fragment_home_find_btn"/>
+            </LinearLayout>
+            <com.youth.banner.Banner
+                    android:id="@+id/fragment_home_find_banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp">
+            </com.youth.banner.Banner>
+            <android.support.v7.widget.RecyclerView
+                    android:id="@+id/fragment_home_find_rv_head"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp">
+            </android.support.v7.widget.RecyclerView>
+            <ImageView android:scaleType="centerCrop" android:id="@+id/fragment_home_find_img" android:layout_width="match_parent" android:layout_height="100dp"/>
+            <RelativeLayout android:layout_width="match_parent" android:layout_height="100dp">
+                <TextView android:layout_width="200dp" android:layout_height="20dp" android:text="今日闪购，距离结束：05:30:25" android:id="@+id/fragment_home_find_time" android:textColor="#000" android:drawableLeft="@mipmap/hot"/>
+                <Button android:layout_width="100dp" android:layout_height="20dp" android:text="查看更多>" android:background="@null" android:layout_alignParentRight="true"/>
+                <android.support.v7.widget.RecyclerView
+                        android:layout_alignParentBottom="true"
+                        android:id="@+id/fragment_home_find_rv_center"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp">
+                </android.support.v7.widget.RecyclerView>
+            </RelativeLayout>
+            <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
+                <TextView android:layout_width="200dp" android:layout_height="20dp" android:text="新品推荐" android:id="@+id/fragment_home_find_tuijian" android:textColor="#000" android:drawableLeft="@mipmap/tuijian"/>
+                <Button android:layout_width="100dp" android:layout_height="20dp" android:text="查看更多>" android:background="@null" android:layout_alignParentRight="true"/>
+                <android.support.v7.widget.RecyclerView
+                        android:layout_below="@id/fragment_home_find_tuijian"
+                        android:layout_alignParentBottom="true"
+                        android:id="@+id/fragment_home_find_rv_bottom"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                </android.support.v7.widget.RecyclerView>
+            </RelativeLayout>
+</LinearLayout>
