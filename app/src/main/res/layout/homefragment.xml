@@ -45,15 +45,9 @@
                 </TextView>
             </RelativeLayout>
         </RelativeLayout>
-        <com.youth.banner.Banner
-                android:layout_below="@id/re_layout"
-                android:id="@+id/banner"
-                android:layout_width="match_parent"
-                android:layout_height="150dp">
 
-        </com.youth.banner.Banner>
     <android.support.v7.widget.RecyclerView
-            android:layout_below="@id/banner"
+            android:layout_below="@id/re_layout"
             android:id="@+id/re_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent">

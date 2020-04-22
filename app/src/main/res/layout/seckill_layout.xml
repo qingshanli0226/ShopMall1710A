@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent" android:layout_height="wrap_content">
+    <TextView
+            android:text="今日闪购 距结束"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+    </TextView>
+    <android.support.v7.widget.RecyclerView
+            android:id="@+id/re_view"
+            android:layout_width="match_parent"
+            android:layout_height="150dp">
+
+    </android.support.v7.widget.RecyclerView>
+</LinearLayout>
