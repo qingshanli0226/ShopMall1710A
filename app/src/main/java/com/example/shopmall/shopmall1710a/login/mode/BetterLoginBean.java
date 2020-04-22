@@ -1,17 +1,53 @@
 package com.example.shopmall.shopmall1710a.login.mode;
 
 public final class BetterLoginBean {
+
+    /**
+     * code : 200
+     * message : 登录成功
+     * result : {"id":"1610","name":"1610","password":"1610","email":null,"phone":null,"point":null,"address":null,"money":null,"avatar":null,"token":"eaacae51-1c55-4ead-a31d-8070e336bc51AND1558449232809"}
+     */
+
+    private String code;
+    private String message;
+    private ResultBean result;
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public ResultBean getResult() {
+        return result;
+    }
+
+    public void setResult(ResultBean result) {
+        this.result = result;
+    }
+
+    public static class ResultBean {
         /**
-         * id : 33333
-         * name : 33333
-         * password : 333
+         * id : 1610
+         * name : 1610
+         * password : 1610
          * email : null
          * phone : null
          * point : null
          * address : null
          * money : null
          * avatar : null
-         * token : 3ffe640b-f2ac-4c5d-b9a2-e9077e5bf7b2AND1584625199553
+         * token : eaacae51-1c55-4ead-a31d-8070e336bc51AND1558449232809
          */
 
         private String id;
@@ -23,7 +59,7 @@ public final class BetterLoginBean {
         private Object address;
         private Object money;
         private Object avatar;
-        private String token;//身份的认证
+        private String token;
 
         public String getId() {
             return id;
@@ -104,5 +140,5 @@ public final class BetterLoginBean {
         public void setToken(String token) {
             this.token = token;
         }
-
+    }
 }

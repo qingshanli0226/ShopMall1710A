@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical" android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
+
+        <LinearLayout
+                android:background="@drawable/new_login_background"
+                android:layout_width="match_parent" android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+            <ImageView
+                    android:src="@drawable/top_bar_left_back"
+                    android:id="@+id/backs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+            <ImageView
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/new_user_login_icon"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+
+
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:hint="用户名"
+                    android:id="@+id/names"
+            />
+
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:hint="密码"
+                    android:id="@+id/passwords"
+            />
+
+            <Button
+                    android:layout_marginTop="50dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/registerButton"
+                    android:background="@color/colorAccent"
+                    android:text="注册"/>
+
+            <TextView
+                    android:id="@+id/tologin"
+                    android:text="登录商城"
+                    android:layout_marginTop="10dp"
+                    android:textColor="#F00"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+        <ProgressBar android:layout_width="100dp" android:layout_height="100dp"
+                     android:id="@+id/progressBars"
+                     android:layout_centerInParent="true"
+                     android:visibility="gone"/>
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

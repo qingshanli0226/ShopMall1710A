@@ -1,24 +1,30 @@
 package com.example.shopmall.shopmall1710a.login.view;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import com.example.shopmall.common.ErrorBean;
 import com.example.shopmall.framework.base.IBaseView;
+import com.example.shopmall.shopmall1710a.MainActivity;
 import com.example.shopmall.shopmall1710a.R;
 import com.example.shopmall.shopmall1710a.login.mode.BetterLoginBean;
+import com.example.shopmall.shopmall1710a.login.mode.LoginBean;
 import com.example.shopmall.shopmall1710a.login.presenter.BetterLoginPresenter;
 import com.example.shopmall.shopmall1710a.login.presenter.BetterLogoutPresenter;
 
-public class BetterLoginActivity extends AppCompatActivity implements IBaseView<BetterLoginBean>, View.OnClickListener {
+public class BetterLoginActivity extends AppCompatActivity implements IBaseView<LoginBean>, View.OnClickListener {
 
     private EditText passwordEditText;
     private EditText nameEditText;
     private BetterLoginPresenter loginPresenter;
     private BetterLogoutPresenter logoutPresenter;
+
+    private TextView toLogin;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,8 +36,10 @@ public class BetterLoginActivity extends AppCompatActivity implements IBaseView<
         loginPresenter.attachView(this);
         nameEditText = findViewById(R.id.name);
         passwordEditText = findViewById(R.id.password);
+        toLogin = findViewById(R.id.toregister);
+
         findViewById(R.id.loginButton).setOnClickListener(this);
-        findViewById(R.id.logoutButton).setOnClickListener(this);
+        toLogin.setOnClickListener(this);
     }
 
     @Override
@@ -40,10 +48,15 @@ public class BetterLoginActivity extends AppCompatActivity implements IBaseView<
             case R.id.loginButton:
                 login();
                 break;
-            case R.id.logoutButton:
-                //logout();
+            case R.id.toregister:
+                toregister();
                 break;
         }
+    }
+
+    private void toregister() {
+        Intent intent = new Intent(this, BetterRegisterActivity.class);
+        startActivityForResult(intent, 101);
     }
 
     private void logout() {
@@ -63,15 +76,6 @@ public class BetterLoginActivity extends AppCompatActivity implements IBaseView<
         loginPresenter.detachView();
     }
 
-    @Override
-    public void onHtttpReceived(int requstCode, BetterLoginBean data) {
-        Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
-
-
-       // finish();//登录成功后，关闭当前登录页面
-    }
-
-
 
     @Override
     public void showLoading() {
@@ -84,7 +88,21 @@ public class BetterLoginActivity extends AppCompatActivity implements IBaseView<
     }
 
     @Override
+    public void onHtttpReceived(int requestCode, LoginBean data) {
+        Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+
+        this.finish();
+    }
+
+    @Override
     public void onHttpReceivedFailed(int requstCode, ErrorBean errorBean) {
-        Toast.makeText(this, "登录失败:" + errorBean.getErrorMessage(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "登录失败:" + errorBean.getErrorMessage(), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+
+        this.finish();
     }
 }

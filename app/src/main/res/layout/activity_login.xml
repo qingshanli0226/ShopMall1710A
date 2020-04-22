@@ -6,8 +6,25 @@
 
     <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
 
-        <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
-                      android:orientation="vertical">
+        <LinearLayout
+                android:background="@drawable/new_login_background"
+                android:layout_width="match_parent" android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+            <ImageView
+                    android:src="@drawable/top_bar_left_back"
+                    android:id="@+id/back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+            <ImageView
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/new_user_login_icon"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+
+
             <EditText
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -30,13 +47,13 @@
                     android:background="@color/colorAccent"
                     android:text="登录"/>
 
-            <Button
-                    android:layout_marginTop="50dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/logoutButton"
-                    android:background="@color/colorAccent"
-                    android:text="退出"/>
+
+            <TextView
+                    android:id="@+id/toregister"
+                    android:text="注册账号"
+                    android:layout_marginTop="10dp"
+                    android:textColor="#F00"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"/>
 
         </LinearLayout>
         <ProgressBar android:layout_width="100dp" android:layout_height="100dp"
@@ -46,7 +63,6 @@
 
 
     </RelativeLayout>
-
 
 
 </LinearLayout>

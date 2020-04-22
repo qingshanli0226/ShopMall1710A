@@ -6,7 +6,7 @@ public class LoginBean {
     /**
      * code : 200
      * message : 登录成功
-     * result : {"id":"33333","name":"33333","password":"333","email":null,"phone":null,"point":null,"address":null,"money":null,"avatar":null,"token":"3ffe640b-f2ac-4c5d-b9a2-e9077e5bf7b2AND1584625199553"}
+     * result : {"id":"10086","name":"10086","password":"111","email":null,"phone":null,"point":null,"address":null,"money":null,"avatar":null,"token":"f583223d-45b6-46c2-bef7-f9d75608cd55AND1587526084437"}
      */
 
     private String code;
@@ -39,16 +39,16 @@ public class LoginBean {
 
     public static class ResultBean {
         /**
-         * id : 33333
-         * name : 33333
-         * password : 333
+         * id : 10086
+         * name : 10086
+         * password : 111
          * email : null
          * phone : null
          * point : null
          * address : null
          * money : null
          * avatar : null
-         * token : 3ffe640b-f2ac-4c5d-b9a2-e9077e5bf7b2AND1584625199553
+         * token : f583223d-45b6-46c2-bef7-f9d75608cd55AND1587526084437
          */
 
         private String id;
