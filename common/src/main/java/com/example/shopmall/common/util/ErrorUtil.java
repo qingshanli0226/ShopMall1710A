@@ -4,7 +4,6 @@ import com.example.shopmall.common.Constant;
 import com.example.shopmall.common.ErrorBean;
 import com.example.shopmall.common.exception.BusinessException;
 import com.google.gson.JsonIOException;
-import com.google.gson.JsonSyntaxException;
 import org.json.JSONException;
 import retrofit2.HttpException;
 

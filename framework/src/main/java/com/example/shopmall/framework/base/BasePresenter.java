@@ -3,20 +3,14 @@ package com.example.shopmall.framework.base;
 
 import com.example.shopmall.common.util.ErrorUtil;
 import com.example.shopmall.net.*;
-import com.example.shopmall.common.exception.BusinessException;
-import com.google.gson.Gson;
-import com.google.gson.JsonIOException;
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 
-import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,7 +34,7 @@ public abstract class BasePresenter<T> implements IPresenter {
     //定义通用方法，所有的get请求都可以通过该方法获取数据
     @Override
     public void getHttpData(final int requestCode) {
-        RetrofitCreator.getNetAPIService()
+        RetrofitManager.getNetAPIService()
                 .getData(getPath(), getParamsMap())
                 .subscribeOn(Schedulers.io())
                 //类型错误，业务错误放到onError中处理
@@ -80,7 +74,7 @@ public abstract class BasePresenter<T> implements IPresenter {
     //定义通用方法，所有的post请求,参数以表单形式发送的,都可以通过该方法获取数据
     @Override
     public void postHttpData(final int requestCode) {
-        RetrofitCreator.getNetAPIService()
+        RetrofitManager.getNetAPIService()
                 .postData(getPath(), getParamsMap())
                 .delay(2,TimeUnit.SECONDS)//延迟两秒后进行网络请求
                 .subscribeOn(Schedulers.io())
@@ -120,7 +114,7 @@ public abstract class BasePresenter<T> implements IPresenter {
     //异步方法
     @Override
     public void postHttpDataWithJson(final int requestCode) {
-        RetrofitCreator.getNetAPIService()
+        RetrofitManager.getNetAPIService()
                 .postDataWithJson(getPath(), getRequestBody())
                 .subscribeOn(Schedulers.io())
                 //数据转换，将服务端返回的数据，转换成我们需要的数据的

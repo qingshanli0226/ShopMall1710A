@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.util.concurrent.TimeUnit;
 
-public class RetrofitCreator {
+public class RetrofitManager {
 
     private static NetApiInterface netApiInterface;
 
@@ -32,9 +32,9 @@ public class RetrofitCreator {
                 .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                 .build();
 
-        String baseUrl = Constant.IS_KS ? Constant.BASE_URL_KS : Constant.BASE_URL;
+
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(baseUrl)
+                .baseUrl(Constant.BASE_URL)
                 .client(okHttpClient)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())//Gson解析器的创建工厂类
