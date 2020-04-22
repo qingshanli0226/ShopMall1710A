@@ -109,7 +109,7 @@ public abstract class BasePresenter<T> implements IPresenter {
                     //onError是所有错误的入口
                     @Override
                     public void onError(Throwable e) {
-                        iBaseView.onHttpReceivedFailed(requestCode, ErrorUtil.handleError(e));//将结果返回给UI层
+                       iBaseView.onHttpReceivedFailed(requestCode, ErrorUtil.handleError(e));//将结果返回给UI层
                     }
 
                 });

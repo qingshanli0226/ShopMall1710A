@@ -1,5 +1,6 @@
 package com.example.shopmall.shopmall1710a.login.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import com.example.shopmall.shopmall1710a.R;
 import com.example.shopmall.shopmall1710a.login.mode.BetterLoginBean;
 import com.example.shopmall.shopmall1710a.login.presenter.BetterLoginPresenter;
 import com.example.shopmall.shopmall1710a.login.presenter.BetterLogoutPresenter;
+import com.example.shopmall.shopmall1710a.register.view.BetterRegisterActivity;
 
 public class BetterLoginActivity extends AppCompatActivity implements IBaseView<BetterLoginBean>, View.OnClickListener {
 
@@ -23,7 +25,7 @@ public class BetterLoginActivity extends AppCompatActivity implements IBaseView<
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_login1);
 
         loginPresenter = new BetterLoginPresenter();
         logoutPresenter = new BetterLogoutPresenter();
@@ -31,7 +33,7 @@ public class BetterLoginActivity extends AppCompatActivity implements IBaseView<
         nameEditText = findViewById(R.id.name);
         passwordEditText = findViewById(R.id.password);
         findViewById(R.id.loginButton).setOnClickListener(this);
-        findViewById(R.id.logoutButton).setOnClickListener(this);
+//        findViewById(R.id.logoutButton).setOnClickListener(this);
     }
 
     @Override
@@ -42,6 +44,10 @@ public class BetterLoginActivity extends AppCompatActivity implements IBaseView<
                 break;
             case R.id.logoutButton:
                 //logout();
+                break;
+            case R.id.registerButton:
+                Intent intent = new Intent(this, BetterRegisterActivity.class);
+                startActivityForResult(intent,1);
                 break;
         }
     }
@@ -86,5 +92,14 @@ public class BetterLoginActivity extends AppCompatActivity implements IBaseView<
     @Override
     public void onHttpReceivedFailed(int requstCode, ErrorBean errorBean) {
         Toast.makeText(this, "登录失败:" + errorBean.getErrorMessage(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode==1&&resultCode==2){
+            nameEditText.setText(data.getStringExtra("name"));
+            passwordEditText.setText(data.getStringExtra("password"));
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }
