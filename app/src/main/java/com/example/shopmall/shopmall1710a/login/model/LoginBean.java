@@ -1,6 +1,6 @@
-package com.example.shopmall.shopmall1710a.login.mode;
+package com.example.shopmall.shopmall1710a.login.model;
 
-public final class BetterLoginBean {
+public class LoginBean {
         /**
          * id : 33333
          * name : 33333
@@ -104,5 +104,7 @@ public final class BetterLoginBean {
         public void setToken(String token) {
             this.token = token;
         }
+
+
 
 }
