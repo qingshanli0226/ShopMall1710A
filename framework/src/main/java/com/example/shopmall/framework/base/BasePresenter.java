@@ -3,20 +3,14 @@ package com.example.shopmall.framework.base;
 
 import com.example.shopmall.common.util.ErrorUtil;
 import com.example.shopmall.net.*;
-import com.example.shopmall.common.exception.BusinessException;
-import com.google.gson.Gson;
-import com.google.gson.JsonIOException;
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 
-import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,10 +23,12 @@ public abstract class BasePresenter<T> implements IPresenter {
     private Map<String, String> parmas = new HashMap<>();
     private RequestBody requestBody;
 
+    @Override
     public void attachView(IBaseView iBaseView) {
         this.iBaseView = iBaseView;
     }
 
+    @Override
     public void detachView() {
         iBaseView = null;
     }
