@@ -7,7 +7,9 @@ import com.example.shopmall.framework.view.BaseFragment;
 import com.example.shopmall.shopmall1710a.R;
 
 import java.util.List;
-
+/*
+ 首頁
+ */
 public class HomeFragment extends BaseFragment {
 
 
