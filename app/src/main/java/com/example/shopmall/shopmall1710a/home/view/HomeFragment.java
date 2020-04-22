@@ -1,4 +1,4 @@
-package com.example.shopmall.shopmall1710a.home;
+package com.example.shopmall.shopmall1710a.home.view;
 
 
 import android.os.Bundle;

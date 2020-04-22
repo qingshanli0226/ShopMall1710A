@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.example.shopmall.common.ErrorBean;
 import com.example.shopmall.framework.base.IBaseView;
 import com.example.shopmall.shopmall1710a.R;
+import com.example.shopmall.shopmall1710a.home.view.HomeActivity;
 import com.example.shopmall.shopmall1710a.login.mode.BetterLoginBean;
 import com.example.shopmall.shopmall1710a.login.presenter.BetterLoginPresenter;
 import com.example.shopmall.shopmall1710a.login.presenter.BetterLogoutPresenter;
@@ -28,12 +29,11 @@ public class BetterLoginActivity extends AppCompatActivity implements IBaseView<
         setContentView(R.layout.activity_login1);
 
         loginPresenter = new BetterLoginPresenter();
-        logoutPresenter = new BetterLogoutPresenter();
         loginPresenter.attachView(this);
+
         nameEditText = findViewById(R.id.name);
         passwordEditText = findViewById(R.id.password);
         findViewById(R.id.loginButton).setOnClickListener(this);
-//        findViewById(R.id.logoutButton).setOnClickListener(this);
     }
 
     @Override
@@ -41,6 +41,7 @@ public class BetterLoginActivity extends AppCompatActivity implements IBaseView<
         switch (v.getId()) {
             case R.id.loginButton:
                 login();
+
                 break;
             case R.id.logoutButton:
                 //logout();
@@ -59,6 +60,8 @@ public class BetterLoginActivity extends AppCompatActivity implements IBaseView<
     private void login() {
         loginPresenter.addParmas(nameEditText.getText().toString(), passwordEditText.getText().toString());
         loginPresenter.postHttpData(0);
+        startActivity(new Intent(BetterLoginActivity.this, HomeActivity.class));
+        BetterLoginActivity.this.finish();
     }
 
 
@@ -73,8 +76,6 @@ public class BetterLoginActivity extends AppCompatActivity implements IBaseView<
     public void onHtttpReceived(int requstCode, BetterLoginBean data) {
         Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
 
-
-       // finish();//登录成功后，关闭当前登录页面
     }
 
 

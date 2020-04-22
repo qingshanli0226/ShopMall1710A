@@ -1,7 +1,8 @@
-package com.example.shopmall.shopmall1710a
+package com.example.shopmall.shopmall1710a.welcome
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.example.shopmall.shopmall1710a.R
 
 class MainActivity : AppCompatActivity() {
 

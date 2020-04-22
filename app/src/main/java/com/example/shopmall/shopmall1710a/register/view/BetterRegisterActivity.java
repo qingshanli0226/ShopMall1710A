@@ -14,6 +14,7 @@ import com.example.shopmall.shopmall1710a.R;
 import com.example.shopmall.shopmall1710a.login.mode.BetterLoginBean;
 import com.example.shopmall.shopmall1710a.login.presenter.BetterLoginPresenter;
 import com.example.shopmall.shopmall1710a.login.presenter.BetterLogoutPresenter;
+import com.example.shopmall.shopmall1710a.login.view.BetterLoginActivity;
 import com.example.shopmall.shopmall1710a.register.mode.RegisterBean;
 import com.example.shopmall.shopmall1710a.register.presenter.BetterRegisterPresenter;
 
@@ -46,6 +47,8 @@ public class BetterRegisterActivity extends AppCompatActivity implements IBaseVi
     private void login() {
         registerPresenter.addParmas(nameEditText.getText().toString(), passwordEditText.getText().toString());
         registerPresenter.postHttpData(0);
+        startActivity(new Intent(BetterRegisterActivity.this, BetterLoginActivity.class));
+        BetterRegisterActivity.this.finish();
     }
 
 
