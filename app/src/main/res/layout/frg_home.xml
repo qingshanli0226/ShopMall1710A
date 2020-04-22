@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="60dp"
+    android:background="#ED3F3F">
+        <EditText android:layout_width="match_parent" android:layout_height="match_parent"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="50dp"
+        android:background="@drawable/search_home_shape"
+        android:hint="輸入搜索內同"
+        android:textSize="13sp"
+        android:paddingLeft="30dp"/>
+    </RelativeLayout>
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/home_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+</LinearLayout>
