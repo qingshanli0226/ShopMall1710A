@@ -2,24 +2,27 @@
 <LinearLayout
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="40px"
+        android:padding="15px"
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="wrap_content" android:layout_height="match_parent">
+        android:layout_width="wrap_content" android:layout_height="wrap_content">
     <ImageView
             android:id="@+id/pic"
             android:layout_width="match_parent"
-            android:layout_height="50dp"></ImageView>
+            android:layout_height="80dp"></ImageView>
     <TextView
-
+            android:paddingLeft="50px"
+            android:paddingRight="50px"
             android:gravity="center"
             android:id="@+id/title"
-            android:textColor="#FF6868"
+            android:textColor="#323131"
+            android:ellipsize="end"
+            android:lines="2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></TextView>
     <TextView
             android:gravity="center"
             android:id="@+id/title1"
-            android:textColor="#D1D0D0"
+            android:textColor="#F44336"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></TextView>
 </LinearLayout>

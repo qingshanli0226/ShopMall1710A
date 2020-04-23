@@ -1,5 +1,6 @@
 package com.example.shopmall.shopmall1710a;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
@@ -7,7 +8,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
+import com.example.shopmall.framework.manager.CacheManager;
 import com.example.shopmall.shopmall1710a.home.HomeFragment;
 import com.example.shopmall.shopmall1710a.home.entity.MyTabEntity;
 import com.flyco.tablayout.CommonTabLayout;
@@ -29,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         tabLayout = (CommonTabLayout) findViewById(R.id.tab_layout);
+        CacheManager.getInstance().spCache.savetlastOpen(System.currentTimeMillis());
         homeFragment=new HomeFragment();
         list.add(homeFragment);
         tabEntitys.add(new MyTabEntity("首页", R.drawable.main_home, R.drawable.main_home_press));
@@ -78,4 +82,28 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        long lastOpen = CacheManager.getInstance().spCache.getlastOpen();
+        long l = System.currentTimeMillis();
+        if (l-lastOpen>10000){
+            Toast.makeText(this, "超过十秒", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this,WelcomeActivity.class);
+            startActivity(intent);
+        }
+
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        CacheManager.getInstance().spCache.savetlastOpen(System.currentTimeMillis());
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        CacheManager.getInstance().spCache.savetlastOpen(0);
+    }
+
 }

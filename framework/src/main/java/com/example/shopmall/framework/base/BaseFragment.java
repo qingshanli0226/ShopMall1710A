@@ -23,7 +23,7 @@ public abstract class BaseFragment<T> extends Fragment implements IBaseView<T> {
         rootView = inflater.inflate(getLayoutId(), container, false);
         initView();//初始化控件
         //子类Activity定义loadingBar这个控件,不定义的话，页面将崩溃
-       // initPresenter();//初始化presenter
+        initPresenter();//初始化presenter
         initData();//初始化数据
 
         return rootView;
@@ -34,6 +34,9 @@ public abstract class BaseFragment<T> extends Fragment implements IBaseView<T> {
     //使presenter和页面关联起来
     private void initPresenter() {
         List<IPresenter<T>> presenterList = getPresenter();
+        if (presenterList==null){
+            return;
+        }
         for(IPresenter<T> item : presenterList) {
             item.attachView(this);
         }

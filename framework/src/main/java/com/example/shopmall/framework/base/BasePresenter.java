@@ -42,6 +42,7 @@ public abstract class BasePresenter<T> implements IPresenter {
     public void getHttpData(final int requestCode) {
         RetrofitCreator.getNetAPIService()
                 .getData(getPath(), getParamsMap())
+                .delay(2,TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 //类型错误，业务错误放到onError中处理
                 .map(new NetFunction<ResponseBody, T>(getBeanType()))

@@ -28,6 +28,9 @@ public abstract class BaseActivity<T> extends AppCompatActivity implements IBase
     //使presenter和页面关联起来
     private void initPresenter() {
         List<IPresenter<T>> presenterList = getPresenter();
+        if (presenterList==null){
+            return;
+        }
         for(IPresenter<T> item : presenterList) {
             item.attachView(this);
         }
