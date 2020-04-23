@@ -26,21 +26,13 @@
                     android:layout_marginTop="50dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/loginButton"
+                    android:id="@+id/registerButton"
                     android:background="@color/colorAccent"
                     android:text="登录"/>
 
-            <Button
-                    android:layout_marginTop="50dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/logoutButton"
-                    android:background="@color/colorAccent"
-                    android:text="退出"/>
-
         </LinearLayout>
         <ProgressBar android:layout_width="100dp" android:layout_height="100dp"
-                     android:id="@+id/loadingBar"
+                     android:id="@+id/progressBar"
                      android:layout_centerInParent="true"
                      android:visibility="gone"/>
 
