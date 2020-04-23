@@ -16,6 +16,7 @@ public class Constant {
 
     public static final String BASE_URL_KS = "http://172.81.227.127:8055/";
     public static final String BASE_URL = "http://49.233.93.155:8080/";
+    public static final String BASE_URL_IMG = "http://49.233.93.155:8080/atguigu/img";
 
     public static final boolean IS_KS = false;
 }

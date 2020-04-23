@@ -9,10 +9,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.shopmall.common.ErrorBean;
-import com.example.shopmall.framework.base.IBaseView;
-import com.example.shopmall.shopmall1710a.MainActivity;
+import com.example.shopmall.framework.base.view.IBaseView;
 import com.example.shopmall.shopmall1710a.R;
-import com.example.shopmall.shopmall1710a.login.mode.BetterLoginBean;
 import com.example.shopmall.shopmall1710a.login.mode.LoginBean;
 import com.example.shopmall.shopmall1710a.login.presenter.BetterLoginPresenter;
 import com.example.shopmall.shopmall1710a.login.presenter.BetterLogoutPresenter;
@@ -90,9 +88,9 @@ public class BetterLoginActivity extends AppCompatActivity implements IBaseView<
     @Override
     public void onHtttpReceived(int requestCode, LoginBean data) {
         Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
-
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+//
+//        Intent intent = new Intent(this, MainActivity.class);
+//        startActivity(intent);
 
         this.finish();
     }
@@ -100,8 +98,8 @@ public class BetterLoginActivity extends AppCompatActivity implements IBaseView<
     @Override
     public void onHttpReceivedFailed(int requstCode, ErrorBean errorBean) {
 //        Toast.makeText(this, "登录失败:" + errorBean.getErrorMessage(), Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(this, MainActivity.class);
+//        startActivity(intent);
 
         this.finish();
     }

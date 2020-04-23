@@ -15,7 +15,7 @@ public class RetrofitCreator {
     private static NetApiInterface netApiInterface;
 
     //全局的网络框架
-    public static NetApiInterface getNetAPIService () {
+    public static NetApiInterface getNetAPIService() {
         if (netApiInterface == null) {
             netApiInterface = createNetApiService();
         }
@@ -32,7 +32,7 @@ public class RetrofitCreator {
                 .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                 .build();
 
-        String baseUrl = Constant.IS_KS ? Constant.BASE_URL_KS : Constant.BASE_URL;
+        String baseUrl = Constant.BASE_URL;
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .client(okHttpClient)

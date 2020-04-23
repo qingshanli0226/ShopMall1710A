@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+            android:id="@+id/lin_home"
+            android:background="#ed3f3f"
+            android:orientation="horizontal"
+            android:layout_width="match_parent" android:layout_height="wrap_content">
+
+        <TextView
+                android:id="@+id/tv_search_home"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/search_home_shape"
+                android:drawableLeft="@drawable/home_search_icon"
+                android:drawablePadding="10dp"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                android:text="输入搜索信息"
+                android:textSize="13sp"/>
+
+        <TextView
+                android:id="@+id/tv_message_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:drawableTop="@drawable/new_message_icon"
+                android:text="消息"
+                android:textColor="#fff"/>
+    </LinearLayout>
+
+    <ScrollView
+            android:layout_below="@id/lin_home"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <com.youth.banner.Banner
+                    android:id="@+id/home_banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp">
+
+            </com.youth.banner.Banner>
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/home_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"></androidx.recyclerview.widget.RecyclerView>
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp">
+
+                <ImageView
+                        android:id="@+id/_frag_home_imv_sec"
+                        android:src="@drawable/home_arrow_left_flash"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"/>
+
+                <TextView
+                        android:text="今日闪购 距结束"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@id/_frag_home_imv_sec"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"/>
+
+                <TextView
+                        android:layout_toLeftOf="@id/frag_home_imv_sec_next"
+                        android:text="查看更多"
+                        android:textSize="20sp"
+                        android:textColor="#999"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"/>
+
+                <ImageView
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/icon_next"
+                        android:id="@+id/frag_home_imv_sec_next"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"/>
+
+
+            </RelativeLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/home_recycler4"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"/>
+
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/home_recycler2"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"></androidx.recyclerview.widget.RecyclerView>
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp">
+
+                <ImageView
+                        android:id="@+id/_frag_home_imv_rec"
+                        android:src="@drawable/home_arrow_left_new"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"/>
+
+                <TextView
+                        android:text="新品推荐"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@id/_frag_home_imv_rec"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"/>
+
+                <TextView
+                        android:layout_toLeftOf="@id/frag_home_imv_rec_next"
+                        android:text="查看更多"
+                        android:textSize="20sp"
+                        android:textColor="#999"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"/>
+
+                <ImageView
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/icon_next"
+                        android:id="@+id/frag_home_imv_rec_next"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"/>
+
+
+            </RelativeLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/home_recycler3"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"></androidx.recyclerview.widget.RecyclerView>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <ProgressBar android:layout_width="100dp" android:layout_height="100dp"
+                 android:id="@+id/progressBar"
+                 android:layout_centerInParent="true"
+                 android:visibility="gone"/>
+
+    <ImageButton
+            android:id="@+id/ib_top"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/top_btn"
+            android:visibility="gone"/>
+
+</RelativeLayout>

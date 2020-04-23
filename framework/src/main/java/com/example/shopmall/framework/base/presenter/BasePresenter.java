@@ -1,22 +1,18 @@
-package com.example.shopmall.framework.base;
+package com.example.shopmall.framework.base.presenter;
 
 
+import android.util.Log;
 import com.example.shopmall.common.util.ErrorUtil;
+import com.example.shopmall.framework.base.view.IBaseView;
 import com.example.shopmall.net.*;
-import com.example.shopmall.common.exception.BusinessException;
-import com.google.gson.Gson;
-import com.google.gson.JsonIOException;
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 
-import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
@@ -49,14 +45,19 @@ public abstract class BasePresenter<T> implements IPresenter {
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
-                        iBaseView.showLoading();//该方法是向服务端发起网络请求之前，调用的方法
+                        if (iBaseView != null) {
+                            iBaseView.showLoading();//该方法是向服务端发起网络请求之前，调用的方法
+                        }
                     }
                 })
                 .doFinally(new Action() {
                     @Override
                     public void run() throws Exception {
                         //是网络请求结束，且用户拿到数据后，调用的方法.在此方法中关闭加载页面
-                        iBaseView.hideLoading();
+                        if (iBaseView != null) {
+                            iBaseView.hideLoading();
+                        }
+
                     }
                 })
                 .subscribe(new NetObserver<T>() {
@@ -64,12 +65,19 @@ public abstract class BasePresenter<T> implements IPresenter {
                     //onNext是异步运行的,如果直接返回数据的话，onNext函数执行时间在返回结果之后运行的
                     @Override
                     public void onNext(T result) {
-                        iBaseView.onHtttpReceived(requestCode, result);
+                        Log.d("LAE", "onNext: ");
+                        if (iBaseView != null) {
+                            iBaseView.onHtttpReceived(requestCode, result);
+                        }
                     }
+
                     //onError是所有错误的入口
                     @Override
                     public void onError(Throwable e) {
-                        iBaseView.onHttpReceivedFailed(requestCode, ErrorUtil.handleError(e));//将结果返回给UI层
+                        Log.d("LAE", "onError: ");
+                        if (iBaseView != null) {
+                            iBaseView.onHttpReceivedFailed(requestCode, ErrorUtil.handleError(e));//将结果返回给UI层
+                        }
                     }
 
                 });
@@ -82,7 +90,7 @@ public abstract class BasePresenter<T> implements IPresenter {
     public void postHttpData(final int requestCode) {
         RetrofitCreator.getNetAPIService()
                 .postData(getPath(), getParamsMap())
-                .delay(2,TimeUnit.SECONDS)//延迟两秒后进行网络请求
+                .delay(2, TimeUnit.SECONDS)//延迟两秒后进行网络请求
                 .subscribeOn(Schedulers.io())
                 .map(new NetFunction<ResponseBody, T>(getBeanType()))
                 .observeOn(AndroidSchedulers.mainThread())
@@ -106,6 +114,7 @@ public abstract class BasePresenter<T> implements IPresenter {
                     public void onNext(T result) {
                         iBaseView.onHtttpReceived(requestCode, result);
                     }
+
                     //onError是所有错误的入口
                     @Override
                     public void onError(Throwable e) {
@@ -146,6 +155,7 @@ public abstract class BasePresenter<T> implements IPresenter {
                     public void onNext(T result) {
                         iBaseView.onHtttpReceived(requestCode, result);
                     }
+
                     //onError是所有错误的入口
                     @Override
                     public void onError(Throwable e) {
@@ -176,4 +186,5 @@ public abstract class BasePresenter<T> implements IPresenter {
     public void setRequestBody(RequestBody requestBody) {
         this.requestBody = requestBody;
     }
+
 }

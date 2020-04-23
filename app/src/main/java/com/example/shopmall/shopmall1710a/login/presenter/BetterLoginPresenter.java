@@ -2,7 +2,7 @@ package com.example.shopmall.shopmall1710a.login.presenter;
 
 
 
-import com.example.shopmall.framework.base.BasePresenter;
+import com.example.shopmall.framework.base.presenter.BasePresenter;
 import com.example.shopmall.net.BaseBean;
 import com.example.shopmall.shopmall1710a.login.mode.BetterLoginBean;
 import com.google.gson.reflect.TypeToken;

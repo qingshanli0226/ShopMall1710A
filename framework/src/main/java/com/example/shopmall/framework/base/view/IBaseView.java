@@ -1,4 +1,4 @@
-package com.example.shopmall.framework.base;
+package com.example.shopmall.framework.base.view;
 
 
 import com.example.shopmall.common.ErrorBean;

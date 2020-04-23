@@ -7,7 +7,7 @@ import android.widget.*;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.shopmall.common.ErrorBean;
-import com.example.shopmall.framework.base.IBaseView;
+import com.example.shopmall.framework.base.view.IBaseView;
 import com.example.shopmall.shopmall1710a.R;
 import com.example.shopmall.shopmall1710a.login.presenter.BetterRegisterPresenter;
 
