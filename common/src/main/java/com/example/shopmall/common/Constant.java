@@ -17,4 +17,5 @@ public class Constant {
     //-----------------------SP-------------------------------------
     public static final String SP_TOKEN = "token";
     public static final String SP_USER_LOGIN_INFO = "user_msg"; // 登录
+    public static final String SP_CACHE_HOME_DATA_INFO = "cache_home_data"; // 缓存首页数据
 }

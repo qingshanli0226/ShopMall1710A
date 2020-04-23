@@ -9,4 +9,6 @@ public interface IBaseView<T> {
     //定义两个方法，去显示加载的loaing页面和数据返回后关闭loading页面的方法
     void showLoading();
     void hideLoading();
+    //
+    void showTost(String str);
 }

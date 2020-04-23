@@ -6,6 +6,8 @@
 
     <ProgressBar android:layout_width="100dp"
                  android:layout_height="100dp"
-                 android:id="@+id/loadingBar"/>
+                 android:id="@+id/loadingBar"
+    android:layout_centerVertical="true"
+    android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>

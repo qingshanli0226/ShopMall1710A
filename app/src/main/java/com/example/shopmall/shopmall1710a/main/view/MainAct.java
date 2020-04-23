@@ -7,6 +7,7 @@ import com.example.shopmall.common.ErrorBean;
 import com.example.shopmall.framework.presenter.IPresenter;
 import com.example.shopmall.framework.view.BaseActivity;
 import com.example.shopmall.shopmall1710a.R;
+import com.example.shopmall.shopmall1710a.home.view.HomeFragment;
 import com.example.shopmall.shopmall1710a.main.adapter.MyTabEntitie;
 import com.example.shopmall.shopmall1710a.main.view.frg.*;
 import com.flyco.tablayout.CommonTabLayout;

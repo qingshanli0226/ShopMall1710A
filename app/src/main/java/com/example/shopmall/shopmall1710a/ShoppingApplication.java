@@ -2,11 +2,13 @@ package com.example.shopmall.shopmall1710a;
 
 import android.app.Application;
 import com.example.shopmall.framework.manager.AppCore;
+import com.example.shopmall.framework.manager.CacheManager;
 
-public class MyApp extends Application {
+public class ShoppingApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
         AppCore.getInstance().init(this);
+        CacheManager.getInstance().init(this);
     }
 }

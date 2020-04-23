@@ -7,10 +7,11 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import com.example.shopmall.framework.AppCore;
+import com.example.shopmall.framework.manager.AppCore;
 import com.example.shopmall.framework.R;
 import com.example.shopmall.framework.presenter.IPresenter;
 
@@ -61,7 +62,10 @@ public abstract class BaseFragment<T> extends Fragment implements IBaseView<T>,I
 
     protected abstract List<IPresenter> getPresenter();
 
-
+    @Override
+    public void showTost(String str) {
+        Toast.makeText(AppCore.getInstance().getApp(),str, Toast.LENGTH_SHORT).show();
+    }
     @Override
     public void showLoading() {
         mloding.setVisibility(View.VISIBLE);

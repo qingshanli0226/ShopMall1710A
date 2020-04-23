@@ -1,4 +1,4 @@
-package com.example.shopmall.framework;
+package com.example.shopmall.framework.manager;
 
 import android.app.Application;
 
