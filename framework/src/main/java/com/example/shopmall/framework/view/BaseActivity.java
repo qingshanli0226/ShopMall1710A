@@ -1,6 +1,7 @@
 package com.example.shopmall.framework.view;
 
 import android.os.Bundle;
+import android.widget.ProgressBar;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
@@ -17,7 +18,8 @@ import java.util.List;
 public abstract class BaseActivity<T> extends AppCompatActivity implements IBaseView<T>,IBaseActivity{
     private RelativeLayout baseView;
     private FrameLayout.LayoutParams params;
-    private ImageView mloding;
+    protected ProgressBar loadingBar;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,13 +29,6 @@ public abstract class BaseActivity<T> extends AppCompatActivity implements IBase
         initPresenter();
         initData();
     }
-
-
-    @Override
-    public <T extends View> T findViewById(int id) {
-        return baseView.findViewById(id);
-    }
-
     @Override
     public void initPresenter() {
         List<IPresenter> presenterList = getPresenter();
@@ -42,6 +37,7 @@ public abstract class BaseActivity<T> extends AppCompatActivity implements IBase
     protected abstract List<IPresenter> getPresenter();
 
     private RelativeLayout bindView(){
+        loadingBar = findViewById(R.id.loadingBar);//子类Activity定义loadingBar这个控件,不定义的话，页面将崩溃
         baseView = new RelativeLayout(this);
         params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         baseView.setLayoutParams(params);
@@ -49,21 +45,17 @@ public abstract class BaseActivity<T> extends AppCompatActivity implements IBase
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         view.setLayoutParams(layoutParams);
         baseView.addView(view);
-        mloding = new ImageView(this);
-        mloding.setImageResource(R.drawable.img2);
-        baseView.addView(mloding);
-        mloding.setVisibility(View.GONE);
         return baseView;
     }
 
     @Override
     public void showLoading() {
-        mloding.setVisibility(View.VISIBLE);
+        loadingBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideLoading() {
-        mloding.setVisibility(View.GONE);
+        loadingBar.setVisibility(View.GONE);
     }
 
     @Override
