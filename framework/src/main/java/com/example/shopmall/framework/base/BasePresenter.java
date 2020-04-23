@@ -85,14 +85,18 @@ public abstract class BasePresenter<T> implements IPresenter {
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
-                        iBaseView.showLoading();//该方法是向服务端发起网络请求之前，调用的方法
+                        if (iBaseView!=null) {
+                            iBaseView.showLoading();//该方法是向服务端发起网络请求之前，调用的方法
+                        }
                     }
                 })
                 .doFinally(new Action() {
                     @Override
                     public void run() throws Exception {
                         //是网络请求结束，且用户拿到数据后，调用的方法.在此方法中关闭加载页面
-                        iBaseView.hideLoading();
+                        if (iBaseView != null) {
+                            iBaseView.hideLoading();
+                        }
                     }
                 })
                 .subscribe(new NetObserver<T>() {
@@ -100,12 +104,16 @@ public abstract class BasePresenter<T> implements IPresenter {
                     //onNext是异步运行的,如果直接返回数据的话，onNext函数执行时间在返回结果之后运行的
                     @Override
                     public void onNext(T result) {
-                        iBaseView.onHtttpReceived(requestCode, result);
+                        if (iBaseView!=null) {
+                            iBaseView.onHtttpReceived(requestCode, result);
+                        }
                     }
                     //onError是所有错误的入口
                     @Override
                     public void onError(Throwable e) {
-                        iBaseView.onHttpReceivedFailed(requestCode, ErrorUtil.handleError(e));//将结果返回给UI层
+                        if (iBaseView!=null) {
+                            iBaseView.onHttpReceivedFailed(requestCode, ErrorUtil.handleError(e));//将结果返回给UI层
+                        }
                     }
 
                 });

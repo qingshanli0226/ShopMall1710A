@@ -86,6 +86,7 @@ public class BetterLoginActivity extends BaseActivity<Object> implements View.On
     @Override
     public void onHtttpReceived(int requstCode, Object data) {
         Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
+        finish();
     }
 
 
