@@ -36,6 +36,8 @@ public class MainAct extends BaseActivity {
 
     @Override
     public void initData() {
+
+
         fragments.add(new HomeFragment());
         fragments.add(new TypeFragment());
         fragments.add(new FindFragment());

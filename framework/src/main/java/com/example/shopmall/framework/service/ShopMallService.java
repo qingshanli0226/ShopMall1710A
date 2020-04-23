@@ -4,6 +4,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
+import android.util.Log;
 import com.example.shopmall.RetrofitManager;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -36,6 +37,7 @@ public class ShopMallService extends Service {
 
     //获取首页数据
     public void getHomeData(final IHomeDataReceiveListener iHomeDataReceiveListener) {
+        Log.i("boss", "getHomeData: 获取数据方法被调用");
         String path = "atguigu/json/HOME_URL.json";
         RetrofitManager.getNetAPIService()
                 .getData(path, new HashMap<String, Object>())
@@ -50,6 +52,7 @@ public class ShopMallService extends Service {
 
                     @Override
                     public void onNext(ResponseBody responseBody) {
+                        Log.i("boss", "onNext: next");
                         //获取到首页数据后，实现数据存储，并且
                         try {
                             iHomeDataReceiveListener.onHomeDataReceived(responseBody.string());
@@ -60,7 +63,7 @@ public class ShopMallService extends Service {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        Log.i("boss", "onError: 数据请求失败");
                     }
 
                     @Override

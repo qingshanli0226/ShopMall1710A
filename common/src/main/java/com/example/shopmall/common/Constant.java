@@ -13,6 +13,8 @@ public class Constant {
 
     //-----------------------BaseUrl--------------------------------
     public static final String BASE_URL = "http://49.233.93.155:8080";
+    public static final String BASE_IMG = "http://49.233.93.155:8080/atguigu/img";
+
 
     //-----------------------SP-------------------------------------
     public static final String SP_TOKEN = "token";
