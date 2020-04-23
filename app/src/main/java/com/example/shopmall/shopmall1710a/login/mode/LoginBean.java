@@ -1,8 +1,6 @@
 package com.example.shopmall.shopmall1710a.login.mode;
 
 public class LoginBean {
-
-
     /**
      * code : 200
      * message : 登录成功

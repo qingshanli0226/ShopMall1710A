@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        android:padding="@dimen/dp_10"
+        android:orientation="vertical"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent" android:layout_height="wrap_content">
+    <ImageView
+            android:id="@+id/channel_pic"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"></ImageView>
+    <TextView
+            android:gravity="center"
+            android:id="@+id/channel_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></TextView>
+</LinearLayout>
