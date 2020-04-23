@@ -41,11 +41,11 @@ public class MainAct extends BaseActivity {
         fragments.add(new ShoppFragment());
         fragments.add(new UserFragment());
 
-        myTabEntities.add(new MyTabEntitie("首页",R.mipmap.home_unseleck,R.mipmap.home_seleck));
-        myTabEntities.add(new MyTabEntitie("分类",R.mipmap.classify_unseleck,R.mipmap.classify_seleck));
-        myTabEntities.add(new MyTabEntitie("发现",R.mipmap.find_unseleck,R.mipmap.find_seleck));
-        myTabEntities.add(new MyTabEntitie("购物车",R.mipmap.shop_unseleck,R.mipmap.shop_seleck));
-        myTabEntities.add(new MyTabEntitie("个人中心",R.mipmap.mine_unseleck,R.mipmap.mine_seleck));
+        myTabEntities.add(new MyTabEntitie("首页",R.mipmap.main_home,R.mipmap.main_home_press));
+        myTabEntities.add(new MyTabEntitie("分类",R.mipmap.main_type,R.mipmap.main_type_press));
+        myTabEntities.add(new MyTabEntitie("发现",R.mipmap.main_community,R.mipmap.main_community_press));
+        myTabEntities.add(new MyTabEntitie("购物车",R.mipmap.main_cart,R.mipmap.main_type_press));
+        myTabEntities.add(new MyTabEntitie("个人中心",R.mipmap.main_user,R.mipmap.main_user_press));
 
         main_tb.setTabData(myTabEntities,this,R.id.main_fl,fragments);
     }

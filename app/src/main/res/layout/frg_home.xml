@@ -3,17 +3,33 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-    <RelativeLayout android:layout_width="match_parent" android:layout_height="60dp"
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="65dp"
     android:background="#ED3F3F">
-        <EditText android:layout_width="match_parent" android:layout_height="match_parent"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="50dp"
-        android:background="@drawable/search_home_shape"
-        android:hint="輸入搜索內同"
-        android:textSize="13sp"
-        android:paddingLeft="30dp"/>
+        <EditText android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:layout_marginTop="15dp"
+                  android:layout_marginBottom="15dp"
+                  android:layout_marginLeft="10dp"
+                  android:layout_marginRight="50dp"
+                  android:background="@drawable/search_home_shape"
+                  android:hint="輸入搜索內同"
+                  android:textSize="13sp"
+                  android:paddingLeft="33dp"
+        android:id="@+id/main_top_find"/>
+        <RadioButton android:layout_width="50dp" android:layout_height="60dp"
+        android:text="消息"
+        android:textColor="#fff"
+        android:button="@null"
+        android:drawableTop="@mipmap/envelope"
+        android:gravity="center"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="7dp"
+        />
+        <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:background="@mipmap/home_search_icon"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="17dp"/>
     </RelativeLayout>
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/home_rv"

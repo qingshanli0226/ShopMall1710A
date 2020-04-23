@@ -13,11 +13,13 @@
             android:layout_height="0dp"
             android:layout_weight="1"/>
     <com.flyco.tablayout.CommonTabLayout
+            android:background="@mipmap/home_bottom_parent_bg"
             android:id="@+id/main_tb"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="75dp"
             android:layout_alignParentBottom="true"
-            app:tl_textSelectColor="#CC1818"
+            app:tl_textSelectColor="#ED3F3F"
             app:tl_textUnselectColor="#000"
-            app:tl_textsize="15sp"/>
+            app:tl_textsize="15sp"
+            android:layout_marginBottom="-10dp"/>
 </LinearLayout>
