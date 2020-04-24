@@ -11,16 +11,19 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
+
+        </activity>
+        <activity android:name=".login.view.BetterLoginActivity">
+
+        </activity>
+        <activity android:name=".register.view.BetterRegisterActivity" />
+        <activity android:name=".WelcomeActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".login.view.BetterLoginActivity">
-
-        </activity>
-        <activity android:name=".register.view.BetterRegisterActivity" />
         <service android:name="com.example.shopmall.framework.service.ShopMallService"/>
     </application>
 
