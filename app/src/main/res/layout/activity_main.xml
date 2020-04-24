@@ -7,7 +7,29 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
+    <com.example.shopmall.framework.view.ToolBar
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:id="@+id/toolBar"
+
+            app:toolbarTile="@string/main_title_proper"
+            app:toolBarLeftSrc="@mipmap/atguigu_logo"
+            app:toolBarRightDisplay="true"
+            app:toolBarRightSrc="@mipmap/ic_launcher"
+            app:toolbarBackgroundColor="@color/colorAccent"
+            >
+
+    </com.example.shopmall.framework.view.ToolBar>
+
+    <EditText android:layout_width="300dp" android:layout_height="30dp"
+    android:layout_alignParentTop="true"
+    android:layout_marginLeft="100dp"
+              android:hint="搜索"
+              android:background="@android:color/white"
+    android:layout_marginTop="10dp"/>
+
     <TextView
+            android:layout_below="@+id/toolBar"
             android:id="@+id/content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

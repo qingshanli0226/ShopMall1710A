@@ -4,6 +4,12 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
+    <com.example.shopmall.framework.view.ToolBar android:layout_width="match_parent"
+                                                 android:layout_height="wrap_content"
+    android:id="@+id/toolBar">
+
+    </com.example.shopmall.framework.view.ToolBar>
+
     <ProgressBar android:layout_width="100dp"
                  android:layout_height="100dp"
                  android:id="@+id/loadingBar"/>

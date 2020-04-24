@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.example.shopmall.common.ErrorBean;
 import com.example.shopmall.framework.base.BaseActivity;
 import com.example.shopmall.framework.base.IPresenter;
@@ -37,6 +38,11 @@ public class MainActivity extends BaseActivity<Object> implements CacheManager.I
     @Override
     protected void initView() {
          contentTV = findViewById(R.id.content);
+    }
+
+    @Override
+    public void onRightImgClick() {
+        Toast.makeText(this,"点击了右侧按钮", Toast.LENGTH_SHORT).show();
     }
 
     @Override

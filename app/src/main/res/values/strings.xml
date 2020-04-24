@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">1710A商城</string>
+    <string name="main_title_name">测试首页</string>
+    <string name="main_right_tv_content">消息</string>
+
+    <string name="main_title_proper">使用属性设置标题</string>
 </resources>

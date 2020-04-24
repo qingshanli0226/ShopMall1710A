@@ -2,25 +2,35 @@ package com.example.shopmall.framework.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ProgressBar;
+import com.example.shopmall.common.ErrorBean;
 import com.example.shopmall.framework.R;
+import com.example.shopmall.framework.view.ToolBar;
 
 import java.util.List;
 
 //实现Activity的基类,定义Activity调用逻辑，调用函数的时序，定义一些通用的功能，这些功能，子类会使用
-public abstract class BaseActivity<T> extends AppCompatActivity implements IBaseView<T> {
+public abstract class BaseActivity<T> extends AppCompatActivity implements IBaseView<T>,ToolBar.ToolBarListener {
     protected ProgressBar loadingBar;
+    protected ToolBar toolBar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
         loadingBar = findViewById(R.id.loadingBar);//子类Activity定义loadingBar这个控件,不定义的话，页面将崩溃
+        initToolBar();
         initView();//初始化控件
         initPresenter();//初始化presenter
         initData();//初始化数据
+    }
+
+    private void initToolBar() {
+        toolBar = findViewById(R.id.toolBar);
+        toolBar.setToolBarClickListener(this);
     }
 
     protected abstract void initData();
@@ -42,6 +52,16 @@ public abstract class BaseActivity<T> extends AppCompatActivity implements IBase
 
     //需要子类提供layoutID
     protected abstract int getLayoutId();
+
+    @Override
+    public void onHtttpReceived(int requestCode, T data) {
+
+    }
+
+    @Override
+    public void onHttpReceivedFailed(int requestCode, ErrorBean errorBean) {
+
+    }
 
     //约束子类使用presenter获取数据时必须显示加载页面
     @Override
@@ -76,4 +96,19 @@ public abstract class BaseActivity<T> extends AppCompatActivity implements IBase
     }
 
     protected abstract void destroy();
+
+    @Override
+    public void onLeftImgClick() {
+        finish();//左侧大部分是关掉页面，默认实现是关掉页面
+    }
+
+    @Override
+    public void onRightImgClick() {
+    }
+
+    public void setToolBarTile(@StringRes int titleId) {
+        toolBar.setTitle(titleId);
+    }
+
+
 }
