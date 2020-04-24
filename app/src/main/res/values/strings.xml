@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">硅谷商城</string>
+    <string name="home_right_tv">消息</string>
+    <string name="recommend_title">商品详情</string>
 </resources>

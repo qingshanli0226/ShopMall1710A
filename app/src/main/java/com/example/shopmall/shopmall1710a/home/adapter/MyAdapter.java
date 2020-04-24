@@ -1,6 +1,7 @@
 package com.example.shopmall.shopmall1710a.home.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.shopmall.common.Constant;
 import com.example.shopmall.shopmall1710a.R;
+import com.example.shopmall.shopmall1710a.RecommendActivity;
 import com.example.shopmall.shopmall1710a.home.base.ResultBean;
 import com.youth.banner.Banner;
 import com.youth.banner.loader.ImageLoader;
@@ -230,14 +232,29 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             recyclerView=itemView.findViewById(R.id.re_view);
             this.mContext = mContext;
             this.resultBean = resultBean;
+
         }
 
-        public void setData(List<ResultBean.RecommendInfoBean> recommendInfoBeans){
+        public void setData(final List<ResultBean.RecommendInfoBean> recommendInfoBeans){
 
             recyclerView.setLayoutManager( new GridLayoutManager(context,3));
-            recyclerView.setAdapter(new RecommendAdapter(R.layout.recommend_item_layout,recommendInfoBeans));
+            RecommendAdapter recommendAdapter = new RecommendAdapter(R.layout.recommend_item_layout, recommendInfoBeans);
+
+            recyclerView.setAdapter(recommendAdapter);
+            recommendAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                    Intent intent = new Intent(context, RecommendActivity.class);
+
+                    intent.putExtra("recommend",recommendInfoBeans.get(position));
+                    context.startActivity(intent);
+                }
+            });
+
         }
+
     }
+
     class GoodsViewHolder extends RecyclerView.ViewHolder{
         public RecyclerView recyclerView;
         public Context mContext;
@@ -254,6 +271,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             recyclerView.setLayoutManager(new GridLayoutManager(context,2));
             recyclerView.setAdapter(new GoodsAdapter(R.layout.goods_item_layout,hotInfoBeans));
+
         }
     }
 }

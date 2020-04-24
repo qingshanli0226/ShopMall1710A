@@ -2,25 +2,33 @@ package com.example.shopmall.framework.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ProgressBar;
 import com.example.shopmall.framework.R;
+import com.example.shopmall.framework.view.ToorBar;
 
 import java.util.List;
 
 //实现Activity的基类,定义Activity调用逻辑，调用函数的时序，定义一些通用的功能，这些功能，子类会使用
-public abstract class BaseActivity<T> extends AppCompatActivity implements IBaseView<T> {
+public abstract class BaseActivity<T> extends AppCompatActivity implements IBaseView<T>, ToorBar.ToolBarListener {
     protected ProgressBar loadingBar;
-
+    protected ToorBar toorBar;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
-     //   loadingBar = findViewById(R.id.);//子类Activity定义loadingBar这个控件,不定义的话，页面将崩溃
+        loadingBar = findViewById(R.id.progress_bar);//子类Activity定义loadingBar这个控件,不定义的话，页面将崩溃
+        initToorBar();
         initView();//初始化控件
         initPresenter();//初始化presenter
         initData();//初始化数据
+    }
+
+    private void initToorBar() {
+        toorBar=findViewById(R.id.toor_bar);
+        toorBar.setToolBarListener(this);
     }
 
     protected abstract void initData();
@@ -73,4 +81,26 @@ public abstract class BaseActivity<T> extends AppCompatActivity implements IBase
     }
 
     protected abstract void destroy();
+
+    @Override
+    public void onLeftImgClick() {
+        finish();
+    }
+
+    @Override
+    public void onRightImgClick() {
+
+    }
+
+    @Override
+    public void onLeftTvClick() {
+
+    }
+
+    @Override
+    public void onRightTvClick() {
+
+    }
+
+   
 }

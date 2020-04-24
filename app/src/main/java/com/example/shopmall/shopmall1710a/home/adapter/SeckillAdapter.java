@@ -24,11 +24,11 @@ public class SeckillAdapter extends BaseQuickAdapter<ResultBean.SeckillInfoBean.
     @Override
     protected void convert(BaseViewHolder helper, ResultBean.SeckillInfoBean.ListBean item) {
         Glide.with(mContext).load("http://49.233.93.155:8080/atguigu/img"+item.getFigure()).into((ImageView) helper.getView(R.id.pic));
-
+        TextView view = helper.getView(R.id.title1);
+        view.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG |Paint.ANTI_ALIAS_FLAG);
         helper.setText(R.id.title,"￥"+item.getCover_price());
 
         helper.setText(R.id.title1,"￥"+item.getOrigin_price());
-        TextView view = helper.getView(R.id.title1);
-        view.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+
     }
 }

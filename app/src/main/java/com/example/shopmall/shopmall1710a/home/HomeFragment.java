@@ -1,7 +1,9 @@
 package com.example.shopmall.shopmall1710a.home;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,6 +17,7 @@ import com.example.shopmall.common.ErrorBean;
 import com.example.shopmall.framework.base.BaseFragment;
 import com.example.shopmall.framework.base.IPresenter;
 import com.example.shopmall.framework.manager.CacheManager;
+import com.example.shopmall.framework.view.ToorBar;
 import com.example.shopmall.net.BaseBean;
 import com.example.shopmall.shopmall1710a.R;
 import com.example.shopmall.shopmall1710a.home.adapter.MyAdapter;
@@ -48,6 +51,7 @@ public class HomeFragment extends BaseFragment<ResultBean> implements CacheManag
         myAdapter=new MyAdapter(getContext(),resultBean.getResult());
         reView.setAdapter(myAdapter);
         CacheManager.getInstance().registerIHomeListener(this);
+
     }
 
     @Override
@@ -60,9 +64,18 @@ public class HomeFragment extends BaseFragment<ResultBean> implements CacheManag
 
     @Override
     protected void initView() {
+        toorBar=rootView.findViewById(R.id.toor_bar);
         reView = (RecyclerView) rootView.findViewById(R.id.re_view);
+
         loadingBar = rootView.findViewById(R.id.progressBar);
+
         reView.setLayoutManager(new LinearLayoutManager(getContext()));
+        toorBar.showAll(false);
+        toorBar.showRightImg(true);
+        toorBar.showRightTv(true);
+        toorBar.setRightImg(R.drawable.new_message_icon);
+        toorBar.setRightTv(R.string.home_right_tv);
+        toorBar.setTextSize(R.id.right_tv,14);
     }
 
     @Override
@@ -90,10 +103,13 @@ public class HomeFragment extends BaseFragment<ResultBean> implements CacheManag
 
     @Override
     public void onHomeData(final String json) {
+        Log.i("TAG11111111111", "onHomeData: "+json);
+
         handler.post(new Runnable() {
             @Override
             public void run() {
                 hideLoading();
+                myAdapter.notifyDataSetChanged();
             }
         });
     }

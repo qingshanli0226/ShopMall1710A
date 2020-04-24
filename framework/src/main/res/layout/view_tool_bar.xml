@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal" android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <TextView
+                android:visibility="visible"
+                android:id="@+id/ToolBarTitle"
+                android:layout_width="wrap_content"
+                android:textColor="#131313"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_centerInParent="true"
+                />
+        <LinearLayout
+                android:id="@+id/leftLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="5dp"
+                android:orientation="vertical">
+            <ImageView
+                    android:visibility="gone"
+                    android:id="@+id/left_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    />
+            <TextView
+
+                    android:id="@+id/left_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:text="左侧"
+                    android:visibility="gone"/>
+        </LinearLayout>
+        <LinearLayout
+                android:id="@+id/rightLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                android:orientation="vertical">
+            <ImageView
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/right_image"
+                    android:src="@drawable/new_message_icon"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    />
+            <TextView
+                    android:visibility="gone"
+                    android:id="@+id/right_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="右侧"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

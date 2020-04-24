@@ -10,17 +10,21 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.example.shopmall.framework.R;
+import com.example.shopmall.framework.view.ToorBar;
 
 import java.util.List;
 
 //实现Activity的基类,定义Activity调用逻辑，调用函数的时序，定义一些通用的功能，这些功能，子类会使用
-public abstract class BaseFragment<T> extends Fragment implements IBaseView<T> {
+public abstract class BaseFragment<T> extends Fragment implements IBaseView<T>, ToorBar.ToolBarListener {
     protected ProgressBar loadingBar;
     protected View rootView;
+    protected ToorBar toorBar;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(getLayoutId(), container, false);
+        initToorBar();
+        loadingBar = rootView.findViewById(R.id.progress_bar);//子类Activity定义loadingBar这个控件,不定义的话，页面将崩溃
         initView();//初始化控件
         //子类Activity定义loadingBar这个控件,不定义的话，页面将崩溃
         initPresenter();//初始化presenter
@@ -30,7 +34,10 @@ public abstract class BaseFragment<T> extends Fragment implements IBaseView<T> {
     }
 
     protected abstract void initData();
-
+    private void initToorBar() {
+        toorBar=rootView.findViewById(R.id.toor_bar);
+        toorBar.setToolBarListener(this);
+    }
     //使presenter和页面关联起来
     private void initPresenter() {
         List<IPresenter<T>> presenterList = getPresenter();
@@ -79,4 +86,24 @@ public abstract class BaseFragment<T> extends Fragment implements IBaseView<T> {
     }
 
     protected abstract void destroy();
+
+    @Override
+    public void onLeftImgClick() {
+
+    }
+
+    @Override
+    public void onRightImgClick() {
+
+    }
+
+    @Override
+    public void onLeftTvClick() {
+
+    }
+
+    @Override
+    public void onRightTvClick() {
+
+    }
 }

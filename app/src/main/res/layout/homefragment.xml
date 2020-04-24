@@ -5,49 +5,27 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <RelativeLayout
-                android:id="@+id/re_layout"
-                android:background="#FF1C0B"
-                android:layout_width="match_parent"
-                android:layout_height="50dp">
-            <EditText
-                    android:layout_centerVertical="true"
-                    android:background="#fff"
-                    android:layout_marginLeft="5dp"
-                    android:hint="输入搜索信息"
-                    android:drawableLeft="@drawable/home_search_icon"
-                    android:layout_width="360dp"
-                    android:layout_height="30dp">
+    <com.example.shopmall.framework.view.ToorBar
+            android:background="#FF0B0B"
+            android:id="@+id/toor_bar"
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
 
-            </EditText>
-            <RelativeLayout
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <ImageView
-                        android:id="@+id/message_pic"
-                        android:src="@drawable/new_message_icon"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp">
+    </com.example.shopmall.framework.view.ToorBar>
+    <EditText
+            android:layout_marginTop="15dp"
+            android:id="@+id/edit_print"
+            android:background="#fff"
+            android:layout_marginLeft="5dp"
+            android:hint="输入搜索信息"
+            android:drawableLeft="@drawable/home_search_icon"
+            android:layout_width="360dp"
+            android:layout_height="30dp">
 
-                </ImageView>
-                <TextView
-                        android:layout_centerHorizontal="true"
-                        android:layout_below="@id/message_pic"
-                        android:text="消息"
-                        android:textSize="14sp"
-                        android:textColor="#fff"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                </TextView>
-            </RelativeLayout>
-        </RelativeLayout>
+    </EditText>
 
     <android.support.v7.widget.RecyclerView
-            android:layout_below="@id/re_layout"
+            android:layout_below="@id/toor_bar"
             android:id="@+id/re_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
