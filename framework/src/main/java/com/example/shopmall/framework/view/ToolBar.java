@@ -4,14 +4,13 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.support.annotation.DrawableRes;
-import android.support.annotation.IdRes;
-import android.support.annotation.IntDef;
 import android.support.annotation.StringRes;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.shopmall.framework.R;
@@ -20,14 +19,21 @@ import com.example.shopmall.framework.R;
 public class ToolBar extends LinearLayout implements View.OnClickListener {
 
     private ToolBarListener toolBarListener;
-    private TextView leftTv,rightTv,titleTv;
-    private ImageView leftImg, rightImg;
+    private TextView  leftTv;
+    private TextView  rightTv;
+    private TextView  titleTv;
+    private ImageView leftImg;
+    private ImageView rightImg;
 
-    private int toolBarTitle;
-    private int leftImgSrc;
-    private int rightImgSrc;
+    private int toolBarTitleId;
+    private int leftImgSrcId;
+    private int rightImgSrcId;
     private boolean isRightDisplay;
-    private int clolor;
+    private int backgroundColor;
+    private boolean isShowTitle;
+    private LinearLayout   rightLayout;
+    private LinearLayout   leftLayout;
+    private LinearLayout rootLayout;
 
     public ToolBar(Context context) {
         super(context);
@@ -46,62 +52,90 @@ public class ToolBar extends LinearLayout implements View.OnClickListener {
 
     //初始化
     private void init(Context context, AttributeSet attrs) {
+        initViewAttrs(context, attrs);
+        initView(context);
+        displayView();
+    }
+
+    //生成布局文件
+    private void initView(Context context) {
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View rootView = inflater.inflate(R.layout.view_tool_bar, this);
+        leftTv = rootView.findViewById(R.id.leftTv);
+        rightTv = rootView.findViewById(R.id.rightTv);
+        leftImg = rootView.findViewById(R.id.leftImag);
+        rightImg =rootView.findViewById(R.id.rightImag);
+        titleTv = rootView.findViewById(R.id.toolBarTitle);
+        leftLayout = rootView.findViewById(R.id.leftLayout);
+        rightLayout = rootView.findViewById(R.id.rightLayout);
+        rootLayout = rootView.findViewById(R.id.toolBarRoot);
+
+        leftLayout.setOnClickListener(this);
+        rightLayout.setOnClickListener(this);
+    }
+
+    //获取属性值
+    private void initViewAttrs(Context context, AttributeSet attrs) {
         //获取自定义view的属性
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MYToolBar);
         //获取的标题
-         toolBarTitle = typedArray.getResourceId(R.styleable.MYToolBar_toolbarTile, -1);
+        toolBarTitleId = typedArray.getResourceId(R.styleable.MYToolBar_toolbarTile, -1);
         //获取左侧图片资源的id
-        leftImgSrc = typedArray.getResourceId(R.styleable.MYToolBar_toolBarLeftSrc, -1);
-        rightImgSrc = typedArray.getResourceId(R.styleable.MYToolBar_toolBarRightSrc, -1);
+        leftImgSrcId = typedArray.getResourceId(R.styleable.MYToolBar_toolBarLeftSrc, -1);
+        rightImgSrcId = typedArray.getResourceId(R.styleable.MYToolBar_toolBarRightSrc, -1);
         //右侧内容是否显示
         isRightDisplay = typedArray.getBoolean(R.styleable.MYToolBar_toolBarRightDisplay, true);
-        clolor = typedArray.getColor(R.styleable.MYToolBar_toolbarBackgroundColor, Color.WHITE);
-
-
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View rootView = inflater.inflate(R.layout.view_tool_bar, this);
-
-        leftTv=rootView.findViewById(R.id.leftTv);
-        rightTv=rootView.findViewById(R.id.rightTv);
-        leftImg = rootView.findViewById(R.id.leftImag);
-        rightImg=rootView.findViewById(R.id.rightImag);
-        titleTv = rootView.findViewById(R.id.toolBarTitle);
-
-
-        if (toolBarTitle!=-1) {
-            setTitle(toolBarTitle);
-        }
-        if (leftImgSrc!=-1) {
-            leftImg.setImageResource(leftImgSrc);
-        }
-
-        if (rightImgSrc!=-1) {
-            rightImg.setImageResource(rightImgSrc);
-        }
-        if (!isRightDisplay) {
-            findViewById(R.id.rightLayout).setVisibility(GONE);
-        } else {
-            rightImg.setVisibility(VISIBLE);
-        }
-
-        findViewById(R.id.toolBarRoot).setBackgroundColor(clolor);
-
-
-        leftImg.setOnClickListener(this);
-        rightImg.setOnClickListener(this);
+        //获取toolbar背景色
+        backgroundColor = typedArray.getColor(R.styleable.MYToolBar_toolbarBackgroundColor, Color.WHITE);
+        //是否显示标题
+        isShowTitle = typedArray.getBoolean(R.styleable.MYToolBar_isShowTitle, true);
     }
 
+    private void displayView() {
+        //是否显示右边内容
+        if (!isRightDisplay) {
+            rightLayout.setVisibility(GONE);
+        } else {
+            rightLayout.setVisibility(VISIBLE);
+        }
+
+        //是否显示标题
+        if (isShowTitle) {
+            titleTv.setVisibility(VISIBLE);
+        } else {
+            titleTv.setVisibility(GONE);
+        }
+
+        //设置toolbar的背景色
+        rootLayout.setBackgroundColor(backgroundColor);
+        //设置标题
+        if (toolBarTitleId !=-1) {
+            setTitle(toolBarTitleId);
+        }
+        //设置左侧图片
+        if (leftImgSrcId !=-1) {
+            leftImg.setImageResource(leftImgSrcId);
+        }
+
+        //设置右侧图片
+        if (rightImgSrcId !=-1) {
+            rightImg.setImageResource(rightImgSrcId);
+        }
+    }
+
+
+    //设置toolbar的点击事件
     public void setToolBarClickListener(ToolBarListener  listener) {
         this.toolBarListener = listener;
     }
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.leftImag) {
+        if (v.getId() == R.id.leftLayout) {
             if(toolBarListener != null) {
                 toolBarListener.onLeftImgClick();
             }
-        }else if (v.getId() == R.id.rightImag) {
+        }else if (v.getId() == R.id.rightLayout) {
             if (toolBarListener != null) {
                 toolBarListener.onRightImgClick();
             }
@@ -135,10 +169,17 @@ public class ToolBar extends LinearLayout implements View.OnClickListener {
         rightImg.setVisibility(VISIBLE);
     }
 
+    //是否显示title
+    public void showTitle(boolean isShowTitle) {
+        if (isShowTitle) {
+            titleTv.setVisibility(VISIBLE);
+        } else {
+            titleTv.setVisibility(GONE);
+        }
+    }
+
     public interface ToolBarListener{
         void onLeftImgClick();
         void onRightImgClick();
     }
-
-
 }

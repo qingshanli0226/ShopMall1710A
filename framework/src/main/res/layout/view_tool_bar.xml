@@ -5,7 +5,7 @@
               android:layout_width="match_parent"
               android:layout_height="@dimen/tool_bar_height"
               tools:ignore="MissingDefaultResource"
-android:id="@+id/toolBarRoot">
+              android:id="@+id/toolBarRoot">
 
     <RelativeLayout
             android:layout_width="match_parent"

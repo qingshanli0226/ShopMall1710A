@@ -11,12 +11,12 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:id="@+id/toolBar"
-
             app:toolbarTile="@string/main_title_proper"
             app:toolBarLeftSrc="@mipmap/atguigu_logo"
             app:toolBarRightDisplay="true"
             app:toolBarRightSrc="@mipmap/ic_launcher"
             app:toolbarBackgroundColor="@color/colorAccent"
+            app:isShowTitle="false"
             >
 
     </com.example.shopmall.framework.view.ToolBar>

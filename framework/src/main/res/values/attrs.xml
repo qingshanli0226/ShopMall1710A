@@ -7,5 +7,6 @@
         <attr name="toolBarLeftSrc" format="reference"></attr>
         <attr name="toolBarRightDisplay" format="boolean"></attr>
         <attr name="toolbarBackgroundColor" format="color"></attr>
+        <attr name="isShowTitle" format="boolean"></attr>
     </declare-styleable>
 </resources>
