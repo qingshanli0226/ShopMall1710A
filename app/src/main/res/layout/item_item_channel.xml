@@ -10,6 +10,7 @@
                 android:id="@+id/item_item_channel_iv"
                 android:layout_width="30dp" android:layout_height="30dp"/>
         <TextView android:layout_width="match_parent" android:layout_height="20dp"
+                  android:textSize="13sp"
         android:gravity="center"
                   android:id="@+id/item_item_channel_tv"/>
     </LinearLayout>

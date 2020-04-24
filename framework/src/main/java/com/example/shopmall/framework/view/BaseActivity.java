@@ -60,6 +60,7 @@ public abstract class BaseActivity<T> extends AppCompatActivity implements IBase
         welcomIv = new ImageView(this);
         FrameLayout.LayoutParams welcomIvParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         welcomIv.setLayoutParams(welcomIvParams);
+        welcomIv.setScaleType(ImageView.ScaleType.CENTER_CROP);
         Glide.with(this)
                 .load("http://49.233.93.155:8080/atguigu/gif/welcome.gif")
                 .into(welcomIv);

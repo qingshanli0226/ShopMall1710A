@@ -15,7 +15,7 @@ public class UserFragment extends BaseFragment {
 
     @Override
    public int bindLayout() {
-        return R.layout.frg_shopp ;
+        return R.layout.frg_user;
     }
 
     @Override

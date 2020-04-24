@@ -12,13 +12,13 @@ import com.example.shopmall.shopmall1710a.home.model.HomeEntity;
 
 import java.util.List;
 
-public class HotAdapter extends BaseQuickAdapter<HomeEntity.ResultBean.HotInfoBean, BaseViewHolder> {
-    public HotAdapter(@Nullable List<HomeEntity.ResultBean.HotInfoBean> data) {
-        super(R.layout.item_item_hot , data);
+public class SeckillAdapter extends BaseQuickAdapter<HomeEntity.ResultBean.SeckillInfoBean.ListBean, BaseViewHolder> {
+    public SeckillAdapter(@Nullable List<HomeEntity.ResultBean.SeckillInfoBean.ListBean> data) {
+        super(R.layout.item_item_seckill, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, HomeEntity.ResultBean.HotInfoBean item) {
+    protected void convert(BaseViewHolder helper, HomeEntity.ResultBean.SeckillInfoBean.ListBean item) {
         Glide.with(AppCore.getInstance().getApp())
                 .load(Constant.BASE_IMG+item.getFigure())
                 .into((ImageView) helper.getView(R.id.item_item_hot_iv));

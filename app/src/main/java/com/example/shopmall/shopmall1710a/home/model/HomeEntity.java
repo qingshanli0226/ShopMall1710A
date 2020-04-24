@@ -5,6 +5,11 @@ import com.chad.library.adapter.base.entity.MultiItemEntity;
 import java.util.List;
 
 public class HomeEntity implements MultiItemEntity {
+    public static final int HOME_TYPE_BANNER = 1;
+    public static final int HOME_TYPE_CHANNEL = 2;
+    public static final int HOME_TYPE_ACT = 3;
+    public static final int HOME_TYPE_SECKILL = 4;
+    public static final int HOME_TYPE_RECOMMEND= 5;
     public HomeEntity(int code, String msg, ResultBean result, int type) {
         this.code = code;
         this.msg = msg;

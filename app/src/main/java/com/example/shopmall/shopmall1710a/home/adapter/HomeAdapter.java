@@ -27,14 +27,14 @@ public class HomeAdapter extends BaseMultiItemQuickAdapter<HomeEntity, BaseViewH
         addItemType(1, R.layout.item_banner );
         addItemType(2,R.layout.item_channel);
         addItemType(3,R.layout.item_act);
-        addItemType(4,R.layout.item_hot);
+        addItemType(4,R.layout.item_seckill);
         addItemType(5,R.layout.item_recommend);
     }
 
     @Override
     protected void convert(BaseViewHolder helper, HomeEntity item) {
         switch (helper.getItemViewType()){
-            case 1:
+            case HomeEntity.HOME_TYPE_BANNER:
                 List<String> list = new ArrayList<>();
                 for (HomeEntity.ResultBean.BannerInfoBean bannerInfoBean : item.getResult().getBanner_info()) {
                     Log.i("happy", "convert: "+bannerInfoBean.getImage());
@@ -54,26 +54,26 @@ public class HomeAdapter extends BaseMultiItemQuickAdapter<HomeEntity, BaseViewH
                     }
                 }).setImages(list).start();
                 break;
-            case 2:
+            case HomeEntity.HOME_TYPE_CHANNEL:
                 RecyclerView recyclerView = helper.getView(R.id.item_channel_rv);
                 recyclerView.setLayoutManager(new GridLayoutManager(AppCore.getInstance().getApp(),5));
                 ChannelAdapter channelAdapter = new ChannelAdapter(item.getResult().getChannel_info());
                 recyclerView.setAdapter(channelAdapter);
                 break;
-            case 3:
+            case HomeEntity.HOME_TYPE_ACT:
                 ImageView imageView = (ImageView) helper.getView(R.id.item_act_iv);
                 imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 Glide.with(AppCore.getInstance().getApp())
                         .load(Constant.BASE_IMG+item.getResult().getAct_info().get(0).getIcon_url())
                         .into(imageView);
                 break;
-            case 4:
+            case HomeEntity.HOME_TYPE_SECKILL:
                 RecyclerView recyclerView1 = helper.getView(R.id.item_hot_rv);
                 recyclerView1.setLayoutManager(new GridLayoutManager(AppCore.getInstance().getApp(),1, LinearLayoutManager.HORIZONTAL,true));
-                HotAdapter hotAdapter = new HotAdapter(item.getResult().getHot_info());
+                SeckillAdapter hotAdapter = new SeckillAdapter(item.getResult().getSeckill_info().getList());
                 recyclerView1.setAdapter(hotAdapter);
                 break;
-            case 5:
+            case HomeEntity.HOME_TYPE_RECOMMEND:
                 RecyclerView recyclerView2 = helper.getView(R.id.item_recommend_rv);
                 recyclerView2.setLayoutManager(new GridLayoutManager(AppCore.getInstance().getApp(),3));
                 RecommendAdapter recommendAdapter = new RecommendAdapter(item.getResult().getRecommend_info());
