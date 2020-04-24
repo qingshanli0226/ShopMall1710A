@@ -2,6 +2,7 @@ package com.example.shopmall.shopmall1710a.home.model;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class HomeEntity implements MultiItemEntity {
@@ -440,7 +441,10 @@ public class HomeEntity implements MultiItemEntity {
             }
         }
 
-        public static class RecommendInfoBean {
+        public static class RecommendInfoBean implements Serializable {
+            public RecommendInfoBean() {
+            }
+
             /**
              * cover_price : 138.00
              * figure : /supplier/1478873740576.jpg

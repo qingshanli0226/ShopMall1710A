@@ -20,4 +20,11 @@ public class Constant {
     public static final String SP_TOKEN = "token";
     public static final String SP_USER_LOGIN_INFO = "user_msg"; // 登录
     public static final String SP_CACHE_HOME_DATA_INFO = "cache_home_data"; // 缓存首页数据
+
+    //----------------------ARouter Path-----------------------
+    // ACT
+    public static final String ROUTER_PATH_MAIN_ACT = "/app_module/MainAct";
+    public static final String ROUTER_PATH_DETAILS_PAGE_ACT= "/app_module/DetailsPageAct";
+    // FRG
+    public static final String ROUTER_PATH_HOME_FRG= "/app_module/HomeFragment";
 }

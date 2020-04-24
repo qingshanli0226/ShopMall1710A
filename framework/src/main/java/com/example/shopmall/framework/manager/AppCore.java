@@ -1,6 +1,7 @@
 package com.example.shopmall.framework.manager;
 
 import android.app.Application;
+import com.alibaba.android.arouter.launcher.ARouter;
 
 public class AppCore {
 
@@ -21,5 +22,6 @@ public class AppCore {
     public void init(Application app) {
         this.app = app;
     }
+
 
 }

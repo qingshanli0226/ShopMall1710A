@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.shopmall.framework.manager.AppCore;
 import com.example.shopmall.framework.R;
 import com.example.shopmall.framework.presenter.IPresenter;
@@ -30,10 +31,15 @@ public abstract class BaseFragment<T> extends Fragment implements IBaseView<T>,I
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         initView();
+        inject();
         initPresenter();
         initData();
     }
 
+    @Override
+    public void inject() {
+        ARouter.getInstance().inject(this);
+    }
 
     private RelativeLayout bindView(){
         baseView = new RelativeLayout(AppCore.getInstance().getApp());

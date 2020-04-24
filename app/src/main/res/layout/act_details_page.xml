@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+                android:background="#fff"
+android:gravity="center|top">
+    <com.example.shopmall.framework.customView.CustomTitleBar
+            android:id="@+id/detailsTitleBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:isRightTextShow="false"
+            app:title="商品详情"
+            />
+    <TextView android:layout_width="match_parent" android:layout_height="2dp"
+    android:background="#EEEAEA"/>
+    <ImageView
+            android:id="@+id/details_figure"
+            android:layout_width="250dp" android:layout_height="270dp"/>
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:paddingLeft="10dp"
+    android:text="xx"
+              android:textSize="12sp"
+              android:id="@+id/details_name"
+    android:textColor="#000"/>
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:paddingLeft="10dp"
+    android:text="截至日期10月15日"
+    android:textSize="12sp"/>
+    <TextView android:layout_width="match_parent" android:layout_height="40dp"
+    android:gravity="center|left" android:paddingLeft="10dp" android:textColor="#F44336"
+    android:text="xxx" android:textSize="15sp"
+    android:id="@+id/details_price"/>
+    <TextView android:layout_width="match_parent" android:layout_height="2dp" android:background="#EEEAEA"/>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="30dp"
+    android:orientation="horizontal">
+        <TextView android:layout_width="wrap_content" android:layout_height="30dp"
+                  android:text="发货:"
+                  android:gravity="center|left"
+                  android:paddingLeft="10dp"
+        android:textColor="#000"/>
+        <TextView android:layout_width="0dp" android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center|left"
+        android:textColor="#F44336"
+        android:text="小白优品"/>
+    </LinearLayout>
+    <TextView android:layout_width="match_parent" android:layout_height="5dp"
+              android:background="#EEEAEA"/>
+    <TextView android:layout_width="match_parent" android:layout_height="30dp"
+    android:gravity="center|left"
+    android:paddingLeft="10dp"
+    android:text="请选择款式"
+    android:textColor="#000"/>
+    <TextView android:layout_width="match_parent" android:layout_height="5dp"
+              android:background="#EEEAEA"/>
+    <TextView android:layout_width="match_parent" android:layout_height="40dp"
+    android:gravity="center|left"
+    android:paddingLeft="10dp"
+              android:textSize="11sp"
+    android:text="温馨提示:普通商品享有质量问题7天无理由退换,签收后3个工作日内可换货.其它特殊商品(如手办)的售后以页面为标准"
+    android:textColor="#000"
+              android:paddingBottom="5dp"
+    android:paddingTop="5dp"/>
+    <TextView android:layout_width="match_parent" android:layout_height="5dp"
+              android:background="#EEEAEA"/>
+    <TextView android:layout_width="match_parent" android:layout_height="30dp"
+    android:gravity="center"
+    android:text="图文详解"
+    android:textColor="#000"/>
+    <TextView android:layout_width="match_parent" android:layout_height="1dp"
+              android:background="#F44336"/>
+</LinearLayout>

@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.bumptech.glide.Glide;
 import com.example.shopmall.framework.R;
 import com.example.shopmall.framework.manager.AppCore;
@@ -34,12 +35,18 @@ public abstract class BaseActivity<T> extends AppCompatActivity implements IBase
         super.onCreate(savedInstanceState);
         setContentView(bindView());
         initView();
+        inject();
         initPresenter();
         initData();
     }
     @Override
     public void initPresenter() {
         List<IPresenter> presenterList = getPresenter();
+    }
+
+    @Override
+    public void inject() {
+        ARouter.getInstance().inject(this);
     }
 
     protected abstract List<IPresenter> getPresenter();

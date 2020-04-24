@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomTitleBar">
+        <attr name="isRightTextShow" format="boolean"/>
+        <attr name="title" format="string"/>
+        <attr name="rightText" format="string"/>
+        <attr name="liftIvId" format="reference"/>
+        <attr name="rightIvId" format="reference"/>
+        <attr name="backgroundColor" format="color"/>
+    </declare-styleable>
+</resources>

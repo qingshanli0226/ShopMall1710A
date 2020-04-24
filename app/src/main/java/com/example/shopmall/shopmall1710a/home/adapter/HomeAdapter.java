@@ -1,19 +1,25 @@
 package com.example.shopmall.shopmall1710a.home.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import androidx.appcompat.widget.AppCompatRatingBar;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.shopmall.common.Constant;
 import com.example.shopmall.framework.manager.AppCore;
 import com.example.shopmall.shopmall1710a.R;
 import com.example.shopmall.shopmall1710a.home.model.HomeEntity;
+import com.example.shopmall.shopmall1710a.home.view.DetailsPageAct;
 import com.youth.banner.Banner;
 import com.youth.banner.loader.ImageLoaderInterface;
 
@@ -32,7 +38,7 @@ public class HomeAdapter extends BaseMultiItemQuickAdapter<HomeEntity, BaseViewH
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, HomeEntity item) {
+    protected void convert(final BaseViewHolder helper, HomeEntity item) {
         switch (helper.getItemViewType()){
             case HomeEntity.HOME_TYPE_BANNER:
                 List<String> list = new ArrayList<>();
@@ -78,7 +84,26 @@ public class HomeAdapter extends BaseMultiItemQuickAdapter<HomeEntity, BaseViewH
                 recyclerView2.setLayoutManager(new GridLayoutManager(AppCore.getInstance().getApp(),3));
                 RecommendAdapter recommendAdapter = new RecommendAdapter(item.getResult().getRecommend_info());
                 recyclerView2.setAdapter(recommendAdapter);
+                recommendAdapter.setOnItemClickListener(new OnItemClickListener() {
+                    @Override
+                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                        if (startActivityLinsenner != null){
+                            startActivityLinsenner.onStartOk(HomeEntity.HOME_TYPE_RECOMMEND,position);
+                        }
+
+                    }
+                });
                 break;
         }
+    }
+
+    public interface StartActivityLinsenner{
+            void onStartOk(int type,int position);
+    }
+
+    public StartActivityLinsenner startActivityLinsenner;
+
+    public void setStartActivityLinsenner(StartActivityLinsenner startActivityLinsenner) {
+        this.startActivityLinsenner = startActivityLinsenner;
     }
 }

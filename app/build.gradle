@@ -13,6 +13,11 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
     }
     buildTypes {
         release {
@@ -42,6 +47,10 @@ dependencies {
 
     implementation 'com.youth.banner:banner:1.4.10'  //------->>banner轮播图
     implementation 'com.github.bumptech.glide:glide:4.1.1'  //------->>glide依赖
+
+    //方法库
+    api 'com.alibaba:arouter-api:1.5.0'
+    annotationProcessor 'com.alibaba:arouter-compiler:1.2.2'
 
 
 }
