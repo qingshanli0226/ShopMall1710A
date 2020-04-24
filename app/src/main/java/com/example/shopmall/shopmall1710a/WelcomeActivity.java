@@ -7,17 +7,21 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 public class WelcomeActivity extends AppCompatActivity {
+    private ImageView ivWel;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.welcome);
 
-        TextView textView = new TextView(this);
-        textView.setText("欢迎页");
-        textView.setGravity(Gravity.CENTER);
-        setContentView(textView);
+        ivWel = (ImageView) findViewById(R.id.iv_wel);
+        Glide.with(this).load("http://49.233.93.155:8080/atguigu/gif/welcome.gif").into(ivWel);
+
         new Handler(){
             @Override
             public void handleMessage(Message msg) {

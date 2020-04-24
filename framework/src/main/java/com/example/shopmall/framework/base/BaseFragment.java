@@ -6,22 +6,40 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.shopmall.framework.R;
+import com.example.shopmall.framework.view.MyToolBar;
 
 import java.util.List;
 
-public abstract class BaseFragment<T> extends Fragment implements IBaseView<T> {
+public abstract class BaseFragment<T> extends Fragment implements IBaseView<T>,MyToolBar.ToolBarListener {
     protected ProgressBar loadingBar;
+    private MyToolBar myToolBar;
+    private View inflate;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View inflate = inflater.inflate(R.layout.activity_framework, container, false);
+        inflate = inflater.inflate(R.layout.activity_framework, container, false);
         loadingBar = inflate.findViewById(R.id.loadingBar);
         initView();//初始化控件
+        myToolBar = inflate.findViewById(R.id.myToolBar);
+        myToolBar.setToolBarClickListener(this);
         initPresenter();//初始化presenter
         initData();//初始化数据
         return getLayoutId();
     }
+
+    @Override
+    public void onLeftImgClick() {
+
+    }
+
+    @Override
+    public void onRightImgClick() {
+
+    }
+
+
     //使presenter和页面关联起来
     private void initPresenter() {
         List<IPresenter<T>> presenterList = getPresenter();

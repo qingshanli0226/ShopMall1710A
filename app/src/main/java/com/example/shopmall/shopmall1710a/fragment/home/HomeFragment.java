@@ -14,6 +14,7 @@ import com.example.shopmall.common.ErrorBean;
 import com.example.shopmall.framework.base.BaseFragment;
 import com.example.shopmall.framework.base.IPresenter;
 import com.example.shopmall.framework.manager.CacheManager;
+import com.example.shopmall.framework.view.MyToolBar;
 import com.example.shopmall.shopmall1710a.R;
 import com.example.shopmall.shopmall1710a.fragment.home.adapter.ChannelInfoAdapter;
 import com.example.shopmall.shopmall1710a.fragment.home.adapter.HomeAdapter;
@@ -57,7 +58,10 @@ public class HomeFragment extends BaseFragment<Object> implements CacheManager.I
 
     @Override
     protected void initView() {
+
         inflate = LayoutInflater.from(getContext()).inflate(R.layout.fragment_home, null);
+        MyToolBar myToolBar = inflate.findViewById(R.id.myToolBar);
+        myToolBar.setToolBarClickListener(this);
         recyclerView = inflate.findViewById(R.id.recyclerView);
         banner = inflate.findViewById(R.id.banner);
         rvChannelInfo = inflate.findViewById(R.id.rv_channel_info);
@@ -156,13 +160,25 @@ public class HomeFragment extends BaseFragment<Object> implements CacheManager.I
 
     @Override
     public void onHomeDataReceived(final String homeDataJson) {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                HomeBean homeBean = new Gson().fromJson(homeDataJson, HomeBean.class);
-                hotInfoBeanList.addAll(homeBean.getResult().getHot_info());
-                homeAdapter.notifyDataSetChanged();
-            }
-        });
+//        getActivity().runOnUiThread(new Runnable() {
+//            @Override
+//            public void run() {
+//                HomeBean homeBean = new Gson().fromJson(homeDataJson, HomeBean.class);
+//                hotInfoBeanList.addAll(homeBean.getResult().getHot_info());
+//                homeAdapter.notifyDataSetChanged();
+//            }
+//        });
+    }
+
+    @Override
+    public void onLeftImgClick() {
+
+        Toast.makeText(getContext(), "dd", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRightImgClick() {
+        super.onRightImgClick();
+        Toast.makeText(getContext(), "dd", Toast.LENGTH_SHORT).show();
     }
 }

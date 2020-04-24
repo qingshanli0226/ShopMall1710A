@@ -10,7 +10,7 @@ import com.example.shopmall.framework.service.ShopMallService;
 
 //单例，负责整个应用的存储功能
 public class CacheManager {
-    private SpCache spCache;
+    public SpCache spCache;
     private IHomeDataListener iHomeDataListener;
 
     private static CacheManager instance;
@@ -73,7 +73,6 @@ public class CacheManager {
     public void unRegisterIHomeDataListener() {
         iHomeDataListener = null;
     }
-
 
     //提供方法，让MainActivity去获取首页数据
     public String getHomeData() {

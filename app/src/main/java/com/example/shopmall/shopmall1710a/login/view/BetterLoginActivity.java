@@ -94,4 +94,15 @@ public class BetterLoginActivity extends BaseActivity<Object> implements View.On
     public void onHttpReceivedFailed(int requstCode, ErrorBean errorBean) {
         Toast.makeText(this, "登录失败:" + errorBean.getErrorMessage(), Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public void onLeftImgClick() {
+        super.onLeftImgClick();
+    }
+
+    @Override
+    public void onRightImgClick() {
+        super.onRightImgClick();
+        Toast.makeText(this, "dd", Toast.LENGTH_SHORT).show();
+    }
 }

@@ -32,7 +32,7 @@ public class SpCache {
     }
 
     public long getAdrTime() {
-        return sharedPreferences.getLong(adrTimeName, -1);
+        return sharedPreferences.getLong(adrTimeName, 0);
     }
 
     public void saveHomeData(String data) {

@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.example.shopmall.framework.view.MyToolBar
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:id="@+id/myToolBar"
+            app:toolbarTile="@string/app_name"
+            app:toolBarRightSrc="@drawable/personal"
+            app:toolBarLeftSrc="@mipmap/ic_launcher_round"
+            app:toolBarRightDisplay="true"
+            app:toolbarBackgroundColor="@color/colorAccent"
+            />
     <ScrollView
+            android:layout_below="@+id/myToolBar"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         <RelativeLayout
@@ -20,7 +30,6 @@
                     android:layout_centerInParent="true"
                     android:visibility="gone"/>
             <com.youth.banner.Banner
-                    android:layout_marginTop="10dp"
                     android:layout_below="@id/titlebar"
                     android:id="@+id/banner"
                     android:layout_width="match_parent"
@@ -54,7 +63,7 @@
                     android:layout_below="@id/rv_seckill_info"
                     android:id="@+id/rv_recommend_info"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="240dp"
                     android:layout_marginLeft="30dp"
                     />
             <android.support.v7.widget.RecyclerView

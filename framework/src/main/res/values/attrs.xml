@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="MYToolBar">
+        <attr name="toolbarTile" format="string"></attr>
+        <attr name="toolBarRightSrc" format="reference"></attr>
+        <attr name="toolBarLeftSrc" format="reference"></attr>
+        <attr name="toolBarRightDisplay" format="boolean"></attr>
+        <attr name="toolbarBackgroundColor" format="color"></attr>
+        <attr name="isShowTitle" format="boolean"></attr>
+    </declare-styleable>
+    <declare-styleable name="MyRadioGroup">
+
+        <attr name="buttonName1" format="string"/>
+        <attr name="buttonName2" format="string"/>
+        <attr name="buttonName3" format="string"/>
+        <attr name="buttonName4" format="string"/>
+        <attr name="buttonName5" format="string"/>
+        <attr name="isUpdateText" format="boolean"/>
+    </declare-styleable>
+</resources>

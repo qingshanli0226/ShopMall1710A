@@ -6,23 +6,37 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ProgressBar;
 import com.example.shopmall.framework.R;
+import com.example.shopmall.framework.view.MyToolBar;
 
 import java.util.List;
 
 //实现Activity的基类,定义Activity调用逻辑，调用函数的时序，定义一些通用的功能，这些功能，子类会使用
-public abstract class BaseActivity<T> extends AppCompatActivity implements IBaseView<T> {
+public abstract class BaseActivity<T> extends AppCompatActivity implements IBaseView<T>, MyToolBar.ToolBarListener {
     protected ProgressBar loadingBar;
-
+    private MyToolBar myToolBar;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
         loadingBar = findViewById(R.id.loadingBar);//子类Activity定义loadingBar这个控件,不定义的话，页面将崩溃
         initView();//初始化控件
+        initToolBar();
         initPresenter();//初始化presenter
         initData();//初始化数据
     }
+    private void initToolBar() {
+        myToolBar = findViewById(R.id.myToolBar);
+        myToolBar.setToolBarClickListener(this);
+    }
 
+    @Override
+    public void onLeftImgClick() {
+        finish();//左侧大部分是关掉页面，默认实现是关掉页面
+    }
+
+    @Override
+    public void onRightImgClick() {
+    }
     protected abstract void initData();
 
     //使presenter和页面关联起来
