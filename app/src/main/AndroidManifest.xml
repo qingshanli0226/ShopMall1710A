@@ -3,27 +3,21 @@
           package="com.example.shopmall.shopmall1710a">
         <uses-permission android:name="android.permission.INTERNET"/>
     <application
-            android:usesCleartextTraffic="true"
             android:name=".ShoppingApplication"
+            android:usesCleartextTraffic="true"
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".main.view.MainAct" />
-        <activity android:name=".main.view.LoginAct"/>
-        <activity android:name=".main.view.RegisterAct"/>
-        <activity android:name=".main.view.WelcomePageAct">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <activity android:name=".main.view.MainActivity">
+                <intent-filter>
+                    <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".home.view.DetailsPageAct"/>
-        <service android:name="com.example.shopmall.framework.service.ShopMallService"/>
+                    <category android:name="android.intent.category.LAUNCHER" />
+                </intent-filter>
+            </activity>
     </application>
-    
 
 </manifest>

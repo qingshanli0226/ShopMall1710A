@@ -10,6 +10,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.example.shopmall.common.Constant;
 import com.example.shopmall.framework.service.ShopMallService;
 
+
 //单例，负责整个应用的存储功能
 public class CacheManager {
     private IHomeDataListener iHomeDataListener;

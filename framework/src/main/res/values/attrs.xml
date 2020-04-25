@@ -1,11 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
+
+
 <resources>
+    <!--自定义TitleBar-->
     <declare-styleable name="CustomTitleBar">
         <attr name="isRightTextShow" format="boolean"/>
-        <attr name="title" format="string"/>
         <attr name="rightText" format="string"/>
-        <attr name="liftIvId" format="reference"/>
-        <attr name="rightIvId" format="reference"/>
-        <attr name="backgroundColor" format="color"/>
+        <attr name="leftImageId" format="reference"/>
+        <attr name="rightImageId" format="reference"/>
+        <attr name="titleText" format="string"/>
     </declare-styleable>
+
+
 </resources>

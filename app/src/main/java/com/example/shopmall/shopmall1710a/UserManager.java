@@ -4,7 +4,7 @@ package com.example.shopmall.shopmall1710a;
 import com.blankj.utilcode.util.SPUtils;
 
 import com.example.shopmall.common.Constant;
-import com.example.shopmall.shopmall1710a.main.model.LoginEntity;
+import com.example.shopmall.shopmall1710a.main.entity.LoginEntity;
 import com.google.gson.Gson;
 
 import java.util.LinkedList;

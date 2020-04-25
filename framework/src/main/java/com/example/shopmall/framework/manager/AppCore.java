@@ -21,6 +21,9 @@ public class AppCore {
     }
     public void init(Application app) {
         this.app = app;
+        ARouter.openDebug();
+        ARouter.openLog();
+        ARouter.init(app);
     }
 
 

@@ -2,94 +2,96 @@ package com.example.shopmall.framework.customView;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.example.shopmall.framework.R;
 
-public class CustomTitleBar extends RelativeLayout {
-    private boolean right_text_is_show = false;
-    private ImageView rightIv;
-    private ImageView leftIv;
-    private TextView rightTv;
-    private TextView titleTv;
-
-    private String title_text;
-    private String right_text;
-    private int left_imag_id;
-    private int right_imag_id;
-
+public class CustomTitleBar extends RelativeLayout implements View.OnClickListener {
+    // 控价
+    private ImageView leftImage,rightImage;
+    private TextView titleTextView,rightTextView;
+    // 自定义属性值
+    private String titleText,rightText;
+    private int leftImagId,rightImageId;
+    private boolean isRightTextShow; // 判定右边文字是否显示
     public CustomTitleBar(Context context) {
         super(context);
         initView(context);
     }
+
     public CustomTitleBar(Context context, AttributeSet attrs) {
         super(context, attrs);
         initView(context);
         initValue(context,attrs);
     }
+
+
+
     public CustomTitleBar(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initView(context);
         initValue(context,attrs);
     }
 
-
     private void initView(Context context) {
-        // 拿到布局 add到当前页面
-       LayoutInflater.from(context).inflate(R.layout.view_title_bar,this);
-       // 拿到布局控件
-        leftIv = findViewById(R.id.title_bar_lift_iv);
-        rightIv = findViewById(R.id.title_bar_right_iv);
-        rightTv = findViewById(R.id.title_bar_right_text);
-        titleTv = findViewById(R.id.title_bar_title_text);
-        // 可对 控件进项操作
+        // 获取视图 添加 自身布局
+        LayoutInflater.from(context).inflate(R.layout.view_title_bar,this);
+        // 获取 控件
+        leftImage = findViewById(R.id.leftImage);
+        rightImage = findViewById(R.id.rightImage);
+        titleTextView = findViewById(R.id.titleText);
+        rightTextView = findViewById(R.id.rightText);
 
+        leftImage.setOnClickListener(this);
+        rightImage.setOnClickListener(this);
     }
 
     private void initValue(Context context, AttributeSet attrs) {
         // 获取自定义属性
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.CustomTitleBar);
-        right_text_is_show = typedArray.getBoolean(R.styleable.CustomTitleBar_isRightTextShow,false);
-        title_text = typedArray.getString(R.styleable.CustomTitleBar_title);
-        right_text = typedArray.getString(R.styleable.CustomTitleBar_rightText);
-        left_imag_id = typedArray.getResourceId(R.styleable.CustomTitleBar_liftIvId,R.mipmap.top_bar_left_back);
-        right_imag_id = typedArray.getResourceId(R.styleable.CustomTitleBar_rightIvId,R.mipmap.icon_more);
+        titleText = typedArray.getString(R.styleable.CustomTitleBar_titleText);
+        rightText = typedArray.getString(R.styleable.CustomTitleBar_rightText);
+        leftImagId = typedArray.getResourceId(R.styleable.CustomTitleBar_leftImageId,R.drawable.back);
+        rightImageId = typedArray.getResourceId(R.styleable.CustomTitleBar_rightImageId,R.drawable.dot);
+        isRightTextShow = typedArray.getBoolean(R.styleable.CustomTitleBar_isRightTextShow,false);
 
-        // 设置属性
-        rightTv.setText(right_text);
-        if (right_text_is_show){
-            rightTv.setVisibility(VISIBLE);
+        // 把自定义属性 设置给控件
+        if (isRightTextShow){
+            rightTextView.setVisibility(VISIBLE);
         }else {
-            rightTv.setVisibility(GONE);
+            rightTextView.setVisibility(GONE);
         }
-        titleTv.setText(title_text);
-
-        leftIv.setImageResource(left_imag_id);
-        rightIv.setImageResource(right_imag_id);
-
-        this.setBackgroundColor(Color.WHITE); // 默认背景为白色
+        titleTextView.setText(titleText);
+        leftImage.setImageResource(leftImagId);
+        rightImage.setImageResource(rightImageId);
+        rightTextView.setText(rightText);
     }
 
-    // 对外提供 获取控件的get方法
-
-
-    public ImageView getRightIv() {
-        return rightIv;
+    // 点击事件
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.leftImage) {
+            if (onCustomTitleBarLisenner != null){
+                onCustomTitleBarLisenner.leftOk();
+            }
+        }else if (view.getId() == R.id.rightImage){
+            if (onCustomTitleBarLisenner != null){
+                onCustomTitleBarLisenner.rightOk();
+            }
+        }
     }
 
-    public ImageView getLeftIv() {
-        return leftIv;
+    public interface OnCustomTitleBarLisenner{
+        void leftOk();
+        void rightOk();
     }
+    private OnCustomTitleBarLisenner onCustomTitleBarLisenner;
 
-    public TextView getRightTv() {
-        return rightTv;
-    }
-
-    public TextView getTitleTv() {
-        return titleTv;
+    public void setOnCustomTitleBarLisenner(OnCustomTitleBarLisenner onCustomTitleBarLisenner) {
+        this.onCustomTitleBarLisenner = onCustomTitleBarLisenner;
     }
 }
