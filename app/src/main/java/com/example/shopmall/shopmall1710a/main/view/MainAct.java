@@ -18,8 +18,7 @@ public class MainAct extends AppCompatActivity implements OnTabSelectListener {
 
     private FrameLayout actMainFramel;
     private CommonTabLayout actMainTabl;
-
-
+    //创建集合
     private ArrayList<CustomTabEntity> flist = new ArrayList<>();
 
     private Fragment homeFrag;
