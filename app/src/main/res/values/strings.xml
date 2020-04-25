@@ -4,4 +4,7 @@
     <string name="main_right_tv_content">消息</string>
 
     <string name="main_title_proper">使用属性设置标题</string>
+    <string name="fragment_home_content">首页Fragment</string>
+    <string name="fragment_type_content">类型</string>
+    <string name="fragment_mine_content">个人中心</string>
 </resources>

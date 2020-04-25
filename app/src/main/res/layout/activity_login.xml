@@ -3,6 +3,12 @@
               android:orientation="vertical" android:layout_width="match_parent"
               android:layout_height="match_parent">
 
+    <com.example.shopmall.framework.view.ToolBar android:layout_width="match_parent"
+                                                 android:layout_height="60dp"
+    android:id="@+id/toolBar">
+
+    </com.example.shopmall.framework.view.ToolBar>
+
 
     <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
 

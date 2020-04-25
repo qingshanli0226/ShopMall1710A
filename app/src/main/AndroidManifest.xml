@@ -19,9 +19,13 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".MainActivity"/>
+        <activity android:name=".main.MainActivity"
+        android:launchMode="singleTask"/>
 
         <service android:name="com.example.shopmall.framework.service.ShopMallService"/>
+
+        <activity android:name=".login.view.BetterLoginActivity"
+        android:launchMode="singleTop"/>
     </application>
 
 </manifest>

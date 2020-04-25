@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">framework</string>
-    <string name="tool_bar_title_content"></string>
+    <string name="tool_bar_title_content">测试</string>
+
+    <string name="fragment_home_content">首页Fragment</string>
+    <string name="fragment_type_content">类型</string>
+    <string name="fragment_mine_content">个人中心</string>
 </resources>

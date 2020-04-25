@@ -1,5 +1,6 @@
 package com.example.shopmall.shopmall1710a.login.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,7 @@ import com.example.shopmall.shopmall1710a.login.mode.BetterLoginBean;
 import com.example.shopmall.shopmall1710a.login.mode.LoginBean;
 import com.example.shopmall.shopmall1710a.login.presenter.BetterLoginPresenter;
 import com.example.shopmall.shopmall1710a.login.presenter.BetterLogoutPresenter;
+import com.example.shopmall.shopmall1710a.main.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,6 +88,11 @@ public class BetterLoginActivity extends BaseActivity<Object> implements View.On
     @Override
     public void onHtttpReceived(int requstCode, Object data) {
         Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("index",0);
+        startActivity(intent);
+
         finish();
     }
 

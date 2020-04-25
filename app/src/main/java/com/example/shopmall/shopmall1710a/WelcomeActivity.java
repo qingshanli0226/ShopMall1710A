@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.widget.TextView;
+import com.example.shopmall.shopmall1710a.main.MainActivity;
 
 public class WelcomeActivity extends AppCompatActivity {
 
