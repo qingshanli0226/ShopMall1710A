@@ -2,6 +2,7 @@ package com.example.shopmall.framework.customView;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,6 +46,7 @@ public class CustomTitleBar extends RelativeLayout implements View.OnClickListen
         rightImage = findViewById(R.id.rightImage);
         titleTextView = findViewById(R.id.titleText);
         rightTextView = findViewById(R.id.rightText);
+        rightTextView.setTextColor(Color.WHITE);
 
         leftImage.setOnClickListener(this);
         rightImage.setOnClickListener(this);

@@ -9,9 +9,6 @@ import android.util.Log;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.shopmall.common.Constant;
 import com.example.shopmall.framework.service.ShopMallService;
-
-
-//单例，负责整个应用的存储功能
 public class CacheManager {
     private IHomeDataListener iHomeDataListener;
 
@@ -23,13 +20,11 @@ public class CacheManager {
         if (instance == null) {
             instance = new CacheManager();
         }
-
         return instance;
     }
-    //初始化函数
     public void init(final Context context) {
         Log.i("boss", "init: 注册");
-                //在初始化方法里去启动并且绑定service
+        //在初始化方法里去启动并且绑定service
         Intent intent = new Intent();
         intent.setClass(context, ShopMallService.class);
 

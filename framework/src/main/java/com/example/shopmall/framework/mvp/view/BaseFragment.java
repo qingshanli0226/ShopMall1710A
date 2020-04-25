@@ -86,7 +86,7 @@ public abstract class BaseFragment<T> extends Fragment implements IBaseFragment,
 
     @Override
     public <T extends View> T findViewById(int id) {
-        return findViewById(id);
+        return baseView.findViewById(id);
     }
 
     @Override

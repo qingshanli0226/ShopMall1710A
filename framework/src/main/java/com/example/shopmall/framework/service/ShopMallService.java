@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
-//负责后台任务,例如换出的处理,保活功能
 public class ShopMallService extends Service {
 
     @Override

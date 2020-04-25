@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-    <com.example.framework.customView.CustomTitleBar
-            android:id="@+id/customTitleBar"
+    <com.example.shopmall.framework.customView.CustomTitleBar
             android:layout_width="match_parent"
             android:layout_height="30dp"
             app:isRightTextShow="false"
             app:leftImageId="@drawable/back"
             app:rightImageId="@drawable/dot"
-            app:titleText="商品详情"/>
+            app:titleText="@string/user_title"
+            android:id="@+id/customTitleBar"/>
+    <Button android:layout_width="match_parent"
+            android:layout_height="@dimen/dp50"
+            android:layout_marginTop="@dimen/dp100"
+            android:id="@+id/userLoginBtn"/>
 
     <ProgressBar
             android:id="@+id/loadingBar"
@@ -20,4 +24,4 @@
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"/>
 
-</LinearLayout>
+</RelativeLayout>

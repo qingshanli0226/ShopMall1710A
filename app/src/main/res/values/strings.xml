@@ -1,3 +1,29 @@
 <resources>
     <string name="app_name">小白优品</string>
+    <!--home-->
+    <string name="home_et_hint_text">请输入搜索内容</string>
+    <!--详情页-->
+    <string name="details_date">截至日期10月15日</string>
+    <string name="details_deliver_goods">发货:</string>
+    <string name="details_shop_name">小白优品</string>
+    <string name="details_select">请选择方式</string>
+    <string name="details_hint">温馨提示:普通商品享有质量问题7天无理由退换,签收后3个工作日内可换货.其它特殊商品(如手办)的售后以页面为标准</string>
+    <string name="details_map_title">图文详解</string>
+    <string name="details_shop_details">商品详情</string>
+    <!--登录页面-->
+    <!--user页面-->
+    <string name="user_title">用户</string>
+    <!--登录页面-->
+    <string name="login_phone_number">请输入手机号</string>
+    <string name="login_pwd">请输入密码</string>
+    <string name="login_reminder">其他方式登录</string>
+    <!--公共-->
+    <string name="login_title">登录</string>
+
+    <!--titleBar-->
+    <string name="titleBarText">商品详情</string>
+    <string name="titleBarTextFind">发现</string>
+    <string name="titleBarTextType">分类</string>
+    <string name="titleBarTextCar">购物车</string>
+
 </resources>

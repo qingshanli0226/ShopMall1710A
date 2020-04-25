@@ -22,9 +22,12 @@ public class Constant {
     public static final String SP_CACHE_HOME_DATA_INFO = "cache_home_data"; // 缓存首页数据
 
     //----------------------ARouter Path-----------------------
-    // ACT
-    public static final String ROUTER_PATH_MAIN_ACT = "/app_module/MainAct";
-    public static final String ROUTER_PATH_DETAILS_PAGE_ACT= "/app_module/DetailsPageAct";
-    // FRG
-    public static final String ROUTER_PATH_HOME_FRG= "/app_module/HomeFragment";
+    // Activity
+    public static final String ROUTER_PATH_MAIN_ACTIVITY = "/app_module/MainActivity";
+    public static final String ROUTER_PATH_DETAILS_PAGE_ACTIVITY= "/app_module/DetailsPageActivity";
+    public static final String ROUTER_PATH_LOGIN_ACTIVITY = "/app_module/LoginActivity";
+    // Fragment
+    public static final String ROUTER_PATH_HOME_FRAGMENT= "/app_module/HomeFragment";
+    public static final String ROUTER_PATH_USER_FRAGMENT = "/app_module/UserFragment";
+
 }

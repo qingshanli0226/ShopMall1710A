@@ -11,10 +11,5 @@ public class ShoppingApplication extends Application {
         super.onCreate();
         AppCore.getInstance().init(this);
         CacheManager.getInstance().init(this);
-
-        ARouter.openDebug();
-        ARouter.openLog();
-        ARouter.init(this);
-
     }
 }

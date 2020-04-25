@@ -82,6 +82,34 @@ public class CustomBottomBar extends LinearLayout implements RadioGroup.OnChecke
             radioButtons.get(i).setText(bottomBeans.get(i).getTitle());
             radioButtons.get(i).setCompoundDrawables(null,listp.get(i),null,null);
         }
+
+//        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+//            @Override
+//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//
+//            }
+//
+//            @Override
+//            public void onPageSelected(int position) {
+//                switch (position){
+//                    case 0:
+//                        rb1.setChecked(true);
+//                    case 1:
+//                        rb2.setChecked(true);
+//                    case 2:
+//                        rb3.setChecked(true);
+//                    case 3:
+//                        rb4.setChecked(true);
+//                    case 4:
+//                        rb5.setChecked(true);
+//                }
+//            }
+//
+//            @Override
+//            public void onPageScrollStateChanged(int state) {
+//
+//            }
+//        });
     }
 
     @Override

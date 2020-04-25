@@ -4,19 +4,19 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-    <com.example.framework.customView.CustomTitleBar
-            android:id="@+id/customTitleBar"
+    <com.example.shopmall.framework.customView.CustomTitleBar
             android:layout_width="match_parent"
             android:layout_height="30dp"
             app:isRightTextShow="false"
             app:leftImageId="@drawable/back"
             app:rightImageId="@drawable/dot"
-            app:titleText="商品详情"/>
+            app:titleText="@string/titleBarTextType"
+            android:id="@+id/customTitleBar"/>
 
     <ProgressBar
             android:id="@+id/loadingBar"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="@dimen/dp100"
+            android:layout_height="@dimen/dp100"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"/>
 </LinearLayout>

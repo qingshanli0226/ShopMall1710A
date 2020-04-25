@@ -4,24 +4,41 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-    <com.example.framework.customView.CustomTitleBar
-            android:id="@+id/customTitleBar"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            app:isRightTextShow="false"
-            app:leftImageId="@drawable/back"
-            app:rightImageId="@drawable/dot"
-            app:titleText="商品详情"/>
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="40dp">
+        <com.example.shopmall.framework.customView.CustomTitleBar
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                app:isRightTextShow="true"
+                app:leftImageId="@drawable/back"
+                app:rightImageId="@drawable/envelope"
+                app:titleText="商品详情"
+                app:rightText="消息"
+                android:id="@+id/customTitleBar"
+                android:background="#CE1708"/>
+        <EditText android:layout_width="match_parent"
+                  android:layout_height="@dimen/dp25"
+                  android:layout_marginTop="8dp"
+                  android:layout_marginLeft="10dp"
+                  android:layout_marginRight="50dp"
+                  android:background="@drawable/search_home_shape"
+                  android:hint="@string/home_et_hint_text"
+                  android:textSize="13sp"
+                  android:paddingLeft="33dp"
+                  android:id="@+id/main_top_find"/>
+        <ImageView android:layout_width="18dp" android:layout_height="18dp"
+                   android:background="@mipmap/home_search_icon"
+                   android:layout_marginLeft="17dp"
+                   android:layout_marginTop="12dp"/>
+    </RelativeLayout>
     <ProgressBar
             android:id="@+id/loadingBar"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="@dimen/dp100"
+            android:layout_height="@dimen/dp100"
             android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"/>
+            android:layout_centerHorizontal="true" />
     <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/home_rv"
+            android:id="@+id/homeRv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="50dp"/>
-
+            android:layout_marginTop="@dimen/dp50"/>
 </RelativeLayout>

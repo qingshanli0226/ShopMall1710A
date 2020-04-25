@@ -16,20 +16,28 @@
     <dimen name="dp20">20dp</dimen>
     <dimen name="dp25">25dp</dimen>
     <dimen name="dp30">30dp</dimen>
-    <dimen name="dp40">40dp</dimen>   
+    <dimen name="dp40">40dp</dimen>
     <dimen name="dp50">50dp</dimen>
-    
+
     <dimen name="dp100">100dp</dimen>
     <dimen name="dp200">200dp</dimen>
     <dimen name="dp300">300dp</dimen>
     <dimen name="dp400">400dp</dimen>
-    <dimen name="dp500">500dp</dimen>   
-    
-    <dimen name="dp150">150dp</dimen>    
-    <dimen name="dp250">250dp</dimen>    
-    <dimen name="dp350">350dp</dimen>    
-    <dimen name="dp450">450dp</dimen>    
-    
+    <dimen name="dp500">500dp</dimen>
+
+    <dimen name="dp150">150dp</dimen>
+    <dimen name="dp170">170dp</dimen>
+    <dimen name="dp190">190dp</dimen>
+    <dimen name="dp210">210dp</dimen>
+    <dimen name="dp230">230dp</dimen>
+    <dimen name="dp250">250dp</dimen>
+    <dimen name="dp270">270dp</dimen>
+    <dimen name="dp290">290dp</dimen>
+    <dimen name="dp310">310dp</dimen>
+    <dimen name="dp330">330dp</dimen>
+    <dimen name="dp350">350dp</dimen>
+    <dimen name="dp450">450dp</dimen>
+
     <!--偏移量 外边距-->
     <dimen name="margin5">5</dimen>
     <dimen name="margin10">10</dimen>
@@ -83,6 +91,11 @@
     <dimen name="padding30">30</dimen>
 
     <!--文字大小-->
+    <dimen name="sp5">5sp</dimen>
+    <dimen name="sp6">6sp</dimen>
+    <dimen name="sp7">7sp</dimen>
+    <dimen name="sp8">8sp</dimen>
+    <dimen name="sp9">9sp</dimen>
     <dimen name="sp10">10sp</dimen>
     <dimen name="sp11">11sp</dimen>
     <dimen name="sp12">12sp</dimen>
@@ -94,5 +107,4 @@
     <dimen name="sp18">18sp</dimen>
     <dimen name="sp19">19sp</dimen>
     <dimen name="sp20">20sp</dimen>
-
 </resources>

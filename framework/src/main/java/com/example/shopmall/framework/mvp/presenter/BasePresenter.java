@@ -30,12 +30,10 @@ public abstract class BasePresenter<T,V extends IBaseView<T>> implements IPresen
             mView = null;
         }
     }
-
     //必须子类实现，返回具体的网络接口地址
     protected abstract String getPath();
     // 获取解析类型 , 子类实现
     public abstract Type getBeanType();
-
     @Override
     public void getHttpData(final int requestCode) {
         RetrofitManager.getNetAPIService()
@@ -67,7 +65,6 @@ public abstract class BasePresenter<T,V extends IBaseView<T>> implements IPresen
                         mView.onHttpReceivedFailed(requestCode, ErrorUtil.handleError(e));
                     }
                 });
-
     }
     //定义通用方法，所有的post请求,参数以表单形式发送的,都可以通过该方法获取数据
     @Override

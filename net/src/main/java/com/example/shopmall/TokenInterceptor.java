@@ -10,7 +10,6 @@ import java.io.IOException;
 
 //定义添加token的拦截器，
 public class TokenInterceptor implements Interceptor {
-
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();

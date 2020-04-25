@@ -11,13 +11,17 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-            <activity android:name=".main.view.MainActivity">
+            <activity android:name=".main.view.MainActivity"
+                android:launchMode="singleTask">
                 <intent-filter>
                     <action android:name="android.intent.action.MAIN" />
 
                     <category android:name="android.intent.category.LAUNCHER" />
                 </intent-filter>
             </activity>
+        <!--商品详情页-->
+        <activity android:name=".home.view.DetailsPageActivity"/>
+        <activity android:name=".main.view.LoginActivity"/>
     </application>
 
 </manifest>

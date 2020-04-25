@@ -12,7 +12,6 @@ import java.util.concurrent.TimeUnit;
 
 public class RetrofitManager {
     private static NetApiInterface netApiInterface;
-
     //全局的网络框架
     public static NetApiInterface getNetAPIService () {
         if (netApiInterface == null) {
