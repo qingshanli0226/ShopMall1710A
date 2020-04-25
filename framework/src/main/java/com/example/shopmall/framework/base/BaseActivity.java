@@ -75,6 +75,9 @@ public abstract class BaseActivity<T> extends AppCompatActivity implements IBase
     //强制presenter去调用detachView,把presenter对页面的引用置成空，避免内存泄漏
     protected void destroyPresenter() {
         List<IPresenter<T>> presenterList = getPresenter();
+        if (presenterList==null){
+            return;
+        }
         for(IPresenter<T> item : presenterList) {
             item.detachView();
         }

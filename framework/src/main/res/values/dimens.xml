@@ -1,4 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="toor_bar_title_textsize">30sp</dimen>
+    <dimen name="tool_bar">60dp</dimen>
+    <dimen name="activity_recomend_image">300dp</dimen>
+    <dimen name="marginTop">10dp</dimen>
+    <dimen name="sp_20">20sp</dimen>
+    <dimen name="bottom_bar">330dp</dimen>
+    <dimen name="progress_bar">100dp</dimen>
+    <dimen name="dp_30">30sp</dimen>
+    <dimen name="px_45">45px</dimen>
+    <dimen name="px_40">40px</dimen>
+    <dimen name="dp_15">15dp</dimen>
+    <dimen name="dp_5">5dp</dimen>
+    <dimen name="dp_60">60dp</dimen>
+    <dimen name="dp_360">360dp</dimen>
+    <dimen name="dp_90">90dp</dimen>
+    <dimen name="dp_170">170dp</dimen>
+    <dimen name="dp_50">50dp</dimen>
+    <dimen name="dp_130">130dp</dimen>
+    <dimen name="dp_1">1dp</dimen>
+    <dimen name="dp_45">45dp</dimen>
+    <dimen name="dp_80">80dp</dimen>
+    <dimen name="px_50">50px</dimen>
 </resources>

@@ -31,7 +31,6 @@ public class BottomBar extends LinearLayout implements RadioGroup.OnCheckedChang
     private List<ButtonInfo> list = new ArrayList<>();
     private List<RadioButton> radioButtons = new ArrayList<>();
     private ViewPager pager;
-
     public BottomBar(Context context) {
         super(context);
         init(context,null);
@@ -63,8 +62,10 @@ public class BottomBar extends LinearLayout implements RadioGroup.OnCheckedChang
         radioButtons.add(radioButton05);
 
     }
+
     public void setOnCheckedChangeListener(){
         radioGroup.setOnCheckedChangeListener(this);
+
     }
 
     public void setBackground(@DrawableRes int background) {
@@ -77,12 +78,13 @@ public class BottomBar extends LinearLayout implements RadioGroup.OnCheckedChang
         else
             setData(-1);
     }
-    private void setData(int num) {
+    public void setData(int num) {
         Drawable drawable = null;
         for (int i = 0; i < list.size(); i++) {
             if (num==i){
                 if (list.get(i).getSelectPic()!=0){
                     drawable = getResources().getDrawable(list.get(i).getSelectPic());
+
                 }else {
                     drawable = getResources().getDrawable(list.get(i).getUnSelectPic());
                 }
@@ -108,12 +110,30 @@ public class BottomBar extends LinearLayout implements RadioGroup.OnCheckedChang
             radioButtons.get(i).setVisibility(GONE);
         }
     }
-
+    public void setCheckInt(int num){
+        for (int i = 0; i < radioButtons.size(); i++) {
+            radioButtons.get(num).setChecked(true);
+        }
+    }
     public void withPager(ViewPager pager){
         this.pager = pager;
+        pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+                setCheckInt(i);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
     }
-
-
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         if (group.getCheckedRadioButtonId() == R.id.btn01) {
@@ -121,16 +141,16 @@ public class BottomBar extends LinearLayout implements RadioGroup.OnCheckedChang
             pager.setCurrentItem(0);
         }else if (group.getCheckedRadioButtonId() == R.id.btn02) {
             setData(1);
-            pager.setCurrentItem(0);
+            pager.setCurrentItem(1);
         }else if (group.getCheckedRadioButtonId() == R.id.btn03) {
             setData(2);
-            pager.setCurrentItem(0);
+            pager.setCurrentItem(2);
         }else if (group.getCheckedRadioButtonId() == R.id.btn04) {
             setData(3);
-            pager.setCurrentItem(0);
+            pager.setCurrentItem(3);
         }else if (group.getCheckedRadioButtonId() == R.id.btn05) {
             setData(4);
-            pager.setCurrentItem(0);
+            pager.setCurrentItem(4);
         }
     }
 }

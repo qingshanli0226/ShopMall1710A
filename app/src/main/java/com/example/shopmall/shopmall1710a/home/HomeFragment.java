@@ -64,7 +64,6 @@ public class HomeFragment extends BaseFragment<ResultBean> implements CacheManag
 
     @Override
     protected void initView() {
-        toorBar=rootView.findViewById(R.id.toor_bar);
         reView = (RecyclerView) rootView.findViewById(R.id.re_view);
 
         loadingBar = rootView.findViewById(R.id.progressBar);

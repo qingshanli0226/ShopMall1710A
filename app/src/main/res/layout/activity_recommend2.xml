@@ -7,16 +7,16 @@
         android:layout_height="match_parent"
         tools:context=".RecommendActivity">
         <com.example.shopmall.framework.view.ToorBar
-                android:id="@+id/toor_bar_recommend"
+                android:id="@+id/toor_bar"
                 android:layout_width="match_parent"
-                android:layout_height="60dp">
+                android:layout_height="@dimen/tool_bar">
 
         </com.example.shopmall.framework.view.ToorBar>
         <ImageView
-                android:layout_below="@id/toor_bar_recommend"
+                android:layout_below="@id/toor_bar"
                 android:id="@+id/pic"
                 android:layout_width="match_parent"
-                android:layout_height="300dp">
+                android:layout_height="@dimen/activity_recomend_image">
 
         </ImageView>
     <TextView
@@ -31,7 +31,7 @@
             android:text="预售截止10月15日，预售期为限量礼盒版，包括特制木盒"
 
             android:layout_below="@id/title1"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/marginTop"
             android:id="@+id/title2"
             android:textColor="#8F8F8F"
             android:layout_width="match_parent"
@@ -42,7 +42,7 @@
             android:layout_below="@id/title2"
             android:id="@+id/price"
             android:textColor="#FF0000"
-            android:textSize="20sp"
+            android:textSize="@dimen/sp_20"
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -55,7 +55,7 @@
         <com.example.shopmall.framework.view.BottomBar
                 android:id="@+id/bottomBar_recommend"
 
-                android:layout_width="330dp"
+                android:layout_width="@dimen/bottom_bar"
                 android:layout_height="wrap_content">
 
         </com.example.shopmall.framework.view.BottomBar>

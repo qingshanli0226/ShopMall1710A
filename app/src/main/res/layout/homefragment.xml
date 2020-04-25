@@ -9,18 +9,18 @@
             android:background="#FF0B0B"
             android:id="@+id/toor_bar"
             android:layout_width="match_parent"
-            android:layout_height="60dp">
+            android:layout_height="@dimen/dp_60">
 
     </com.example.shopmall.framework.view.ToorBar>
     <EditText
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="@dimen/dp_15"
             android:id="@+id/edit_print"
             android:background="#fff"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="@dimen/dp_5"
             android:hint="输入搜索信息"
             android:drawableLeft="@drawable/home_search_icon"
-            android:layout_width="360dp"
-            android:layout_height="30dp">
+            android:layout_width="@dimen/dp_360"
+            android:layout_height="@dimen/dp_30">
 
     </EditText>
 
@@ -31,7 +31,7 @@
             android:layout_height="match_parent">
 
     </android.support.v7.widget.RecyclerView>
-    <ProgressBar android:layout_width="100dp" android:layout_height="100dp"
+    <ProgressBar android:layout_width="@dimen/progress_bar" android:layout_height="@dimen/progress_bar"
             android:id="@+id/progressBar"
             android:layout_centerInParent="true"
             android:visibility="gone"/>

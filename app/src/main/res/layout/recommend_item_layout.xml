@@ -8,10 +8,10 @@
     <ImageView
             android:id="@+id/pic"
             android:layout_width="match_parent"
-            android:layout_height="80dp"></ImageView>
+            android:layout_height="@dimen/dp_80"></ImageView>
     <TextView
-            android:paddingLeft="50px"
-            android:paddingRight="50px"
+            android:paddingLeft="@dimen/px_50"
+            android:paddingRight="@dimen/px_50"
             android:gravity="center"
             android:id="@+id/title"
             android:textColor="#323131"

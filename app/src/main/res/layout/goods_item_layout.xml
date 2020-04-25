@@ -16,7 +16,7 @@
                 android:layout_height="wrap_content">
         </ImageView>
         <TextView
-                android:padding="40px"
+                android:padding="@dimen/px_40"
                 android:textColor="#101010"
                 android:id="@+id/title"
                 android:lines="2"
