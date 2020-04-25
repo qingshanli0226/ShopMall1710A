@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends BaseFragment<Object> implements CacheManager.IHomeDataListener {
-    private View inflate;
+
     private RecyclerView recyclerView;
     private List<HomeBean.ResultBean.HotInfoBean> hotInfoBeanList = new ArrayList<>();
     private List<HomeBean.ResultBean.ChannelInfoBean> channelInfoBeanList = new ArrayList<>();
@@ -57,7 +57,7 @@ public class HomeFragment extends BaseFragment<Object> implements CacheManager.I
 
     @Override
     protected void initView() {
-        inflate = LayoutInflater.from(getContext()).inflate(getLayoutId(), null);
+//        inflate = LayoutInflater.from(getContext()).inflate(getLayoutId(), null);
 //        MyToolBar myToolBar = inflate.findViewById(R.id.myToolBar);
 //        myToolBar.setToolBarClickListener(this);
         recyclerView = inflate.findViewById(R.id.recyclerView);
@@ -170,13 +170,11 @@ public class HomeFragment extends BaseFragment<Object> implements CacheManager.I
 
     @Override
     public void onLeftImgClick() {
-
         Toast.makeText(getContext(), "dd", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onRightImgClick() {
-        super.onRightImgClick();
         Toast.makeText(getContext(), "dd", Toast.LENGTH_SHORT).show();
     }
 }

@@ -15,7 +15,7 @@ import java.util.List;
 public abstract class BaseFragment<T> extends Fragment implements IBaseView<T>,MyToolBar.ToolBarListener {
     protected ProgressBar loadingBar;
     private MyToolBar myToolBar;
-    private View inflate;
+    protected View inflate;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         inflate = inflater.inflate(getLayoutId(), container, false);
