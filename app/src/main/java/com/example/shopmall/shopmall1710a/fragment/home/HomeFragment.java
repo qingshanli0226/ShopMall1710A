@@ -14,7 +14,6 @@ import com.example.shopmall.common.ErrorBean;
 import com.example.shopmall.framework.base.BaseFragment;
 import com.example.shopmall.framework.base.IPresenter;
 import com.example.shopmall.framework.manager.CacheManager;
-import com.example.shopmall.framework.view.MyToolBar;
 import com.example.shopmall.shopmall1710a.R;
 import com.example.shopmall.shopmall1710a.fragment.home.adapter.ChannelInfoAdapter;
 import com.example.shopmall.shopmall1710a.fragment.home.adapter.HomeAdapter;
@@ -52,13 +51,13 @@ public class HomeFragment extends BaseFragment<Object> implements CacheManager.I
     }
 
     @Override
-    public View getLayoutId() {
-        return inflate;
+    public int getLayoutId() {
+        return R.layout.fragment_home;
     }
 
     @Override
     protected void initView() {
-        inflate = LayoutInflater.from(getContext()).inflate(R.layout.fragment_home, null);
+        inflate = LayoutInflater.from(getContext()).inflate(getLayoutId(), null);
 //        MyToolBar myToolBar = inflate.findViewById(R.id.myToolBar);
 //        myToolBar.setToolBarClickListener(this);
         recyclerView = inflate.findViewById(R.id.recyclerView);

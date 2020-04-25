@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.example.shopmall.framework.R;
 import com.example.shopmall.framework.view.MyToolBar;
@@ -19,14 +18,14 @@ public abstract class BaseFragment<T> extends Fragment implements IBaseView<T>,M
     private View inflate;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        inflate = inflater.inflate(R.layout.activity_framework, container, false);
+        inflate = inflater.inflate(getLayoutId(), container, false);
         loadingBar = inflate.findViewById(R.id.loadingBar);
         initView();//初始化控件
         myToolBar = inflate.findViewById(R.id.myToolBar);
         myToolBar.setToolBarClickListener(this);
         initPresenter();//初始化presenter
         initData();//初始化数据
-        return getLayoutId();
+        return inflate;
     }
 
     @Override
@@ -55,10 +54,9 @@ public abstract class BaseFragment<T> extends Fragment implements IBaseView<T>,M
 
     /**
      * 需要子类提供layoutID
+     * @return
      */
-    public  View getLayoutId(){
-        return inflate;
-    };
+    public abstract int getLayoutId();
 
     /**
      * 初始化控件
