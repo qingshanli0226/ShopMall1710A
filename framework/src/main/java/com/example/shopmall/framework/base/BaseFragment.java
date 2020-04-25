@@ -56,7 +56,9 @@ public abstract class BaseFragment<T> extends Fragment implements IBaseView<T>,M
     /**
      * 需要子类提供layoutID
      */
-    public abstract View getLayoutId();
+    public  View getLayoutId(){
+        return inflate;
+    };
 
     /**
      * 初始化控件

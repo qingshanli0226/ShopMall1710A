@@ -58,10 +58,9 @@ public class HomeFragment extends BaseFragment<Object> implements CacheManager.I
 
     @Override
     protected void initView() {
-
         inflate = LayoutInflater.from(getContext()).inflate(R.layout.fragment_home, null);
-        MyToolBar myToolBar = inflate.findViewById(R.id.myToolBar);
-        myToolBar.setToolBarClickListener(this);
+//        MyToolBar myToolBar = inflate.findViewById(R.id.myToolBar);
+//        myToolBar.setToolBarClickListener(this);
         recyclerView = inflate.findViewById(R.id.recyclerView);
         banner = inflate.findViewById(R.id.banner);
         rvChannelInfo = inflate.findViewById(R.id.rv_channel_info);
