@@ -38,7 +38,6 @@ public abstract class BaseFragment<T> extends Fragment implements IBaseView<T>,M
 
     }
 
-
     //使presenter和页面关联起来
     private void initPresenter() {
         List<IPresenter<T>> presenterList = getPresenter();
