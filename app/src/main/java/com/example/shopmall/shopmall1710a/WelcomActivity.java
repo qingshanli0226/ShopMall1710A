@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.example.shopmall.shopmall1710a.login.view.BetterLoginActivity;
 
 public class WelcomActivity extends AppCompatActivity {
     private Handler handler = new Handler();
@@ -22,7 +23,7 @@ public class WelcomActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(WelcomActivity.this, Main2Activity.class);
+                Intent intent = new Intent(WelcomActivity.this, BetterLoginActivity.class);
                 startActivity(intent);
             }
         }, 3000);

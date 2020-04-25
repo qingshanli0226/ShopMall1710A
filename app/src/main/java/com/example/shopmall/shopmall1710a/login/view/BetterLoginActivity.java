@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.shopmall.common.ErrorBean;
 import com.example.shopmall.net.IBaseView;
+import com.example.shopmall.shopmall1710a.HomePagerActivity;
 import com.example.shopmall.shopmall1710a.R;
 import com.example.shopmall.shopmall1710a.login.mode.BetterLoginBean;
 import com.example.shopmall.shopmall1710a.login.presenter.BetterLoginPresenter;
@@ -30,7 +31,7 @@ public class BetterLoginActivity extends AppCompatActivity implements IBaseView<
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_login1);
 
         loginPresenter = new BetterLoginPresenter();
         logoutPresenter = new BetterLogoutPresenter();
@@ -82,6 +83,8 @@ public class BetterLoginActivity extends AppCompatActivity implements IBaseView<
     @Override
     public void onHtttpReceived(int requstCode, BetterLoginBean data) {
         Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, HomePagerActivity.class);
+        startActivity(intent);
         // finish();//登录成功后，关闭当前登录页面
     }
 

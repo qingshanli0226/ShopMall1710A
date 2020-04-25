@@ -9,14 +9,14 @@
             android:id="@+id/pager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="8"></android.support.v4.view.ViewPager>
+            android:layout_weight="8">
 
-    <com.flyco.tablayout.CommonTabLayout
-            android:id="@+id/menu"
+    </android.support.v4.view.ViewPager>
+
+    <com.example.shopmall.framework.view.BottomBar
+            android:id="@+id/bottomBar1"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@drawable/home_bottom_parent_bg"
-            app:tl_textSelectColor="#E91E63"
-            app:tl_textUnselectColor="#000"></com.flyco.tablayout.CommonTabLayout>
+            android:layout_height="wrap_content">
+
+    </com.example.shopmall.framework.view.BottomBar>
 </LinearLayout>

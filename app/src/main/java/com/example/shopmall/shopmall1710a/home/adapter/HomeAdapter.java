@@ -21,7 +21,7 @@ import com.youth.banner.loader.ImageLoader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
     private Context context;
     private ResultBean resultBean;
     private int currenType = 0;
@@ -121,6 +121,8 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return 6;
     }
 
+
+
     class BannerVH extends RecyclerView.ViewHolder{
         public Banner banner;
         public Context mContext;
@@ -195,12 +197,12 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public SeckillVH(@NonNull View itemView, Context context, ResultBean resultBean) {
             super(itemView);
             recyclerView = (RecyclerView) itemView.findViewById(R.id.Seckill_show);
-            textView = (TextView) itemView.findViewById(R.id.Seckill_title);
+        //    textView = (TextView) itemView.findViewById(R.id.Seckill_title);
             this.mContext = HomeAdapter.this.context;
             this.resultBean = resultBean;
         }
         public void setData(List<ResultBean.SeckillInfoBean.ListBean> list) {
-            textView.setText("今日闪购");
+           // textView.setText("今日闪购");
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
             linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
             recyclerView.setLayoutManager(linearLayoutManager);
@@ -225,6 +227,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
 
+
     class RecommondVH extends RecyclerView.ViewHolder{
         public TextView textView;
         public RecyclerView recyclerView;
@@ -233,15 +236,16 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public RecommondVH(@NonNull View itemView, Context context, ResultBean resultBean) {
             super(itemView);
             recyclerView = (RecyclerView) itemView.findViewById(R.id.Recommond_show);
-            textView = (TextView) itemView.findViewById(R.id.Recommmond_title);
+        //    textView = (TextView) itemView.findViewById(R.id.Recommmond_title);
             this.mContext = HomeAdapter.this.context;
             this.resultBean = resultBean;
         }
         public void setData(List<ResultBean.RecommendInfoBean> list) {
-            textView.setText("今日推荐");
+        //    textView.setText("新品推荐");
             GridLayoutManager gridLayoutManager = new GridLayoutManager(context,3);
             recyclerView.setLayoutManager(gridLayoutManager);
             recyclerView.setAdapter(new RecommondAdapter(R.layout.recommond_item,list));
+
         }
     }
 
@@ -253,12 +257,12 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public HotVH(@NonNull View itemView, Context context, ResultBean resultBean) {
             super(itemView);
             recyclerView = (RecyclerView) itemView.findViewById(R.id.Hot_show);
-            textView = (TextView) itemView.findViewById(R.id.Hot_title);
+         //   textView = (TextView) itemView.findViewById(R.id.Hot_title);
             this.mContext = HomeAdapter.this.context;
             this.resultBean = resultBean;
         }
         public void setData(List<ResultBean.HotInfoBean> list) {
-            textView.setText("这些都是买的棒棒哒");
+          //  textView.setText("这些都是买的棒棒哒");
             GridLayoutManager gridLayoutManager = new GridLayoutManager(context,2);
             recyclerView.setLayoutManager(gridLayoutManager);
             recyclerView.setAdapter(new HotAdapter(R.layout.hot_item,list));

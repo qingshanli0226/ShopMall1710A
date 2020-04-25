@@ -2,7 +2,9 @@ package com.example.shopmall.shopmall1710a.home;
 
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.shopmall.common.ErrorBean;
@@ -21,12 +23,15 @@ import java.util.List;
 
 public class HomeFragment extends BaseFragment<ResultBean> implements CacheManager.IHomeDataListener {
 
-    private android.support.v7.widget.RecyclerView reView;
+
+    private RecyclerView reView;
+    private ProgressBar loadingBar;
     private ArrayList<IPresenter<ResultBean>> iPresenters = new ArrayList<>();
     private HomeAdapter homeAdapter;
     private HomePresenter homePresenter;
     private Handler handler = new Handler();
     private BaseBean<ResultBean> baseBean;
+
 
     @Override
     protected int getLayoutId() {
@@ -35,9 +40,15 @@ public class HomeFragment extends BaseFragment<ResultBean> implements CacheManag
 
     @Override
     protected void initView() {
-
         reView = rootview.findViewById(R.id.re_view);
         loadingBar = rootview.findViewById(R.id.loadingBar);
+        toorBar.showAll(false);
+        toorBar.showRightImg(true);
+        toorBar.showRightTv(true);
+        toorBar.setRightImg(R.drawable.new_message_icon);
+        toorBar.setRightTv(R.string.home_right_tv);
+        toorBar.setTextSize(R.id.right_tv,14);
+
 
     }
 
@@ -56,6 +67,7 @@ public class HomeFragment extends BaseFragment<ResultBean> implements CacheManag
         reView.setAdapter(homeAdapter);
         reView.setLayoutManager(new LinearLayoutManager(getContext()));
         CacheManager.getInstance().registerIHomeListener(this);
+
     }
 
     @Override
@@ -91,4 +103,6 @@ public class HomeFragment extends BaseFragment<ResultBean> implements CacheManag
             }
         });
     }
+
+
 }

@@ -3,12 +3,34 @@
         android:orientation="vertical"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent" android:layout_height="match_parent">
-    <TextView
-            android:textColor="#000"
-            android:id="@+id/Recommmond_title"
-            android:padding="5dp"
+    <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="30dp"></TextView>
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="10dp">
+
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/home_arrow_left_new" />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="新品推荐"
+                android:textColor="#000" />
+
+        <TextView
+                android:id="@+id/tv_more_recommend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawablePadding="5dp"
+                android:drawableRight="@drawable/home_arrow_right"
+                android:gravity="end"
+                android:text="查看更多" />
+    </LinearLayout>
     <android.support.v7.widget.RecyclerView
             android:paddingLeft="@dimen/dp_10"
             android:paddingRight="@dimen/dp_10"

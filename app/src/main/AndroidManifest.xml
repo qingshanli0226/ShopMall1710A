@@ -13,26 +13,21 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
-        <service android:name="com.example.shopmall.framework.service.ShopMoreService"></service>
+        <activity android:name=".home.adapter.ShowItemActivity"></activity>
+
+        <service android:name="com.example.shopmall.framework.service.ShopMoreService" />
+
         <activity android:name=".WelcomActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Main2Activity">
-
-        </activity>
-        <activity android:name=".register.view.RegisterActivity">
-
-        </activity>
+        <activity android:name=".HomePagerActivity"></activity>
+        <activity android:name=".register.view.RegisterActivity"></activity>
         <activity android:name=".login.view.BetterLoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
     </application>
 
