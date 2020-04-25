@@ -4,7 +4,7 @@ import android.content.Intent;
 import com.bumptech.glide.Glide;
 import com.example.shopmall.common.ErrorBean;
 import com.example.shopmall.framework.base.view.BaseActivity;
-import com.example.shopmall.shopmall1710a.main.view.MainAct;
+import com.example.shopmall.shopmall1710a.main.view.activity.MainActivity;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -20,6 +20,11 @@ public class WelcomeActivity extends BaseActivity {
     }
 
     @Override
+    public void initToolBar() {
+
+    }
+
+    @Override
     public void initView() {
 
         actWelImv = findViewById(R.id.act_wel_imv);
@@ -32,7 +37,7 @@ public class WelcomeActivity extends BaseActivity {
             @Override
             public void run() {
                 if (num > 0) {
-                    Intent intent = new Intent(WelcomeActivity.this, MainAct.class);
+                    Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
                     startActivity(intent);
                     timer.cancel();
                 }

@@ -1,5 +1,8 @@
 package com.example.shopmall.shopmall1710a.main.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 public class Goods {
@@ -376,7 +379,7 @@ public class Goods {
         }
     }
 
-    public static class RecommendInfoBean {
+    public static class RecommendInfoBean implements Parcelable {
         /**
          * cover_price : 138.00
          * figure : /supplier/1478873740576.jpg
@@ -388,6 +391,26 @@ public class Goods {
         private String figure;
         private String name;
         private String product_id;
+
+        public RecommendInfoBean(Parcel parcel) {
+            this.cover_price = parcel.readString();
+            this.figure = parcel.readString();
+            this.name = parcel.readString();
+            this.product_id = parcel.readString();
+        }
+
+        public static final Creator<RecommendInfoBean> CREATOR = new Creator<RecommendInfoBean>() {
+            @Override
+            public RecommendInfoBean createFromParcel(Parcel parcel) {
+                return new RecommendInfoBean(parcel);
+            }
+
+            @Override
+            public RecommendInfoBean[] newArray(int i) {
+                return new RecommendInfoBean[i];
+            }
+        };
+
 
         public String getCover_price() {
             return cover_price;
@@ -419,6 +442,19 @@ public class Goods {
 
         public void setProduct_id(String product_id) {
             this.product_id = product_id;
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel parcel, int i) {
+            parcel.writeString(cover_price);
+            parcel.writeString(figure);
+            parcel.writeString(name);
+            parcel.writeString(product_id);
         }
     }
 }

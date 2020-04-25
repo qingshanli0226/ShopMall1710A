@@ -13,15 +13,18 @@
         <activity android:name=".login.view.BetterLoginActivity">
         </activity>
         <activity android:name=".login.view.BetterRegisterActivity"/>
-        <activity android:name=".main.view.MainAct">
+        <activity android:name=".main.view.activity.MainActivity">
 
         </activity>
-        <activity android:name=".WelcomeActivity">
+        <activity
+                android:launchMode="singleTask"
+                android:name=".WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".main.view.activity.GoodDetailActivity"/>
 
         <service android:name="com.example.shopmall.framework.services.ShopMallService"/>
 

@@ -1,11 +1,16 @@
 package com.example.shopmall.shopmall1710a.main.view.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
+import android.view.View;
 import android.widget.*;
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import com.bumptech.glide.Glide;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.example.shopmall.common.Constant;
 import com.example.shopmall.common.ErrorBean;
 import com.example.shopmall.framework.base.view.BaseFragment;
@@ -17,6 +22,7 @@ import com.example.shopmall.shopmall1710a.main.adapter.RecommendAdapter;
 import com.example.shopmall.shopmall1710a.main.adapter.SeckillAdapter;
 import com.example.shopmall.shopmall1710a.main.bean.Goods;
 import com.example.shopmall.shopmall1710a.main.presenter.HomePresenter;
+import com.example.shopmall.shopmall1710a.main.view.activity.GoodDetailActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.loader.ImageLoader;
 
@@ -58,6 +64,11 @@ public class HomeFrag extends BaseFragment<HomePresenter, Goods> implements IBas
     }
 
     @Override
+    public void initToolBar() {
+
+    }
+
+    @Override
     public void initView() {
 
         linHome = findViewById(R.id.lin_home);
@@ -73,7 +84,7 @@ public class HomeFrag extends BaseFragment<HomePresenter, Goods> implements IBas
 
         channelAdapter = new ChannelAdapter(R.layout.item_home_channel, channelList);
         homeRecycler.setAdapter(channelAdapter);
-        homeRecycler.setLayoutManager(new StaggeredGridLayoutManager(5, StaggeredGridLayoutManager.VERTICAL));
+        homeRecycler.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.HORIZONTAL));
 
         actAdapter = new ActAdapter(R.layout.item_home_act, actList);
         homeRecycler4.setAdapter(actAdapter);
@@ -130,6 +141,18 @@ public class HomeFrag extends BaseFragment<HomePresenter, Goods> implements IBas
         actAdapter.notifyDataSetChanged();
         channelAdapter.notifyDataSetChanged();
         seckillAdapter.notifyDataSetChanged();
+
+
+        recommendAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull BaseQuickAdapter adapter, @NonNull View view, int position) {
+                Intent intent = new Intent(getActivity(), GoodDetailActivity.class);
+                Goods.RecommendInfoBean recommendInfoBean = recList.get(position);
+                intent.putExtra("goods", recommendInfoBean);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void initBanner(List<Goods.BannerInfoBean> banner_info) {

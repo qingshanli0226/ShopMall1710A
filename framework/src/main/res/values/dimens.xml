@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="toolBarHeight">60dp</dimen>
+    <dimen name="margins">5dp</dimen>
+    <dimen name="toolBarHeight1">100dp</dimen>
+    <dimen name="toolBarTitleTextSize">25sp</dimen>
+    <dimen name="toolBarTextSize">15sp</dimen>
+</resources>

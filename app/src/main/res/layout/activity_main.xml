@@ -6,29 +6,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".MainActivity">
-    <FrameLayout
+        tools:context=".main.view.activity.MainActivity">
+    <androidx.viewpager.widget.ViewPager
             android:id="@+id/act_main_framel"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="9"></FrameLayout>
+            android:layout_weight="9"></androidx.viewpager.widget.ViewPager>
 
 
-    <View
-            android:background="#AAA"
+    <com.example.shopmall.framework.base.view.CustomButtom
+            android:id="@+id/act_main_custbut"
+            android:background="@drawable/home_bottom_parent_bg"
             android:layout_width="match_parent"
-            android:layout_height="1dp"/>
-
-    <com.flyco.tablayout.CommonTabLayout
-            android:id="@+id/act_main_tabl"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:tl_textSelectColor="#F00"
-            app:tl_textUnselectColor="#555"
-            app:tl_textsize="15sp"
-            android:layout_weight="1">
-
-    </com.flyco.tablayout.CommonTabLayout>
+            android:layout_weight="1"
+            android:layout_height="0dp"></com.example.shopmall.framework.base.view.CustomButtom>
 
 
 </LinearLayout>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_1">5dp</dimen>
+    <dimen name="margin_2">10dp</dimen>
+    <dimen name="margin_3">15dp</dimen>
+    <dimen name="margin_4">20dp</dimen>
+    <dimen name="margin_5">25dp</dimen>
+    <dimen name="margin_6">30dp</dimen>
+    <dimen name="margin_7">35dp</dimen>
+    <dimen name="margin_8">40dp</dimen>
+    <dimen name="margin_9">45dp</dimen>
+    <dimen name="margin_10">50dp</dimen>
+
+
+    <dimen name="ts_1">5sp</dimen>
+    <dimen name="ts_2">10sp</dimen>
+    <dimen name="ts_3">15sp</dimen>
+    <dimen name="ts_4">20sp</dimen>
+    <dimen name="ts_5">25sp</dimen>
+    <dimen name="ts_6">30sp</dimen>
+    <dimen name="ts_7">35sp</dimen>
+    <dimen name="ts_8">40sp</dimen>
+    <dimen name="ts_9">45sp</dimen>
+    <dimen name="ts_10">50sp</dimen>
+
+
+    <dimen name="height_120">120dp</dimen>
+    <dimen name="height_350">350dp</dimen>
+</resources>

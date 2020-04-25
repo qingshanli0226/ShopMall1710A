@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:gravity="center"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+
+    <RadioGroup
+            android:id="@+id/customBottomBar"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <RadioButton
+                android:id="@+id/rb1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:gravity="center"
+                android:text="xxx"
+                android:textColor="@color/color_select"
+                android:textSize="@dimen/toolBarTextSize"
+                android:drawableTop="@drawable/top_bar_left_back"
+                android:layout_margin="@dimen/margins"/>
+        <RadioButton
+                android:id="@+id/rb2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:gravity="center"
+                android:textColor="@color/color_select"
+                android:text="xxx"
+                android:textSize="@dimen/toolBarTextSize"
+                android:drawableTop="@drawable/top_bar_left_back"
+                android:layout_margin="@dimen/margins"/>
+        <RadioButton
+                android:id="@+id/rb3"
+                android:layout_width="0dp"
+                android:textColor="@color/color_select"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:gravity="center"
+                android:text="xxx"
+                android:textSize="@dimen/toolBarTextSize"
+                android:drawableTop="@drawable/top_bar_left_back"
+                android:layout_margin="@dimen/margins"/>
+        <RadioButton
+                android:id="@+id/rb4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textColor="@color/color_select"
+                android:button="@null"
+                android:gravity="center"
+                android:text="xxx"
+                android:textSize="@dimen/toolBarTextSize"
+                android:drawableTop="@drawable/top_bar_left_back"
+                android:layout_margin="@dimen/margins"/>
+        <RadioButton
+                android:id="@+id/rb5"
+                android:layout_width="0dp"
+                android:textColor="@color/color_select"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:gravity="center"
+                android:text="xxx"
+                android:textSize="@dimen/toolBarTextSize"
+                android:drawableTop="@drawable/top_bar_left_back"
+                android:layout_margin="@dimen/margins"/>
+
+
+    </RadioGroup>
+
+
+</LinearLayout>

@@ -11,11 +11,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.shopmall.common.ErrorBean;
 import com.example.shopmall.framework.base.view.IBaseView;
 import com.example.shopmall.shopmall1710a.R;
+import com.example.shopmall.shopmall1710a.login.mode.BetterLoginBean;
 import com.example.shopmall.shopmall1710a.login.mode.LoginBean;
 import com.example.shopmall.shopmall1710a.login.presenter.BetterLoginPresenter;
 import com.example.shopmall.shopmall1710a.login.presenter.BetterLogoutPresenter;
+import com.example.shopmall.shopmall1710a.main.view.activity.MainActivity;
 
-public class BetterLoginActivity extends AppCompatActivity implements IBaseView<LoginBean>, View.OnClickListener {
+public class BetterLoginActivity extends AppCompatActivity implements IBaseView<BetterLoginBean>, View.OnClickListener {
 
     private EditText passwordEditText;
     private EditText nameEditText;
@@ -86,11 +88,11 @@ public class BetterLoginActivity extends AppCompatActivity implements IBaseView<
     }
 
     @Override
-    public void onHtttpReceived(int requestCode, LoginBean data) {
+    public void onHtttpReceived(int requestCode, BetterLoginBean data) {
         Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
-//
-//        Intent intent = new Intent(this, MainActivity.class);
-//        startActivity(intent);
+
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
 
         this.finish();
     }

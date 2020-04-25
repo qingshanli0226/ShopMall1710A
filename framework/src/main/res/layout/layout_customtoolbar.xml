@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+
+    <RelativeLayout
+            android:id="@+id/toolBar"
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+
+
+        <TextView
+                android:layout_centerInParent="true"
+                android:id="@+id/toolBarTitle"
+                android:text="这是标题"
+                android:textSize="@dimen/toolBarTitleTextSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_alignParentLeft="true"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+            <ImageView
+                    android:id="@+id/toolBarImvLeft"
+                    android:src="@drawable/top_bar_left_back"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"/>
+            <TextView
+                    android:id="@+id/toolBarTvLeft"
+                    android:textSize="@dimen/toolBarTextSize"
+                    android:gravity="center"
+                    android:text="左侧"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+            <ImageView
+                    android:id="@+id/toolBarImvRight"
+                    android:src="@drawable/icon_more"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"/>
+            <TextView
+                    android:id="@+id/toolBarTvRight"
+                    android:textSize="@dimen/toolBarTextSize"
+                    android:gravity="center"
+                    android:text="右侧"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"/>
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</LinearLayout>
