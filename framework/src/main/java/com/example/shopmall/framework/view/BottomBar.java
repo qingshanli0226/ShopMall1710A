@@ -38,8 +38,10 @@ public class BottomBar extends LinearLayout {
                      index = 0;
                  } else if (checkedId == R.id.type) {
                      index = 1;
-                 } else if (checkedId == R.id.mine) {
+                 } else if (checkedId == R.id.shopcar) {
                      index = 2;
+                 } else if (checkedId == R.id.mine) {
+                     index = 3;
                  }
                  if (iBottomBarChangedListener!=null) {
                      iBottomBarChangedListener.onTabChecked(index);

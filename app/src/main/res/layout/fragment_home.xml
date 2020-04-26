@@ -8,6 +8,7 @@
               android:textSize="30sp"
               android:gravity="center"
               android:layout_centerInParent="true"
+              android:id="@+id/count"
               android:text="@string/fragment_home_content"/>
 
 

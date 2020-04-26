@@ -8,8 +8,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.example.shopmall.buy.shopcar.ShopcarFragment;
 import com.example.shopmall.common.ErrorBean;
 import com.example.shopmall.framework.base.BaseActivity;
 import com.example.shopmall.framework.base.IPresenter;
@@ -23,15 +25,15 @@ public class MainActivity extends BaseActivity<Object> implements CacheManager.I
 
     private TextView contentTV;
 
-    private Fragment[] fragments = new Fragment[]{new HomeFragment(), new TypeFragment(), new MineFragment()};
+    private Fragment[] fragments = new Fragment[]{new HomeFragment(), new TypeFragment(), new ShopcarFragment(),new MineFragment()};
     private Fragment currentFragment;
 
     @Override
     protected void initData() {
         //获取首页数据,将获取的数据展示出来
-        String homeDataStr = CacheManager.getInstance().getHomeData();
+        String homeDataStr = CacheManager.getInstance().getHomeData(this);
         if (homeDataStr == null) {
-            showLoading();
+            //showLoading();
         } else {
             /*contentTV.setText(homeDataStr);*/
         }
@@ -56,6 +58,7 @@ public class MainActivity extends BaseActivity<Object> implements CacheManager.I
                 switchFragment(index);
             }
         });
+        toolBar.setVisibility(View.GONE);
     }
 
     private void switchFragment(int index) {
