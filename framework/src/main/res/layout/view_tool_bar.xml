@@ -3,7 +3,7 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="60dp"
+              android:layout_height="50dp"
               tools:ignore="MissingDefaultResource"
               android:id="@+id/toolBarRoot">
 
@@ -11,14 +11,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <TextView
-                    android:id="@+id/toolBarTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="30sp"
-                android:layout_centerInParent="true"
-                android:textColor="@android:color/black"
-                android:text=""
+              android:id="@+id/toolBarTitle"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:gravity="center"
+              android:textSize="20sp"
+              android:layout_centerInParent="true"
+              android:textColor="#fff"
             />
 
         <LinearLayout
@@ -34,6 +33,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:src="@mipmap/top_bar_left_back"
+                    android:gravity="center_vertical"
                 />
             <TextView
                 android:id="@+id/leftTv"
@@ -61,7 +61,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:src="@mipmap/home_arrow_right"
-
+                    android:gravity="center_vertical"
                 />
             <TextView
                 android:id="@+id/rightTv"

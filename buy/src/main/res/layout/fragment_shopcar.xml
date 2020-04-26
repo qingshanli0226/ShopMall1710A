@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <com.example.shopmall.framework.view.MyToolBar
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:id="@+id/myToolBar">
+    </com.example.shopmall.framework.view.MyToolBar>
+
+    <Button android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="添加一个商品"
+    android:id="@+id/btnAdd"/>
+
+    <TextView
+            android:id="@+id/tv_sum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textSize="20dp"
+            />
+
+    <ProgressBar android:layout_width="100dp" android:layout_height="100dp"
+                 android:id="@+id/loadingBar"
+                 android:layout_centerInParent="true"
+                 android:visibility="gone"/>
+
+</LinearLayout>

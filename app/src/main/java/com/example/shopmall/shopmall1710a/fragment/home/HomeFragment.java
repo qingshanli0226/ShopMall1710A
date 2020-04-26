@@ -1,14 +1,12 @@
 package com.example.shopmall.shopmall1710a.fragment.home;
 
+
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.example.shopmall.common.ErrorBean;
 import com.example.shopmall.framework.base.BaseFragment;
@@ -105,7 +103,7 @@ public class HomeFragment extends BaseFragment<Object> implements CacheManager.I
     @Override
     protected void initData() {
         //获取首页数据,将获取的数据展示出来
-        String homeDataStr = CacheManager.getInstance().getHomeData();
+        String homeDataStr = CacheManager.getInstance().getHomeData(getContext());
         if (homeDataStr == null) {
             showLoading();
         } else {
@@ -175,6 +173,6 @@ public class HomeFragment extends BaseFragment<Object> implements CacheManager.I
 
     @Override
     public void onRightImgClick() {
-        Toast.makeText(getContext(), "dd", Toast.LENGTH_SHORT).show();
+
     }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <declare-styleable name="MYToolBar">
+    <declare-styleable name="MyToolBar">
         <attr name="toolbarTile" format="string"></attr>
         <attr name="toolBarRightSrc" format="reference"></attr>
         <attr name="toolBarLeftSrc" format="reference"></attr>

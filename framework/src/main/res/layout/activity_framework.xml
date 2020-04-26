@@ -13,4 +13,9 @@
                  android:layout_height="100dp"
                  android:id="@+id/loadingBar"/>
 
+    <com.example.shopmall.framework.view.MyRadioGroup
+            android:id="@+id/myRadioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"/>
+
 </RelativeLayout>

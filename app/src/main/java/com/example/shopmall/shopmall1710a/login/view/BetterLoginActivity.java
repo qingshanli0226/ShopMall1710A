@@ -2,14 +2,18 @@ package com.example.shopmall.shopmall1710a.login.view;
 
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.example.shopmall.common.ErrorBean;
+import com.example.shopmall.common.util.SpUtil;
 import com.example.shopmall.framework.base.BaseActivity;
 import com.example.shopmall.framework.base.IPresenter;
+import com.example.shopmall.framework.manager.ShopUserManager;
 import com.example.shopmall.shopmall1710a.MainActivity;
 import com.example.shopmall.shopmall1710a.R;
+import com.example.shopmall.shopmall1710a.login.mode.LoginBean;
 import com.example.shopmall.shopmall1710a.login.presenter.BetterLoginPresenter;
 import com.example.shopmall.shopmall1710a.login.presenter.BetterLogoutPresenter;
 import com.example.shopmall.shopmall1710a.register.view.BetterRegisterActivity;
@@ -86,6 +90,13 @@ public class BetterLoginActivity extends BaseActivity<Object> implements View.On
         Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        //登录成功后，需要把登录信息存储到UserManager中，方便集中管理登录用户信息.
+        //因为类型问题，存储时将data，强制转换成framework中ResultBean。因为字段一样，不会出现错误
+//        String s = data.toString();
+//        Log.i("TAG", "onHtttpReceived555: "+s);
+        com.example.shopmall.framework.entity.LoginBean.ResultBean resultBean = (com.example.shopmall.framework.entity.LoginBean.ResultBean)data;
+        SpUtil.saveToken(this, resultBean.getToken());
+        ShopUserManager.getInstance().saveUserLoginBeanAndNotify(resultBean);
         finish();
     }
 

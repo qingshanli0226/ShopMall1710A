@@ -74,18 +74,18 @@ public class MyToolBar extends LinearLayout implements View.OnClickListener{
     //获取属性值
     private void initViewAttrs(Context context, AttributeSet attrs) {
         //获取自定义view的属性
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MYToolBar);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MyToolBar);
         //获取的标题
-        toolBarTitleId = typedArray.getString(R.styleable.MYToolBar_toolbarTile);
+        toolBarTitleId = typedArray.getString(R.styleable.MyToolBar_toolbarTile);
         //获取左侧图片资源的id
-        leftImgSrcId = typedArray.getResourceId(R.styleable.MYToolBar_toolBarLeftSrc, -1);
-        rightImgSrcId = typedArray.getResourceId(R.styleable.MYToolBar_toolBarRightSrc, -1);
+        leftImgSrcId = typedArray.getResourceId(R.styleable.MyToolBar_toolBarLeftSrc, -1);
+        rightImgSrcId = typedArray.getResourceId(R.styleable.MyToolBar_toolBarRightSrc, -1);
         //右侧内容是否显示
-        isRightDisplay = typedArray.getBoolean(R.styleable.MYToolBar_toolBarRightDisplay, true);
+        isRightDisplay = typedArray.getBoolean(R.styleable.MyToolBar_toolBarRightDisplay, true);
         //获取toolbar背景色
-        backgroundColor = typedArray.getColor(R.styleable.MYToolBar_toolbarBackgroundColor, Color.WHITE);
+        backgroundColor = typedArray.getColor(R.styleable.MyToolBar_toolbarBackgroundColor, Color.WHITE);
         //是否显示标题
-        isShowTitle = typedArray.getBoolean(R.styleable.MYToolBar_isShowTitle, true);
+        isShowTitle = typedArray.getBoolean(R.styleable.MyToolBar_isShowTitle, true);
     }
 
     private void displayView() {

@@ -5,13 +5,11 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
     <com.example.shopmall.framework.view.MyToolBar
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="45dp"
             android:id="@+id/myToolBar"
             app:toolbarTile="@string/app_name"
             app:toolBarRightSrc="@drawable/personal"
-            app:toolBarLeftSrc="@mipmap/ic_launcher_round"
-            app:toolBarRightDisplay="true"
-            app:toolbarBackgroundColor="@color/colorAccent"
+            app:toolbarBackgroundColor="#FFFFFF"
             />
     <ScrollView
             android:layout_below="@+id/myToolBar"
