@@ -6,18 +6,22 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.util.Log;
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.example.shopmall.BaseBean;
 import com.example.shopmall.common.Constant;
 import com.example.shopmall.framework.service.ShopMallService;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public class CacheManager {
-    private List<IHomeDataListener> iHomeDataListeners = new LinkedList<>();
-
+    private IHomeDataListener iHomeDataListener;
+    private ShopMallService shopMallService;
     private static CacheManager instance;
+    private List<IShopCountRecevedLisener> shopCountRecevedLisenerList = new LinkedList<>();
+
     private CacheManager() {
     }
 
@@ -40,7 +44,7 @@ public class CacheManager {
              public void onServiceConnected(ComponentName name, IBinder service) {
                 Log.i("boss", "onServiceConnected: 绑定");
                 ShopMallService.ShopMallBinder shopMallBinder = (ShopMallService.ShopMallBinder)service;
-                ShopMallService shopMallService = shopMallBinder.getService();
+                shopMallService = shopMallBinder.getService();
                 shopMallService.getHomeData(new ShopMallService.IHomeDataReceiveListener() {
                     @Override
                     public void onHomeDataReceived(String homeJsonStr) {
@@ -48,25 +52,12 @@ public class CacheManager {
                         //代表数据已经返回
                         //1, 存储数据 2,通知MainActivity去刷新首页数据
                         SPUtils.getInstance().put(Constant.SP_CACHE_HOME_DATA_INFO,homeJsonStr);
-                        if (iHomeDataListeners.size() == 0) {
+                        if (iHomeDataListener == null) {
                             return;
                         }
-                        for (IHomeDataListener iHomeDataListener : iHomeDataListeners) {
-                            iHomeDataListener.onHomeDataReceived(homeJsonStr);
-                        }
+                       iHomeDataListener.onHomeDataReceived(homeJsonStr);
                     }
 
-                    // 自动登录成功
-                    @Override
-                    public void onAutoLoginReceived(String loginEntityStr) {
-                        Log.i("boss", "onAutoLoginReceived: 自动登录成功!");
-                        if (iHomeDataListeners.size() == 0){
-                            return;
-                        }
-                        for (IHomeDataListener iHomeDataListener : iHomeDataListeners) {
-                            iHomeDataListener.onAutoLoginDataReceived(loginEntityStr);
-                        }
-                    }
                 });
 
             }
@@ -76,24 +67,49 @@ public class CacheManager {
 
             }
         }, Context.BIND_AUTO_CREATE);
+
+        ShopUserManager.getInstance().registerListener(new ShopUserManager.IUserInfoListener() {
+            @Override
+            public void onLoginSuccess() { // 登录成功
+                // 获取 购物车数据
+                shopMallService.gitShopcarCount(SPUtils.getInstance().getString(Constant.SP_TOKEN), new ShopMallService.IShopcarCountListener() {
+                    @Override
+                    public void onReceiveCount(int count) {
+                        SPUtils.getInstance().put(Constant.SP_SHOP_COUNT,count);
+                        for(IShopCountRecevedLisener lisener:shopCountRecevedLisenerList) { // 通知监听页面 跟新购物车数据
+                            lisener.onShopcarCountReceived(count);
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void onLogout() {
+
+            }
+        });
+    }
+
+    // 提供方法 获取 购物车数据
+    public int getShopcarCount() {
+        return Integer.parseInt(SPUtils.getInstance().getString(Constant.SP_SHOP_COUNT));
+    }
+
+    public interface IShopCountRecevedLisener {
+        void onShopcarCountReceived(int conunt);
     }
 
 
     //定义接口，通知homeData数据已经获取到。,Manager屏蔽了Service, Activity是直接和Manager进行通信
     public interface IHomeDataListener{
         void onHomeDataReceived(String homeDataJson);
-        void onAutoLoginDataReceived(String autoLoginDataJson);
     }
 
     public void registerIHomeDataListener(IHomeDataListener listener) {
-        iHomeDataListeners.add(listener);
+       this.iHomeDataListener = listener;
     }
-    public void unRegisterIHomeDataListener(IHomeDataListener listener) {
-        for (IHomeDataListener iHomeDataListener : iHomeDataListeners) {
-            if (iHomeDataListener == listener){
-                iHomeDataListener = null;
-            }
-        }
+    public void unRegisterIHomeDataListener() {
+        iHomeDataListener = null;
     }
 
 

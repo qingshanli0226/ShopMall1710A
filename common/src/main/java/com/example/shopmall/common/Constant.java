@@ -20,6 +20,7 @@ public class Constant {
     public static final String SP_TOKEN = "token";
     public static final String SP_USER_LOGIN_INFO = "user_msg"; // 登录
     public static final String SP_CACHE_HOME_DATA_INFO = "cache_home_data"; // 缓存首页数据
+    public static final String SP_SHOP_COUNT = "count"; // 购物车数量
 
     //----------------------ARouter Path-----------------------
     // Activity

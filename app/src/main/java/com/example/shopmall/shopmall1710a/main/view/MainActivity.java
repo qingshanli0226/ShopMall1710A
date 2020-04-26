@@ -1,26 +1,21 @@
 package com.example.shopmall.shopmall1710a.main.view;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.blankj.utilcode.util.SPUtils;
-import com.example.shopmall.BaseBean;
 import com.example.shopmall.common.Constant;
 import com.example.shopmall.common.ErrorBean;
 import com.example.shopmall.framework.customView.CustomBottomBar;
 import com.example.shopmall.framework.customView.bean.BottomBean;
 import com.example.shopmall.framework.manager.CacheManager;
+import com.example.shopmall.framework.manager.ShopUserManager;
 import com.example.shopmall.framework.mvp.presenter.IPresenter;
 import com.example.shopmall.framework.mvp.view.BaseActivity;
 import com.example.shopmall.shopmall1710a.R;
 import com.example.shopmall.shopmall1710a.main.adapter.MyPagerAdapter;
-import com.example.shopmall.shopmall1710a.main.entity.LoginEntity;
 import com.example.shopmall.shopmall1710a.main.view.fragment.*;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -97,14 +92,4 @@ public class MainActivity extends BaseActivity implements CacheManager.IHomeData
 
     }
 
-    // 自动登录成功 : 返回 数据
-    @Override
-    public void onAutoLoginDataReceived(String autoLoginDataJson) {
-        BaseBean<LoginEntity> object = (BaseBean<LoginEntity>) new Gson().fromJson(autoLoginDataJson, new TypeToken<BaseBean<LoginEntity>>() {
-        }.getRawType());
-        LoginEntity result = object.getResult();
-        Log.i("boss", "onAutoLoginDataReceived: "+autoLoginDataJson);
-        SPUtils.getInstance().put(Constant.SP_TOKEN,result.getToken());
-        Log.i("boss", "onAutoLoginDataReceived: "+result.getToken());
-    }
 }
