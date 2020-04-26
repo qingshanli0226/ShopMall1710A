@@ -6,11 +6,16 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.util.Log;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.shopmall.common.Constant;
 import com.example.shopmall.framework.service.ShopMallService;
+
+import java.util.LinkedList;
+import java.util.List;
+
 public class CacheManager {
-    private IHomeDataListener iHomeDataListener;
+    private List<IHomeDataListener> iHomeDataListeners = new LinkedList<>();
 
     private static CacheManager instance;
     private CacheManager() {
@@ -43,10 +48,24 @@ public class CacheManager {
                         //代表数据已经返回
                         //1, 存储数据 2,通知MainActivity去刷新首页数据
                         SPUtils.getInstance().put(Constant.SP_CACHE_HOME_DATA_INFO,homeJsonStr);
-                        if (iHomeDataListener == null) {
+                        if (iHomeDataListeners.size() == 0) {
                             return;
                         }
-                        iHomeDataListener.onHomeDataReceived(homeJsonStr);
+                        for (IHomeDataListener iHomeDataListener : iHomeDataListeners) {
+                            iHomeDataListener.onHomeDataReceived(homeJsonStr);
+                        }
+                    }
+
+                    // 自动登录成功
+                    @Override
+                    public void onAutoLoginReceived(String loginEntityStr) {
+                        Log.i("boss", "onAutoLoginReceived: 自动登录成功!");
+                        if (iHomeDataListeners.size() == 0){
+                            return;
+                        }
+                        for (IHomeDataListener iHomeDataListener : iHomeDataListeners) {
+                            iHomeDataListener.onAutoLoginDataReceived(loginEntityStr);
+                        }
                     }
                 });
 
@@ -63,13 +82,18 @@ public class CacheManager {
     //定义接口，通知homeData数据已经获取到。,Manager屏蔽了Service, Activity是直接和Manager进行通信
     public interface IHomeDataListener{
         void onHomeDataReceived(String homeDataJson);
+        void onAutoLoginDataReceived(String autoLoginDataJson);
     }
 
     public void registerIHomeDataListener(IHomeDataListener listener) {
-        iHomeDataListener =  listener;
+        iHomeDataListeners.add(listener);
     }
-    public void unRegisterIHomeDataListener() {
-        iHomeDataListener = null;
+    public void unRegisterIHomeDataListener(IHomeDataListener listener) {
+        for (IHomeDataListener iHomeDataListener : iHomeDataListeners) {
+            if (iHomeDataListener == listener){
+                iHomeDataListener = null;
+            }
+        }
     }
 
 

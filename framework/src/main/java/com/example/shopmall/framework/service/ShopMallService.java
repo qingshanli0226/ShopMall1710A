@@ -5,17 +5,24 @@ import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
+import com.blankj.utilcode.util.SPUtils;
+import com.example.shopmall.BaseObserver;
 import com.example.shopmall.RetrofitManager;
+import com.example.shopmall.common.Constant;
 import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.ResponseBody;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.concurrent.TimeUnit;
 
 public class ShopMallService extends Service {
+
+
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -40,7 +47,6 @@ public class ShopMallService extends Service {
         String path = "atguigu/json/HOME_URL.json";
         RetrofitManager.getNetAPIService()
                 .getData(path, new HashMap<String, Object>())
-                .delay(5, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())//因为获取到数据后，实现数据存储，所以不能切换到主线程
                 .subscribe(new Observer<ResponseBody>() {
@@ -51,7 +57,7 @@ public class ShopMallService extends Service {
 
                     @Override
                     public void onNext(ResponseBody responseBody) {
-                        Log.i("boss", "onNext: next");
+                        Log.i("boss", "onNext: next Home 数据获取成功!");
                         //获取到首页数据后，实现数据存储，并且
                         try {
                             iHomeDataReceiveListener.onHomeDataReceived(responseBody.string());
@@ -70,6 +76,32 @@ public class ShopMallService extends Service {
 
                     }
                 });
+
+        if (SPUtils.getInstance().getString(Constant.SP_TOKEN)!=null){
+            Log.i("boss", "getHomeData: token"+SPUtils.getInstance().getString(Constant.SP_TOKEN));
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("token",SPUtils.getInstance().getString(Constant.SP_TOKEN));
+            RetrofitManager.getNetAPIService()
+                    .postData("autoLogin",map)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new BaseObserver<ResponseBody>(){
+                        @Override
+                        public void onNext(ResponseBody responseBody) {
+                            Log.i("boss", "onNext: next 自动登录成功");
+                            try {
+                                iHomeDataReceiveListener.onAutoLoginReceived(responseBody.string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            super.onError(e);
+                        }
+                    });
+        }
     }
 
 
@@ -77,5 +109,6 @@ public class ShopMallService extends Service {
 
     public interface IHomeDataReceiveListener{
         void onHomeDataReceived(String homeJsonStr);
+        void onAutoLoginReceived(String loginEntityStr);
     }
 }

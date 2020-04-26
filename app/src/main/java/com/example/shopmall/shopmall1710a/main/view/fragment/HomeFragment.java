@@ -92,6 +92,11 @@ public class HomeFragment extends BaseFragment implements CacheManager.IHomeData
         });
     }
 
+    @Override
+    public void onAutoLoginDataReceived(String autoLoginDataJson) {
+
+    }
+
     // 条目点击事件
     @Override
     public void onStartOk(int type, int position) {

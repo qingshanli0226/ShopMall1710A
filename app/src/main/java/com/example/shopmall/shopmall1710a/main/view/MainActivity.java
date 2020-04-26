@@ -6,21 +6,27 @@ import android.util.Log;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.blankj.utilcode.util.SPUtils;
+import com.example.shopmall.BaseBean;
 import com.example.shopmall.common.Constant;
 import com.example.shopmall.common.ErrorBean;
 import com.example.shopmall.framework.customView.CustomBottomBar;
 import com.example.shopmall.framework.customView.bean.BottomBean;
+import com.example.shopmall.framework.manager.CacheManager;
 import com.example.shopmall.framework.mvp.presenter.IPresenter;
 import com.example.shopmall.framework.mvp.view.BaseActivity;
 import com.example.shopmall.shopmall1710a.R;
 import com.example.shopmall.shopmall1710a.main.adapter.MyPagerAdapter;
+import com.example.shopmall.shopmall1710a.main.entity.LoginEntity;
 import com.example.shopmall.shopmall1710a.main.view.fragment.*;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Route(path = Constant.ROUTER_PATH_MAIN_ACTIVITY)
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements CacheManager.IHomeDataListener {
     private ViewPager viewPager;
     private CustomBottomBar bottomBar;
     private List<BottomBean> lists;
@@ -33,6 +39,8 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        // 注册监听
+        CacheManager.getInstance().registerIHomeDataListener(this);
         viewPager = findViewById(R.id.viewPager);
         bottomBar = findViewById(R.id.bottomBar);
 
@@ -80,5 +88,23 @@ public class MainActivity extends BaseActivity {
         super.onNewIntent(intent);
         Log.i("xxx", "onNewIntent: xxxxxxxxxxxxxxxxxxxxx");
         viewPager.setCurrentItem(0);
+    }
+
+
+
+    @Override
+    public void onHomeDataReceived(String homeDataJson) {
+
+    }
+
+    // 自动登录成功 : 返回 数据
+    @Override
+    public void onAutoLoginDataReceived(String autoLoginDataJson) {
+        BaseBean<LoginEntity> object = (BaseBean<LoginEntity>) new Gson().fromJson(autoLoginDataJson, new TypeToken<BaseBean<LoginEntity>>() {
+        }.getRawType());
+        LoginEntity result = object.getResult();
+        Log.i("boss", "onAutoLoginDataReceived: "+autoLoginDataJson);
+        SPUtils.getInstance().put(Constant.SP_TOKEN,result.getToken());
+        Log.i("boss", "onAutoLoginDataReceived: "+result.getToken());
     }
 }

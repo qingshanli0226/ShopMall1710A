@@ -109,6 +109,13 @@
                 android:layout_height="@dimen/dp1"
                 android:background="@color/red"/>
     </LinearLayout>
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="50dp"
+    android:layout_alignParentBottom="true" android:orientation="horizontal">
+        <Button android:layout_width="100dp" android:layout_height="match_parent"
+        android:id="@+id/addShopCarBtn"
+        android:text="添加购物车"/>
+    </LinearLayout>
     <ProgressBar
             android:id="@+id/loadingBar"
             android:layout_width="100dp"

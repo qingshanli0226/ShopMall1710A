@@ -40,7 +40,7 @@ public class DetailsPageActivity extends BaseActivity implements View.OnClickLis
         detailsFigure = findViewById(R.id.detailsFigure);
         detailsName = findViewById(R.id.detailsName);
         detailsPrice = findViewById(R.id.detailsPrice);
-
+        findViewById(R.id.addShopCarBtn).setOnClickListener(this);
     }
 
     @Override
@@ -70,7 +70,10 @@ public class DetailsPageActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void onClick(View view) {
-
+        switch (view.getId()){
+            case R.id.addShopCarBtn: // 添加商品到购物车
+                break;
+        }
     }
 
 
