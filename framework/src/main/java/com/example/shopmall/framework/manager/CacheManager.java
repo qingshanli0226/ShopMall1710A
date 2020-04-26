@@ -31,9 +31,7 @@ public class CacheManager {
         }
         return instance;
     }
-    public void init(final Context context) {
-        Log.i("boss", "init: 注册");
-        //在初始化方法里去启动并且绑定service
+    public void init(final Context context) {        //在初始化方法里去启动并且绑定service
         Intent intent = new Intent();
         intent.setClass(context, ShopMallService.class);
 
@@ -42,13 +40,11 @@ public class CacheManager {
         context.bindService(intent, new ServiceConnection() {
             @Override
              public void onServiceConnected(ComponentName name, IBinder service) {
-                Log.i("boss", "onServiceConnected: 绑定");
                 ShopMallService.ShopMallBinder shopMallBinder = (ShopMallService.ShopMallBinder)service;
                 shopMallService = shopMallBinder.getService();
                 shopMallService.getHomeData(new ShopMallService.IHomeDataReceiveListener() {
                     @Override
                     public void onHomeDataReceived(String homeJsonStr) {
-                        Log.i("boss", "onHomeDataReceived: 数据请求成功!");
                         //代表数据已经返回
                         //1, 存储数据 2,通知MainActivity去刷新首页数据
                         SPUtils.getInstance().put(Constant.SP_CACHE_HOME_DATA_INFO,homeJsonStr);
@@ -68,13 +64,16 @@ public class CacheManager {
             }
         }, Context.BIND_AUTO_CREATE);
 
+
+        // 注册 监听 (登录状态)
         ShopUserManager.getInstance().registerListener(new ShopUserManager.IUserInfoListener() {
             @Override
             public void onLoginSuccess() { // 登录成功
-                // 获取 购物车数据
+                // 获取 购物车数据(数量)
                 shopMallService.gitShopcarCount(SPUtils.getInstance().getString(Constant.SP_TOKEN), new ShopMallService.IShopcarCountListener() {
                     @Override
                     public void onReceiveCount(int count) {
+                        Log.i("boss", "onReceiveCount: 数量"+count);
                         SPUtils.getInstance().put(Constant.SP_SHOP_COUNT,count);
                         for(IShopCountRecevedLisener lisener:shopCountRecevedLisenerList) { // 通知监听页面 跟新购物车数据
                             lisener.onShopcarCountReceived(count);
@@ -97,6 +96,10 @@ public class CacheManager {
 
     public interface IShopCountRecevedLisener {
         void onShopcarCountReceived(int conunt);
+    }
+
+    public void registerCountLisenner(IShopCountRecevedLisener iShopCountRecevedLisener){
+        shopCountRecevedLisenerList.add(iShopCountRecevedLisener);
     }
 
 

@@ -13,6 +13,7 @@ import com.example.shopmall.framework.manager.CacheManager;
 import com.example.shopmall.framework.manager.ShopUserManager;
 import com.example.shopmall.framework.mvp.presenter.IPresenter;
 import com.example.shopmall.framework.mvp.view.BaseActivity;
+import com.example.shopmall.framework.service.ShopMallService;
 import com.example.shopmall.shopmall1710a.R;
 import com.example.shopmall.shopmall1710a.main.adapter.MyPagerAdapter;
 import com.example.shopmall.shopmall1710a.main.view.fragment.*;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Route(path = Constant.ROUTER_PATH_MAIN_ACTIVITY)
-public class MainActivity extends BaseActivity implements CacheManager.IHomeDataListener {
+public class MainActivity extends BaseActivity implements CacheManager.IHomeDataListener,CacheManager.IShopCountRecevedLisener {
     private ViewPager viewPager;
     private CustomBottomBar bottomBar;
     private List<BottomBean> lists;
@@ -36,6 +37,7 @@ public class MainActivity extends BaseActivity implements CacheManager.IHomeData
     public void initView() {
         // 注册监听
         CacheManager.getInstance().registerIHomeDataListener(this);
+        CacheManager.getInstance().registerCountLisenner( this);
         viewPager = findViewById(R.id.viewPager);
         bottomBar = findViewById(R.id.bottomBar);
 
@@ -92,4 +94,9 @@ public class MainActivity extends BaseActivity implements CacheManager.IHomeData
 
     }
 
+
+    @Override
+    public void onShopcarCountReceived(int conunt) {
+        Log.i("boss", "onShopcarCountReceived: 购物车数量"+conunt);
+    }
 }

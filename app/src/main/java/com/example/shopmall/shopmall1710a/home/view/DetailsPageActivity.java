@@ -1,6 +1,6 @@
 package com.example.shopmall.shopmall1710a.home.view;
 
-import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,11 +14,16 @@ import com.example.shopmall.framework.mvp.presenter.IPresenter;
 import com.example.shopmall.framework.mvp.view.BaseActivity;
 import com.example.shopmall.shopmall1710a.R;
 import com.example.shopmall.shopmall1710a.home.entity.HomeEntity;
+import com.example.shopmall.shopmall1710a.main.presenter.AddShopcarPresenter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Route(path = Constant.ROUTER_PATH_DETAILS_PAGE_ACTIVITY)
 public class DetailsPageActivity extends BaseActivity implements View.OnClickListener , CustomTitleBar.OnCustomTitleBarLisenner {
+    public AddShopcarPresenter addShopcarPresenter;
+
+
     @Autowired()
     HomeEntity.ResultBean.RecommendInfoBean msg;
 
@@ -51,16 +56,23 @@ public class DetailsPageActivity extends BaseActivity implements View.OnClickLis
                 .into(detailsFigure);
         detailsName.setText(msg.getName());
         detailsPrice.setText(msg.getCover_price());
+
     }
 
     @Override
     public List<IPresenter> getPresenter() {
-        return null;
+        addShopcarPresenter = new AddShopcarPresenter(this);
+        List<IPresenter> iPresenterList = new ArrayList<>();
+        iPresenterList.add(addShopcarPresenter);
+        return iPresenterList;
     }
 
     @Override
     public void onHttpReceived(int requestCode, Object data) {
+        if (requestCode == 100){
+            Log.i("boss", "onHttpReceived: 添加购物车成功");
 
+        }
     }
 
     @Override
@@ -72,6 +84,9 @@ public class DetailsPageActivity extends BaseActivity implements View.OnClickLis
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.addShopCarBtn: // 添加商品到购物车
+                Log.i("boss", "onClick: 点击添加购物车");
+                addShopcarPresenter.addParams();
+                addShopcarPresenter.postHttpDataWithJson(100);
                 break;
         }
     }

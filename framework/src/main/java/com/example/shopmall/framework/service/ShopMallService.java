@@ -5,11 +5,13 @@ import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
+import com.alibaba.fastjson.JSON;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.shopmall.BaseBean;
 import com.example.shopmall.BaseObserver;
 import com.example.shopmall.RetrofitManager;
 import com.example.shopmall.common.Constant;
+import com.example.shopmall.framework.manager.BossBean;
 import com.example.shopmall.framework.manager.LoginEntity;
 import com.example.shopmall.framework.manager.ShopCarEntity;
 import com.google.gson.Gson;
@@ -21,10 +23,7 @@ import io.reactivex.schedulers.Schedulers;
 import okhttp3.ResponseBody;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.concurrent.TimeUnit;
 
 public class ShopMallService extends Service {
 
@@ -46,13 +45,10 @@ public class ShopMallService extends Service {
             return ShopMallService.this;
         }
     }
-
     //获取首页数据
     public void getHomeData(final IHomeDataReceiveListener iHomeDataReceiveListener) {
-        Log.i("boss", "getHomeData: 获取数据方法被调用");
-        String path = "atguigu/json/HOME_URL.json";
         RetrofitManager.getNetAPIService()
-                .getData(path, new HashMap<String, Object>())
+                .getData("atguigu/json/HOME_URL.json", new HashMap<String, Object>())
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())//因为获取到数据后，实现数据存储，所以不能切换到主线程
                 .subscribe(new Observer<ResponseBody>() {
@@ -89,7 +85,6 @@ public class ShopMallService extends Service {
     // 提供 自动登录的功能
     public void autoLogin(String token, final IAutoLoginListener iAutoLoginListener){
         if (SPUtils.getInstance().getString(Constant.SP_TOKEN)!=null){
-            Log.i("boss", "getHomeData: token"+SPUtils.getInstance().getString(Constant.SP_TOKEN));
             HashMap<String, Object> map = new HashMap<>();
             map.put("token",SPUtils.getInstance().getString(Constant.SP_TOKEN));
             RetrofitManager.getNetAPIService()
@@ -100,15 +95,22 @@ public class ShopMallService extends Service {
                         @Override
                         public void onNext(ResponseBody responseBody) {
                             Log.i("boss", "onNext: next 自动登录成功");
-                            BaseBean<LoginEntity> object = (BaseBean<LoginEntity>) new Gson().fromJson(responseBody.toString(), new TypeToken<BaseBean<LoginEntity>>() {
-                            }.getRawType());
-                            LoginEntity result = object.getResult();
-                            SPUtils.getInstance().put(Constant.SP_TOKEN,result.getToken());  // sp更新token
-                            SPUtils.getInstance().put(Constant.SP_USER_LOGIN_INFO,new Gson().toJson(result)); // sp更新 用户存储信息
-                            Log.i("boss", "onAutoLoginDataReceived: "+result.getToken());
+                            try {
+                                String string = responseBody.string();
+                                Log.i("boss", "onNext: next"+string);
 
-                            // 回调 loginEntity
-                            iAutoLoginListener.onAutoLoginSuccess(result);
+                                BossBean bossBean = JSON.parseObject(string, BossBean.class);
+                                if (bossBean == null){
+                                        Log.i("boss", "onNext: 空对象");
+                                    }else {
+                                        Log.i("happy", "onNext: "+bossBean.getCode());
+                                        iAutoLoginListener.onAutoLoginSuccess(bossBean);
+                                    }
+
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
                         }
 
                         @Override
@@ -166,6 +168,6 @@ public class ShopMallService extends Service {
 
     // 自动登录成功!
     public interface IAutoLoginListener {
-        void onAutoLoginSuccess(LoginEntity loginBean);
+        void onAutoLoginSuccess(BossBean bossBean);
     }
 }

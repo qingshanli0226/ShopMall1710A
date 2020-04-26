@@ -1,5 +1,6 @@
 package com.example.shopmall.framework.mvp.presenter;
 
+import android.util.Log;
 import com.example.shopmall.BaseObserver;
 import com.example.shopmall.NetFunction;
 import com.example.shopmall.RetrofitManager;

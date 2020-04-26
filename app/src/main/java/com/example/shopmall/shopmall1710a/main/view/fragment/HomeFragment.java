@@ -82,20 +82,17 @@ public class HomeFragment extends BaseFragment implements CacheManager.IHomeData
 
     @Override
     public void onHomeDataReceived(final String homeDataJson) { // 获取到新的数据刷新页面
-        homeEntities.clear();
+//        homeEntities.clear();
         handler.post(new Runnable() {
             @Override
             public void run() {
-                homeEntity= new Gson().fromJson(homeDataJson, HomeEntity.class);
-                homeAdapter.notifyDataSetChanged();
+//                homeEntity= new Gson().fromJson(homeDataJson, HomeEntity.class);
+//                homeAdapter.notifyDataSetChanged();
             }
         });
     }
 
-    @Override
-    public void onAutoLoginDataReceived(String autoLoginDataJson) {
 
-    }
 
     // 条目点击事件
     @Override

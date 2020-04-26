@@ -4,9 +4,9 @@ package com.example.shopmall.shopmall1710a.main.presenter;
 
 
 import com.example.shopmall.BaseBean;
+import com.example.shopmall.framework.manager.LoginEntity;
 import com.example.shopmall.framework.mvp.presenter.BasePresenter;
 import com.example.shopmall.framework.mvp.view.IBaseView;
-import com.example.shopmall.shopmall1710a.main.entity.LoginEntity;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;

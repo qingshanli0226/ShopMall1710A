@@ -1,18 +1,53 @@
-package com.example.shopmall.shopmall1710a.main.entity;
+package com.example.shopmall.framework.manager;
 
-public class LoginEntity {
+public class BossBean {
 
+    /**
+     * code : 200
+     * message : 登录成功
+     * result : {"id":"123456","name":"123456","password":"123456","email":null,"phone":null,"point":null,"address":null,"money":null,"avatar":"/123456/1577156626617.jpg","token":"8cd707ab-313d-4f63-b81f-d29bc3ccd272AND1587957343480"}
+     */
+
+    private String code;
+    private String message;
+    private ResultBean result;
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public ResultBean getResult() {
+        return result;
+    }
+
+    public void setResult(ResultBean result) {
+        this.result = result;
+    }
+
+    public static class ResultBean {
         /**
-         * id : 1610
-         * name : 1610
-         * password : 1610
+         * id : 123456
+         * name : 123456
+         * password : 123456
          * email : null
          * phone : null
          * point : null
          * address : null
          * money : null
-         * avatar : null
-         * token : eaacae51-1c55-4ead-a31d-8070e336bc51AND1558449232809
+         * avatar : /123456/1577156626617.jpg
+         * token : 8cd707ab-313d-4f63-b81f-d29bc3ccd272AND1587957343480
          */
 
         private String id;
@@ -23,7 +58,7 @@ public class LoginEntity {
         private Object point;
         private Object address;
         private Object money;
-        private Object avatar;
+        private String avatar;
         private String token;
 
         public String getId() {
@@ -90,11 +125,11 @@ public class LoginEntity {
             this.money = money;
         }
 
-        public Object getAvatar() {
+        public String getAvatar() {
             return avatar;
         }
 
-        public void setAvatar(Object avatar) {
+        public void setAvatar(String avatar) {
             this.avatar = avatar;
         }
 
@@ -105,5 +140,5 @@ public class LoginEntity {
         public void setToken(String token) {
             this.token = token;
         }
-
+    }
 }

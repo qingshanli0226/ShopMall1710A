@@ -4,16 +4,14 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TabHost;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.shopmall.common.Constant;
 import com.example.shopmall.common.ErrorBean;
+import com.example.shopmall.framework.manager.LoginEntity;
 import com.example.shopmall.framework.mvp.presenter.IPresenter;
 import com.example.shopmall.framework.mvp.view.BaseActivity;
 import com.example.shopmall.shopmall1710a.R;
-import com.example.shopmall.shopmall1710a.UserManager;
-import com.example.shopmall.shopmall1710a.main.entity.LoginEntity;
 import com.example.shopmall.shopmall1710a.main.presenter.LoginPresenter;
 
 import java.util.ArrayList;
@@ -63,8 +61,7 @@ public class LoginActivity extends BaseActivity {
     public void onHttpReceived(int requestCode, Object data) {
         if (requestCode == 100){
             LoginEntity loginEntity = (LoginEntity) data;
-            Log.i("happy", "onHtttpReceived: "+loginEntity.getName());
-            UserManager.getInstance().setUserInfo(loginEntity);
+            Log.i("boss", "onHtttpReceived: 手动登录成功!"+loginEntity.getToken());
             SPUtils.getInstance().put(Constant.SP_TOKEN,loginEntity.getToken());
             startActivity(new Intent(this,MainActivity.class));
         }
