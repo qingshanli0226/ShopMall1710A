@@ -101,4 +101,12 @@ public class ShopUserManager {
         void onLoginSuccess();
         void onLogoutSuccess();
     }
+
+    public void saveToken(Context context,String token) {
+        SpUtil.saveToken(context, token);
+    }
+
+    public String getToken(Context context) {
+        return SpUtil.getTpken(context);
+    }
 }

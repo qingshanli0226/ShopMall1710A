@@ -1,7 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             android:layout_width="match_parent"
-                                             android:layout_height="match_parent">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.example.shopmall.framework.view.ToolBar
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:id="@+id/toolBar"
+            app:toolbarTile="@string/main_title_proper"
+            app:toolBarLeftSrc="@mipmap/atguigu_logo"
+            app:toolBarRightDisplay="true"
+            app:toolBarRightSrc="@mipmap/ic_launcher"
+            app:toolbarBackgroundColor="@color/colorAccent"
+            app:isShowTitle="false"
+    />
+
+
+    <android.support.v7.widget.RecyclerView android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:layout_below="@id/toolBar"
+                                            android:layout_marginTop="10dp"
+    android:id="@+id/recyclerView">
+
+    </android.support.v7.widget.RecyclerView>
 
     <TextView android:layout_width="wrap_content"
               android:layout_height="wrap_content"
@@ -9,7 +30,13 @@
               android:gravity="center"
               android:layout_centerInParent="true"
               android:id="@+id/count"
-              android:text="@string/fragment_home_content"/>
+              android:text="@string/fragment_home_content"
+    android:visibility="visible"/>
+
+    <ProgressBar android:layout_width="100dp" android:layout_height="100dp"
+                 android:id="@+id/loadingBar"
+                 android:layout_centerInParent="true"
+                 android:visibility="gone"/>
 
 
 </RelativeLayout>

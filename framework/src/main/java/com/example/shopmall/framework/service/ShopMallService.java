@@ -99,7 +99,9 @@ public class ShopMallService extends Service {
                         Type type  =  new TypeToken<LoginBean>(){}.getType();
                         try {
                             LoginBean loginBean = new Gson().fromJson(responseBody.string(), type);
-                            iAutoLoginListener.onAutoLoginSuccess(loginBean);
+                            if (loginBean.getCode().equals("200")) {
+                                iAutoLoginListener.onAutoLoginSuccess(loginBean);
+                            }
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

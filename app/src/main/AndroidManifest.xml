@@ -26,6 +26,8 @@
 
         <activity android:name=".login.view.BetterLoginActivity"
         android:launchMode="singleTop"/>
+        <activity android:name=".product.view.ProductDetailActivity"
+        android:launchMode="singleTop"/>
     </application>
 
 </manifest>

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
+import com.example.shopmall.common.Constant;
 import com.example.shopmall.common.StringUtil;
 import com.example.shopmall.common.util.SpUtil;
 import com.example.shopmall.framework.service.ShopMallService;
@@ -98,6 +99,21 @@ public class CacheManager {
 
             }
         });
+    }
+
+    public void addShopcarCount(Context context, int addNum) {
+        //更新缓存的数据
+        int sum = SpUtil.getShopcarCount(context) + addNum;
+        SpUtil.saveShopcarCount(context, sum);
+
+        //去通知UI刷新数据
+        for(IShopCountRecevedLisener lisener:shopCountRecevedLisenerList) {
+            lisener.onShopcarCountReceived(sum);
+        }
+    }
+
+    public void saveShopCount(Context context, int count) {
+        SpUtil.saveShopcarCount(context, count);
     }
 
 //获取购物车产品数量

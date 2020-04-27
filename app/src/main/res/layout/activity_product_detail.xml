@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    <com.example.shopmall.framework.view.ToolBar
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:id="@+id/toolBar"
+            app:toolbarTile="@string/product_detail"
+            app:toolBarRightDisplay="true"
+            app:toolBarRightSrc="@mipmap/icon_more"
+            app:isShowTitle="true"
+    />
+    <ImageView android:layout_width="match_parent" android:layout_height="0dp"
+    android:id="@+id/productDetailImage"
+    android:layout_marginTop="@dimen/view_top_size"
+    android:layout_weight="3"/>
+
+    <TextView android:layout_width="match_parent" android:layout_height="0dp"
+    android:layout_weight="1"
+    android:id="@+id/productDetailPrice"
+    android:layout_marginTop="@dimen/view_top_size"/>
+
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="0dp"
+    android:layout_weight="1"
+    android:orientation="horizontal">
+        <ImageView android:layout_width="0dp" android:layout_height="match_parent"
+        android:src="@mipmap/icon_good_detail_cart"
+        android:layout_weight="1"
+        android:id="@+id/productDetailShopcar"/>
+        <TextView android:layout_width="0dp" android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textSize="30sp"
+        android:id="@+id/shopCarCountTV"/>
+        <Button android:layout_width="0dp" android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:id="@+id/addProduct"
+        android:text="@string/add_one_product"/>
+    </LinearLayout>
+
+    </LinearLayout>
+
+
+    <ProgressBar android:layout_width="100dp" android:layout_height="100dp"
+                 android:id="@+id/loadingBar"
+                 android:layout_centerInParent="true"
+                 android:visibility="gone"/>
+
+
+
+
+</RelativeLayout>

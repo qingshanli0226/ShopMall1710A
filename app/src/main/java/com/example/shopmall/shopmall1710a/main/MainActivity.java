@@ -21,24 +21,13 @@ import com.example.shopmall.shopmall1710a.R;
 
 import java.util.List;
 
-public class MainActivity extends BaseActivity<Object> implements CacheManager.IHomeDataListener {
-
-    private TextView contentTV;
+public class MainActivity extends BaseActivity<Object> {
 
     private Fragment[] fragments = new Fragment[]{new HomeFragment(), new TypeFragment(), new ShopcarFragment(),new MineFragment()};
     private Fragment currentFragment;
 
     @Override
     protected void initData() {
-        //获取首页数据,将获取的数据展示出来
-        String homeDataStr = CacheManager.getInstance().getHomeData(this);
-        if (homeDataStr == null) {
-            //showLoading();
-        } else {
-            /*contentTV.setText(homeDataStr);*/
-        }
-
-        CacheManager.getInstance().registerIHomeDataListener(this);
     }
 
     @Override
@@ -48,8 +37,6 @@ public class MainActivity extends BaseActivity<Object> implements CacheManager.I
 
     @Override
     protected void initView() {
-        /*contentTV = findViewById(R.id.content);*/
-
         switchFragment(0);//默认进入HomeFragment
         BottomBar bottomBar= findViewById(R.id.bottomBar);
         bottomBar.setTabCheckedListener(new BottomBar.IBottomBarTabCheckedListener() {
@@ -94,28 +81,14 @@ public class MainActivity extends BaseActivity<Object> implements CacheManager.I
     @Override
     protected void destroy() {
         //注销listener，避免内存泄漏
-        CacheManager.getInstance().unRegisterIHomeDataListener();
     }
 
     @Override
     public void onHtttpReceived(int requestCode, Object data) {
-
     }
 
     @Override
     public void onHttpReceivedFailed(int requestCode, ErrorBean errorBean) {
-
-    }
-
-    @Override
-    public void onHomeDataReceived(final String homeDataJson) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                hideLoading();
-                /*contentTV.setText(homeDataJson);*/
-            }
-        });
     }
 
     //该方法，在Activity已经存在的情况下，并且Activity的启动模式不是standard,再次startActivity时会调用该方法，不会调用oncreate方法.

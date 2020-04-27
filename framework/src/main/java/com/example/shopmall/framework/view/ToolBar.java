@@ -169,6 +169,14 @@ public class ToolBar extends LinearLayout implements View.OnClickListener {
         rightImg.setVisibility(VISIBLE);
     }
 
+    public void showRightTv(boolean isShow) {
+        if (isShow) {
+            rightTv.setVisibility(VISIBLE);
+        } else {
+            rightTv.setVisibility(GONE);
+        }
+    }
+
     //是否显示title
     public void showTitle(boolean isShowTitle) {
         if (isShowTitle) {
