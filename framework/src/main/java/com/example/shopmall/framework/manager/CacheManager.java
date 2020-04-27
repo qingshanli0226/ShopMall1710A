@@ -5,77 +5,135 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
-import com.example.shopmall.common.util.SpUtils;
+import com.example.shopmall.common.util.SpUtill;
 import com.example.shopmall.framework.services.ShopMallService;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class CacheManager {
-
-    private SpUtils spUtils;
-
     private IHomeDataListener iHomeDataListener;
+    private ShopMallService shopMallService;
+    public SpUtill spUtill;
 
-    private static CacheManager instances;
+    private List<IShopCountRecevedLisener> shopCountRecevedLisenerList = new LinkedList<>();
+
+    private static CacheManager instance;
 
     private CacheManager() {
-
     }
 
     public static CacheManager getInstance() {
-        if (instances == null) {
-            instances = new CacheManager();
+        if (instance == null) {
+            instance = new CacheManager();
         }
-        return instances;
+
+        return instance;
     }
 
-    public void init(Context context) {
-        spUtils = new SpUtils(context);
+    public void registerShopCountListener(IShopCountRecevedLisener listener) {
+        if (!shopCountRecevedLisenerList.contains(listener)) {
+            shopCountRecevedLisenerList.add(listener);
+        }
+    }
 
-        //绑定service
+    public void unRegisterShopCountListener(IShopCountRecevedLisener listener) {
+        if (shopCountRecevedLisenerList.contains(listener)) {
+            shopCountRecevedLisenerList.remove(listener);
+        }
+    }
+
+
+    //鍒濆§嬪寲鍑芥暟
+    public void init(final Context context) {
+        spUtill = new SpUtill(context);
         Intent intent = new Intent();
         intent.setClass(context, ShopMallService.class);
+
         context.startService(intent);
+
         context.bindService(intent, new ServiceConnection() {
             @Override
-            public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-                ShopMallService.ShopMallBinder shopMallBinder = (ShopMallService.ShopMallBinder) iBinder;
-                ShopMallService shopMallService = shopMallBinder.getServices();
+            public void onServiceConnected(ComponentName name, IBinder service) {
+                ShopMallService.ShopMallBinder shopMallBinder = (ShopMallService.ShopMallBinder) service;
+                shopMallService = shopMallBinder.getService();
                 shopMallService.getHomeData(new ShopMallService.IHomeDataReceiveListener() {
                     @Override
-                    public void onHomwDataReceived(String homeJsonStr) {
-                        //数据获取成功
-                        //存储数据
-                        spUtils.saveHomeData(homeJsonStr);
-                        //通知刷新
+                    public void onHomeDataReceived(String homeJsonStr) {
+                        SpUtill.saveHomeData(context, homeJsonStr);
+                        if (iHomeDataListener == null) {
+                            return;
+                        }
                         iHomeDataListener.onHomeDataReceived(homeJsonStr);
+                    }
+                });
+
+            }
+
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+
+            }
+        }, Context.BIND_AUTO_CREATE);
+
+        ShopUserManager.getInstance().registerUserLoginListener(new ShopUserManager.IUserLoginListener() {
+            @Override
+            public void onLoginSuccess() {
+                shopMallService.getShopcarCount(SpUtill.getTpken(context), new ShopMallService.IShopcarCountListener() {
+                    @Override
+                    public void onReceiveCount(int count) {
+                        SpUtill.saveShopcarCount(context, count);
+                        for (IShopCountRecevedLisener lisener : shopCountRecevedLisenerList) {
+                            lisener.onShopcarCountReceived(count);
+                        }
                     }
                 });
             }
 
             @Override
-            public void onServiceDisconnected(ComponentName componentName) {
+            public void onLogoutSuccess() {
 
             }
-        }, Context.BIND_AUTO_CREATE);
-
-
+        });
     }
+
+    public void addShopcarCount(Context context, int addNum) {
+        int sum = SpUtill.getShopcarCount(context) + addNum;
+        SpUtill.saveShopcarCount(context, sum);
+
+        for (IShopCountRecevedLisener lisener : shopCountRecevedLisenerList) {
+            lisener.onShopcarCountReceived(sum);
+        }
+    }
+
+    public void saveShopCount(Context context, int count) {
+        SpUtill.saveShopcarCount(context, count);
+    }
+
+    public int getShopcarCount(Context context) {
+        return SpUtill.getShopcarCount(context);
+    }
+
+    public interface IShopCountRecevedLisener {
+        void onShopcarCountReceived(int conunt);
+    }
+
 
     public interface IHomeDataListener {
         void onHomeDataReceived(String homeDataJson);
     }
 
-    public void registerHomeDataListener(IHomeDataListener listener) {
+    public void registerIHomeDataListener(IHomeDataListener listener) {
         iHomeDataListener = listener;
     }
 
-    public void unRegisterHomeDataListener(IHomeDataListener listener) {
+    public void unRegisterIHomeDataListener() {
         iHomeDataListener = null;
     }
 
 
-    //提供方法获取数据
-    public String getHomeData() {
-        return spUtils.getHomeData();
+    public String getHomeData(Context context) {
+        return SpUtill.getHomeData(context);
     }
 
 }

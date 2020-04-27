@@ -5,12 +5,13 @@ package com.example.shopmall.shopmall1710a.login.presenter;
 import com.example.shopmall.framework.base.presenter.BasePresenter;
 import com.example.shopmall.net.BaseBean;
 import com.example.shopmall.shopmall1710a.login.mode.BetterLoginBean;
+import com.example.shopmall.shopmall1710a.login.mode.RegisterBean;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.TreeMap;
 
-public class BetterRegisterPresenter extends BasePresenter<BetterLoginBean> {
+public class BetterRegisterPresenter extends BasePresenter<RegisterBean> {
     @Override
     protected String getPath() {
         return "register";
@@ -33,5 +34,10 @@ public class BetterRegisterPresenter extends BasePresenter<BetterLoginBean> {
         Map<String,String> encryptParams = SignUtil.encryptParamsByBase64(params);//编码加密：保证数据以密文传输*/
 
         updateParamsMap(params);//使用编码后的参数发起网络请求
+    }
+
+    @Override
+    public void destroy() {
+
     }
 }

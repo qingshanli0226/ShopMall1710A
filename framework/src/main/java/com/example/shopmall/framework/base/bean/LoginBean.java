@@ -1,16 +1,30 @@
-package com.example.shopmall.shopmall1710a.login.mode;
+package com.example.shopmall.framework.base.bean;
 
-public class LoginBean extends com.example.shopmall.framework.base.bean.LoginBean {
+public class LoginBean {
+
+
+    /**
+     * id : 1610
+     * name : 1610
+     * password : 1610
+     * email : null
+     * phone : null
+     * point : null
+     * address : null
+     * money : null
+     * avatar : null
+     * token : eaacae51-1c55-4ead-a31d-8070e336bc51AND1558449232809
+     */
 
     private String id;
     private String name;
     private String password;
     private Object email;
-    private String phone;
-    private String point;
-    private String address;
-    private String money;
-    private String avatar;
+    private Object phone;
+    private Object point;
+    private Object address;
+    private Object money;
+    private Object avatar;
     private String token;
 
     public String getId() {
@@ -45,43 +59,43 @@ public class LoginBean extends com.example.shopmall.framework.base.bean.LoginBea
         this.email = email;
     }
 
-    public String getPhone() {
+    public Object getPhone() {
         return phone;
     }
 
-    public void setPhone(String phone) {
+    public void setPhone(Object phone) {
         this.phone = phone;
     }
 
-    public String getPoint() {
+    public Object getPoint() {
         return point;
     }
 
-    public void setPoint(String point) {
+    public void setPoint(Object point) {
         this.point = point;
     }
 
-    public String getAddress() {
+    public Object getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(Object address) {
         this.address = address;
     }
 
-    public String getMoney() {
+    public Object getMoney() {
         return money;
     }
 
-    public void setMoney(String money) {
+    public void setMoney(Object money) {
         this.money = money;
     }
 
-    public String getAvatar() {
+    public Object getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(String avatar) {
+    public void setAvatar(Object avatar) {
         this.avatar = avatar;
     }
 
@@ -92,4 +106,5 @@ public class LoginBean extends com.example.shopmall.framework.base.bean.LoginBea
     public void setToken(String token) {
         this.token = token;
     }
+
 }

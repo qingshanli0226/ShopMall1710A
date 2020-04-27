@@ -1,6 +1,7 @@
-package com.example.shopmall.shopmall1710a;
+package com.example.shopmall.shopmall1710a.app;
 
 import android.app.Application;
+import android.content.Context;
 import com.example.shopmall.framework.manager.CacheManager;
 
 public class ShopMallApplication extends Application {
@@ -13,5 +14,10 @@ public class ShopMallApplication extends Application {
         instances = this;
 
         CacheManager.getInstance().init(this);
+    }
+
+    // 获取全局上下文
+    public static Context getContext() {
+        return instances;
     }
 }

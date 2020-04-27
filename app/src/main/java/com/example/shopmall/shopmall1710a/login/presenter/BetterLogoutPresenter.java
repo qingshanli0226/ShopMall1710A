@@ -17,4 +17,9 @@ public class BetterLogoutPresenter extends BasePresenter<BetterLoginBean> {
     public Type getBeanType() {
         return new TypeToken<BaseBean<String>>(){}.getType();
     }
+
+    @Override
+    public void destroy() {
+
+    }
 }

@@ -4,10 +4,9 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.shopmall.framework.R;
-import com.example.shopmall.framework.base.presenter.IBasePresenter;
+import com.example.shopmall.net.IPresenter;
 
-public abstract class BaseActivity<P extends IBasePresenter, T> extends AppCompatActivity implements IBaseView<T>, IBaseActivity, CustomToolBar.ToolBarListener {
+public abstract class BaseActivity<P extends IPresenter, T> extends AppCompatActivity implements IBaseView<T>, IBaseActivity, CustomToolBar.ToolBarListener {
     protected P mPresenter;
     protected CustomToolBar toolbar;
 

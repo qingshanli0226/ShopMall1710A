@@ -1,10 +1,10 @@
-package com.example.shopmall.shopmall1710a;
+package com.example.shopmall.shopmall1710a.main.view.activity;
 
 import android.content.Intent;
 import com.bumptech.glide.Glide;
 import com.example.shopmall.common.ErrorBean;
 import com.example.shopmall.framework.base.view.BaseActivity;
-import com.example.shopmall.shopmall1710a.main.view.activity.MainActivity;
+import com.example.shopmall.shopmall1710a.R;
 
 import java.util.Timer;
 import java.util.TimerTask;

@@ -1,81 +1,89 @@
 package com.example.shopmall.shopmall1710a.login.view;
 
 import android.content.Intent;
-import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import com.example.shopmall.common.ErrorBean;
-import com.example.shopmall.framework.base.view.IBaseView;
+import com.example.shopmall.common.util.SpUtill;
+import com.example.shopmall.framework.base.bean.LoginBean;
+import com.example.shopmall.framework.base.view.BaseActivity;
+import com.example.shopmall.framework.manager.ShopUserManager;
 import com.example.shopmall.shopmall1710a.R;
-import com.example.shopmall.shopmall1710a.login.mode.BetterLoginBean;
-import com.example.shopmall.shopmall1710a.login.mode.LoginBean;
 import com.example.shopmall.shopmall1710a.login.presenter.BetterLoginPresenter;
-import com.example.shopmall.shopmall1710a.login.presenter.BetterLogoutPresenter;
-import com.example.shopmall.shopmall1710a.main.view.activity.MainActivity;
+import com.example.shopmall.shopmall1710a.main.view.activity.WelcomeActivity;
 
-public class BetterLoginActivity extends AppCompatActivity implements IBaseView<BetterLoginBean>, View.OnClickListener {
+public class BetterLoginActivity extends BaseActivity<BetterLoginPresenter, LoginBean> implements View.OnClickListener {
 
-    private EditText passwordEditText;
-    private EditText nameEditText;
-    private BetterLoginPresenter loginPresenter;
-    private BetterLogoutPresenter logoutPresenter;
 
-    private TextView toLogin;
+    private android.widget.ImageView back;
+    private android.widget.EditText name;
+    private android.widget.EditText password;
+    private android.widget.Button loginButton;
+    private android.widget.TextView toregister;
+    private android.widget.ProgressBar progressBar;
+
+    private BetterLoginPresenter presenter;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-
-        loginPresenter = new BetterLoginPresenter();
-        logoutPresenter = new BetterLogoutPresenter();
-        loginPresenter.attachView(this);
-        nameEditText = findViewById(R.id.name);
-        passwordEditText = findViewById(R.id.password);
-        toLogin = findViewById(R.id.toregister);
-
-        findViewById(R.id.loginButton).setOnClickListener(this);
-        toLogin.setOnClickListener(this);
+    public int bindLayout() {
+        return R.layout.activity_login;
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.loginButton:
-                login();
-                break;
-            case R.id.toregister:
-                toregister();
-                break;
+    public void initToolBar() {
+
+    }
+
+    @Override
+    public void initView() {
+
+
+        presenter = new BetterLoginPresenter();
+        presenter.attachView(this);
+
+        back = findViewById(R.id.back);
+        name = findViewById(R.id.name);
+        password = findViewById(R.id.password);
+        loginButton = findViewById(R.id.loginButton);
+        toregister = findViewById(R.id.toregister);
+        progressBar = findViewById(R.id.progressBar);
+
+        loginButton.setOnClickListener(this);
+        toregister.setOnClickListener(this);
+    }
+
+    @Override
+    public void inject() {
+
+    }
+
+    @Override
+    public void initData() {
+
+    }
+
+    @Override
+    public void onHtttpReceived(int requestCode, LoginBean data) {
+
+        if (requestCode == 0) {
+            Intent intent = new Intent(this, WelcomeActivity.class);
+            startActivity(intent);
+
+            ShopUserManager.getInstance().saveToken(this, data.getToken());
+            ShopUserManager.getInstance().saveUserLoginBeanAndNotify(data);
+
+            finish();
         }
-    }
 
-    private void toregister() {
-        Intent intent = new Intent(this, BetterRegisterActivity.class);
-        startActivityForResult(intent, 101);
     }
-
-    private void logout() {
-        logoutPresenter.postHttpData(0);
-    }
-
-    private void login() {
-        loginPresenter.addParmas(nameEditText.getText().toString(), passwordEditText.getText().toString());
-        loginPresenter.postHttpData(0);
-    }
-
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        loginPresenter.detachView();
+    public void onHttpReceivedFailed(int requestCode, ErrorBean errorBean) {
+        Toast.makeText(this, "登录失败:" + errorBean.getErrorMessage(), Toast.LENGTH_SHORT).show();
+        name.setText("");
+        password.setText("");
     }
-
 
     @Override
     public void showLoading() {
@@ -88,21 +96,22 @@ public class BetterLoginActivity extends AppCompatActivity implements IBaseView<
     }
 
     @Override
-    public void onHtttpReceived(int requestCode, BetterLoginBean data) {
-        Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
-
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-
-        this.finish();
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.loginButton:
+                login();
+                break;
+            case R.id.toregister:
+                Intent intent = new Intent(this, BetterRegisterActivity.class);
+                startActivity(intent);
+                break;
+        }
     }
 
-    @Override
-    public void onHttpReceivedFailed(int requstCode, ErrorBean errorBean) {
-//        Toast.makeText(this, "登录失败:" + errorBean.getErrorMessage(), Toast.LENGTH_SHORT).show();
-//        Intent intent = new Intent(this, MainActivity.class);
-//        startActivity(intent);
-
-        this.finish();
+    private void login() {
+        String names = name.getText().toString();
+        String pwd = password.getText().toString();
+        presenter.addParmas(names, pwd);
+        presenter.postHttpData(0);
     }
 }

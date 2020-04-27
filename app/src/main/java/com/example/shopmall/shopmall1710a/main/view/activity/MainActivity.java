@@ -1,6 +1,8 @@
 package com.example.shopmall.shopmall1710a.main.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -97,6 +99,16 @@ public class MainActivity extends AppCompatActivity {
         customButtom.setViewPager(actMainFramel);
         customButtom.setBottomBeans(blist);
         actMainFramel.setCurrentItem(0);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        Log.d("LAE", "onNewIntent.......................................");
+
+        int index = intent.getIntExtra("index", -1);
+        actMainFramel.setCurrentItem(index);
+
     }
 
 

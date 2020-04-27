@@ -6,4 +6,5 @@ public interface IPresenter {
     void getHttpData(int requestCode);
     void postHttpData(int requestCode);
     void postHttpDataWithJson(int requestCode);
+    void destroy();
 }

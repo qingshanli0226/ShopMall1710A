@@ -2,10 +2,12 @@ package com.example.shopmall.shopmall1710a.main.view.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import com.bumptech.glide.Glide;
@@ -15,14 +17,19 @@ import com.example.shopmall.common.Constant;
 import com.example.shopmall.common.ErrorBean;
 import com.example.shopmall.framework.base.view.BaseFragment;
 import com.example.shopmall.framework.base.view.IBaseView;
+import com.example.shopmall.framework.manager.CacheManager;
+import com.example.shopmall.framework.manager.ShopUserManager;
 import com.example.shopmall.shopmall1710a.R;
 import com.example.shopmall.shopmall1710a.main.adapter.ActAdapter;
 import com.example.shopmall.shopmall1710a.main.adapter.ChannelAdapter;
 import com.example.shopmall.shopmall1710a.main.adapter.RecommendAdapter;
 import com.example.shopmall.shopmall1710a.main.adapter.SeckillAdapter;
 import com.example.shopmall.shopmall1710a.main.bean.Goods;
+import com.example.shopmall.shopmall1710a.main.bean.GoodsBean;
 import com.example.shopmall.shopmall1710a.main.presenter.HomePresenter;
 import com.example.shopmall.shopmall1710a.main.view.activity.GoodDetailActivity;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.youth.banner.Banner;
 import com.youth.banner.loader.ImageLoader;
 
@@ -30,7 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class HomeFrag extends BaseFragment<HomePresenter, Goods> implements IBaseView<Goods> {
+public class HomeFrag extends BaseFragment<HomePresenter, Goods> implements IBaseView<Goods>, CacheManager.IHomeDataListener, CacheManager.IShopCountRecevedLisener {
 
     private HomePresenter homePresenter;
 
@@ -108,12 +115,28 @@ public class HomeFrag extends BaseFragment<HomePresenter, Goods> implements IBas
 
     @Override
     public void initData() {
+        String homeDataStr = CacheManager.getInstance().getHomeData(getActivity());
+        if (homeDataStr == null) {
+            showLoading();
+        } else {
+            processHomeBean(homeDataStr);
+        }
+
+        CacheManager.getInstance().registerIHomeDataListener(this);
+
+
         Log.d("LAE", "initData: ");
         homePresenter = new HomePresenter();
         homePresenter.attachView(this);
         homePresenter.getHttpData(0);
 
     }
+
+    public void processHomeBean(String homeDataJson) {
+        Goods good = new Gson().fromJson(homeDataJson, new TypeToken<Goods>() {
+        }.getType());
+    }
+
 
     @Override
     public void onHtttpReceived(int requestCode, Goods data) {
@@ -125,6 +148,7 @@ public class HomeFrag extends BaseFragment<HomePresenter, Goods> implements IBas
 
 
     }
+
 
     private void initAdapter(Goods data) {
         channelList.clear();
@@ -184,5 +208,27 @@ public class HomeFrag extends BaseFragment<HomePresenter, Goods> implements IBas
     @Override
     public void hideLoading() {
 
+    }
+
+    @Override
+    public void onHomeDataReceived(final String homeDataJson) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                hideLoading();
+                processHomeBean(homeDataJson);
+            }
+        });
+    }
+
+    @Override
+    public void onShopcarCountReceived(int conunt) {
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        CacheManager.getInstance().unRegisterShopCountListener(this);
     }
 }
