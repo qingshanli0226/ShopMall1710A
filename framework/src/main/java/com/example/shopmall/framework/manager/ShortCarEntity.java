@@ -2,7 +2,7 @@ package com.example.shopmall.framework.manager;
 
 import java.util.List;
 
-public class ShopCarEntity {
+public class ShortCarEntity {
 
     /**
      * code : 200

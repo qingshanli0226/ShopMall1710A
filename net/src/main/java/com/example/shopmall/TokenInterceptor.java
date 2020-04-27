@@ -15,6 +15,6 @@ public class TokenInterceptor implements Interceptor {
         Request request = chain.request();
         Request newRequest = request.newBuilder().addHeader("token", SPUtils.getInstance().getString(Constant.SP_TOKEN))
                 .addHeader("appversoin", "v1.0").build();
-        return chain.proceed(chain.request());
+        return chain.proceed(newRequest);
     }
 }

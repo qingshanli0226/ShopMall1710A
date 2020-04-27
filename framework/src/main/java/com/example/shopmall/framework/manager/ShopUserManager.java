@@ -8,8 +8,9 @@ import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.util.Log;
 import com.blankj.utilcode.util.SPUtils;
-import com.example.shopmall.BaseBean;
 import com.example.shopmall.common.Constant;
+import com.example.shopmall.framework.entity.BossBean;
+import com.example.shopmall.framework.entity.LoginEntity;
 import com.example.shopmall.framework.service.ShopMallService;
 import com.google.gson.Gson;
 

@@ -1,4 +1,4 @@
-package com.example.shopmall.framework;
+package com.example.shopmall.framework.utils;
 
 import android.content.Context;
 import com.alibaba.android.arouter.facade.annotation.Route;

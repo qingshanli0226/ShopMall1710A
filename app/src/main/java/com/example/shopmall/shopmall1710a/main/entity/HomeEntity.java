@@ -1,4 +1,4 @@
-package com.example.shopmall.shopmall1710a.home.entity;
+package com.example.shopmall.shopmall1710a.main.entity;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 

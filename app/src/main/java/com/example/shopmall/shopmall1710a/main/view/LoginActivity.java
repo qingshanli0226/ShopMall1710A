@@ -8,7 +8,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.shopmall.common.Constant;
 import com.example.shopmall.common.ErrorBean;
-import com.example.shopmall.framework.manager.LoginEntity;
+import com.example.shopmall.framework.entity.LoginEntity;
 import com.example.shopmall.framework.mvp.presenter.IPresenter;
 import com.example.shopmall.framework.mvp.view.BaseActivity;
 import com.example.shopmall.shopmall1710a.R;

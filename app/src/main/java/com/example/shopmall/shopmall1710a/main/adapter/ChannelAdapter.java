@@ -1,4 +1,4 @@
-package com.example.shopmall.shopmall1710a.home.adapter;
+package com.example.shopmall.shopmall1710a.main.adapter;
 
 import android.widget.ImageView;
 import androidx.annotation.Nullable;
@@ -8,7 +8,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.shopmall.common.Constant;
 import com.example.shopmall.framework.manager.AppCore;
 import com.example.shopmall.shopmall1710a.R;
-import com.example.shopmall.shopmall1710a.home.entity.HomeEntity;
+import com.example.shopmall.shopmall1710a.main.entity.HomeEntity;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.example.shopmall.shopmall1710a.home.adapter;
+package com.example.shopmall.shopmall1710a.main.adapter;
 
 import android.content.Context;
 import android.util.Log;
@@ -14,7 +14,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.shopmall.common.Constant;
 import com.example.shopmall.framework.manager.AppCore;
 import com.example.shopmall.shopmall1710a.R;
-import com.example.shopmall.shopmall1710a.home.entity.HomeEntity;
+import com.example.shopmall.shopmall1710a.main.entity.HomeEntity;
 import com.youth.banner.Banner;
 import com.youth.banner.loader.ImageLoaderInterface;
 
@@ -73,6 +73,15 @@ public class HomeAdapter extends BaseMultiItemQuickAdapter<HomeEntity, BaseViewH
                 recyclerView1.setLayoutManager(new GridLayoutManager(AppCore.getInstance().getApp(),1, LinearLayoutManager.HORIZONTAL,true));
                 SeckillAdapter hotAdapter = new SeckillAdapter(item.getResult().getSeckill_info().getList());
                 recyclerView1.setAdapter(hotAdapter);
+//                hotAdapter.setOnItemClickListener(new OnItemClickListener() {
+//                    @Override
+//                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+//                        if (startActivityLinsenner != null){
+//                            startActivityLinsenner.onStartOk(HomeEntity.HOME_TYPE_RECOMMEND,position);
+//                        }
+//                    }
+//                });
+
                 break;
             case HomeEntity.HOME_TYPE_RECOMMEND:
                 RecyclerView recyclerView2 = helper.getView(R.id.item_recommend_rv);

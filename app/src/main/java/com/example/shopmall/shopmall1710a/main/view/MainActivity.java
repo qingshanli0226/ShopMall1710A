@@ -1,10 +1,16 @@
 package com.example.shopmall.shopmall1710a.main.view;
 
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
+import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.annotation.WorkerThread;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.blankj.utilcode.util.SPUtils;
 import com.example.shopmall.common.Constant;
 import com.example.shopmall.common.ErrorBean;
 import com.example.shopmall.framework.customView.CustomBottomBar;
@@ -28,6 +34,14 @@ public class MainActivity extends BaseActivity implements CacheManager.IHomeData
     private List<BottomBean> lists;
     private MyPagerAdapter myPagerAdapter;
     private List<Fragment> fragments;
+    private TextView mainShopCarNum;
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            super.handleMessage(msg);
+            mainShopCarNum.setText(msg.what+"");
+        }
+    };
     @Override
     public int bindLayout() {
         return R.layout.activity_main;
@@ -40,9 +54,11 @@ public class MainActivity extends BaseActivity implements CacheManager.IHomeData
         CacheManager.getInstance().registerCountLisenner( this);
         viewPager = findViewById(R.id.viewPager);
         bottomBar = findViewById(R.id.bottomBar);
-
+        mainShopCarNum = findViewById(R.id.mainShopCarNum);
         lists = new ArrayList<>();
         fragments = new ArrayList<>();
+
+        mainShopCarNum.setText(SPUtils.getInstance().getInt(Constant.SP_SHOP_COUNT)+"");
     }
 
     @Override
@@ -96,7 +112,10 @@ public class MainActivity extends BaseActivity implements CacheManager.IHomeData
 
 
     @Override
-    public void onShopcarCountReceived(int conunt) {
-        Log.i("boss", "onShopcarCountReceived: 购物车数量"+conunt);
+    public void onShopcarCountReceived(final int conunt) {
+        Message message = new Message();
+        message.what = conunt;
+        handler.sendMessage(message);
+        Log.i("boss", "onShopcarCountReceived: 主页面购物车数量"+conunt);
     }
 }

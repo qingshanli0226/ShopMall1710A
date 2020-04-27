@@ -17,6 +17,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class CacheManager {
+
+
     private IHomeDataListener iHomeDataListener;
     private ShopMallService shopMallService;
     private static CacheManager instance;
@@ -70,16 +72,7 @@ public class CacheManager {
             @Override
             public void onLoginSuccess() { // 登录成功
                 // 获取 购物车数据(数量)
-                shopMallService.gitShopcarCount(SPUtils.getInstance().getString(Constant.SP_TOKEN), new ShopMallService.IShopcarCountListener() {
-                    @Override
-                    public void onReceiveCount(int count) {
-                        Log.i("boss", "onReceiveCount: 数量"+count);
-                        SPUtils.getInstance().put(Constant.SP_SHOP_COUNT,count);
-                        for(IShopCountRecevedLisener lisener:shopCountRecevedLisenerList) { // 通知监听页面 跟新购物车数据
-                            lisener.onShopcarCountReceived(count);
-                        }
-                    }
-                });
+               startShopMallService();
             }
 
             @Override
@@ -88,6 +81,26 @@ public class CacheManager {
             }
         });
     }
+
+    public void startShopMallService(){
+        shopMallService.gitShopcarCount(SPUtils.getInstance().getString(Constant.SP_TOKEN), new ShopMallService.IShopcarCountListener() {
+            @Override
+            public void onReceiveCount(int count) {
+                Log.i("boss", "onReceiveCount: 购物车页面数量"+count);
+                SPUtils.getInstance().put(Constant.SP_SHOP_COUNT,count);
+                notifyShopCountRecevedLisener();
+            }
+        });
+    }
+
+
+    // 通知 有新的的商品添加购物车
+    public void notifyShopCountRecevedLisener(){
+        for(IShopCountRecevedLisener lisener:shopCountRecevedLisenerList) { // 通知监听页面 跟新购物车数据
+            lisener.onShopcarCountReceived(SPUtils.getInstance().getInt(Constant.SP_SHOP_COUNT));
+        }
+    }
+
 
     // 提供方法 获取 购物车数据
     public int getShopcarCount() {

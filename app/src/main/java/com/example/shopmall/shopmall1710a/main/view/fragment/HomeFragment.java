@@ -13,8 +13,8 @@ import com.example.shopmall.framework.manager.CacheManager;
 import com.example.shopmall.framework.mvp.presenter.IPresenter;
 import com.example.shopmall.framework.mvp.view.BaseFragment;
 import com.example.shopmall.shopmall1710a.R;
-import com.example.shopmall.shopmall1710a.home.adapter.HomeAdapter;
-import com.example.shopmall.shopmall1710a.home.entity.HomeEntity;
+import com.example.shopmall.shopmall1710a.main.adapter.HomeAdapter;
+import com.example.shopmall.shopmall1710a.main.entity.HomeEntity;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;

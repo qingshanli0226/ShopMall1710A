@@ -4,16 +4,16 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
+import android.os.UserManager;
 import android.util.Log;
 import com.alibaba.fastjson.JSON;
 import com.blankj.utilcode.util.SPUtils;
-import com.example.shopmall.BaseBean;
 import com.example.shopmall.BaseObserver;
 import com.example.shopmall.RetrofitManager;
 import com.example.shopmall.common.Constant;
-import com.example.shopmall.framework.manager.BossBean;
-import com.example.shopmall.framework.manager.LoginEntity;
-import com.example.shopmall.framework.manager.ShopCarEntity;
+import com.example.shopmall.framework.entity.BossBean;
+import com.example.shopmall.framework.manager.ShopUserManager;
+import com.example.shopmall.framework.manager.ShortCarEntity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import io.reactivex.Observer;
@@ -134,10 +134,14 @@ public class ShopMallService extends Service {
 
                     @Override
                     public void onNext(ResponseBody responseBody) {
+                        int count = 0;
                         try {
-                            ShopCarEntity shopCarEntity = new Gson().fromJson(responseBody.string(), new TypeToken<ShopCarEntity>(){}.getType());
+                            ShortCarEntity shopCarEntity = new Gson().fromJson(responseBody.string(), new TypeToken<ShortCarEntity>(){}.getType());
+                            for (ShortCarEntity.ResultBean resultBean : shopCarEntity.getResult()) {
+                                count += Integer.parseInt(resultBean.getProductNum());
+                            }
                             // 集合的长度 即我购物车数量
-                            iShopcarCountListener.onReceiveCount(shopCarEntity.getResult().size());
+                            iShopcarCountListener.onReceiveCount(count);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -154,6 +158,8 @@ public class ShopMallService extends Service {
                     }
                 });
     }
+
+
 
     //获取购物车商品count 的监听
     public interface IShopcarCountListener {

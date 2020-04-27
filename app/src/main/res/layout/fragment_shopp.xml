@@ -12,7 +12,12 @@
             app:rightImageId="@drawable/dot"
             app:titleText="@string/titleBarTextCar"
             android:id="@+id/customTitleBar"/>
-
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/shoppRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/dp50"
+    android:layout_marginTop="@dimen/dp40"></androidx.recyclerview.widget.RecyclerView>
     <ProgressBar
             android:id="@+id/loadingBar"
             android:layout_width="@dimen/dp100"

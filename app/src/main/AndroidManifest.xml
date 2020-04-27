@@ -20,7 +20,7 @@
                 </intent-filter>
             </activity>
         <!--商品详情页-->
-        <activity android:name=".home.view.DetailsPageActivity"/>
+        <activity android:name=".main.view.DetailsPageActivity"/>
         <activity android:name=".main.view.LoginActivity"/>
         <service android:name="com.example.shopmall.framework.service.ShopMallService"/>
     </application>
