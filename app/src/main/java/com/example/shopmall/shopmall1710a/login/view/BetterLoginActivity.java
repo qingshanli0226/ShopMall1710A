@@ -1,6 +1,7 @@
 package com.example.shopmall.shopmall1710a.login.view;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -38,16 +39,27 @@ public class BetterLoginActivity extends BaseActivity<BetterLoginPresenter, Logi
     @Override
     public void initView() {
 
-
         presenter = new BetterLoginPresenter();
         presenter.attachView(this);
 
+
+        SharedPreferences isLogin = getSharedPreferences("isLogin", MODE_PRIVATE);
+        String name = isLogin.getString("name", null);
+        String pwd = isLogin.getString("pwd", null);
+        boolean islog = isLogin.getBoolean("islog", false);
+        if (islog == true) {
+            presenter.addParmas(name, pwd);
+            presenter.postHttpData(0);
+        }
+
+
         back = findViewById(R.id.back);
-        name = findViewById(R.id.name);
+        this.name = findViewById(R.id.name);
         password = findViewById(R.id.password);
         loginButton = findViewById(R.id.loginButton);
         toregister = findViewById(R.id.toregister);
         progressBar = findViewById(R.id.progressBar);
+
 
         loginButton.setOnClickListener(this);
         toregister.setOnClickListener(this);
@@ -65,6 +77,17 @@ public class BetterLoginActivity extends BaseActivity<BetterLoginPresenter, Logi
 
     @Override
     public void onHtttpReceived(int requestCode, LoginBean data) {
+        String names = name.getText().toString();
+        String pwd = password.getText().toString();
+
+
+        SharedPreferences isLogin = getSharedPreferences("isLogin", MODE_PRIVATE);
+        SharedPreferences.Editor edit = isLogin.edit();
+        edit.putBoolean("islog", true);
+        edit.putString("name", names);
+        edit.putString("pwd", pwd);
+
+        edit.commit();
 
         if (requestCode == 0) {
             Intent intent = new Intent(this, WelcomeActivity.class);

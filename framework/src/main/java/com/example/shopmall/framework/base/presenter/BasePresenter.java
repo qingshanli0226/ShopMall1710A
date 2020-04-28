@@ -90,7 +90,7 @@ public abstract class BasePresenter<T> implements IPresenter {
     public void postHttpData(final int requestCode) {
         RetrofitCreator.getNetAPIService()
                 .postData(getPath(), getParamsMap())
-                .delay(2, TimeUnit.SECONDS)//延迟两秒后进行网络请求
+                .delay(0, TimeUnit.SECONDS)//延迟两秒后进行网络请求
                 .subscribeOn(Schedulers.io())
                 .map(new NetFunction<ResponseBody, T>(getBeanType()))
                 .observeOn(AndroidSchedulers.mainThread())

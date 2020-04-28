@@ -47,7 +47,7 @@ public abstract class BaseActivity<P extends IPresenter, T> extends AppCompatAct
 
     @Override
     public void onLeftImv() {
-        finish();
+        this.finish();
     }
 
     @Override

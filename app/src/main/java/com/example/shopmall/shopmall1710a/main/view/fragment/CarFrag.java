@@ -35,6 +35,7 @@ public class CarFrag extends BaseFragment {
     private List<ShopCartBean.ResultBean> list = new ArrayList<>();
     private SpUtill spUtill;
     private CartAdapter cartAdapter;
+    private double sum = 0.00;
 
     @Override
     public int bindLayout() {
@@ -66,6 +67,7 @@ public class CarFrag extends BaseFragment {
         cartAdapter = new CartAdapter(R.layout.cart_item, list);
         recyclerview.setAdapter(cartAdapter);
         recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
+
     }
 
     @Override
@@ -82,6 +84,12 @@ public class CarFrag extends BaseFragment {
             List<ShopCartBean.ResultBean> result = new Gson().fromJson(shopcartData, ShopCartBean.class).getResult();
             list.addAll(result);
             cartAdapter.notifyDataSetChanged();
+            for (int i = 0; i < list.size(); i++) {
+                double num = Double.parseDouble(list.get(i).getProductNum());
+                double price = Double.parseDouble(list.get(i).getProductPrice());
+                sum += num * price;
+            }
+            tvShopcartTotal.setText("￥"+sum);
         }
 
 
