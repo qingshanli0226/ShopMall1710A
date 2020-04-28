@@ -25,7 +25,7 @@ public class UpdateProductNumPresenter extends BasePresenter<String> {
         JSONObject object = new JSONObject();
         try {
             object.put("productId", productId);
-            object.put("productNum", 1);
+            object.put("productNum", productNum);
             object.put("productName", productName);
             object.put("productPrice", productPrice);
             object.put("productSelected",true);
