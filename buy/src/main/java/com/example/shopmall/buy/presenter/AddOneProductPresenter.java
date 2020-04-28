@@ -1,4 +1,4 @@
-package com.example.shopmall.shopmall1710a.main.presenter;
+package com.example.shopmall.buy.presenter;
 
 import com.example.shopmall.BaseBean;
 import com.example.shopmall.framework.mvp.presenter.BasePresenter;

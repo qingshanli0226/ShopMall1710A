@@ -1,4 +1,4 @@
-package com.example.shopmall.shopmall1710a.main.view;
+package com.example.shopmall.shopmall1710a.login;
 
 import android.content.Intent;
 import android.util.Log;
@@ -12,7 +12,8 @@ import com.example.shopmall.framework.entity.LoginEntity;
 import com.example.shopmall.framework.mvp.presenter.IPresenter;
 import com.example.shopmall.framework.mvp.view.BaseActivity;
 import com.example.shopmall.shopmall1710a.R;
-import com.example.shopmall.shopmall1710a.main.presenter.LoginPresenter;
+import com.example.shopmall.shopmall1710a.login.presenter.LoginPresenter;
+import com.example.shopmall.shopmall1710a.main.view.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +64,7 @@ public class LoginActivity extends BaseActivity {
             LoginEntity loginEntity = (LoginEntity) data;
             Log.i("boss", "onHtttpReceived: 手动登录成功!"+loginEntity.getToken());
             SPUtils.getInstance().put(Constant.SP_TOKEN,loginEntity.getToken());
-            startActivity(new Intent(this,MainActivity.class));
+            startActivity(new Intent(this, MainActivity.class));
         }
     }
 

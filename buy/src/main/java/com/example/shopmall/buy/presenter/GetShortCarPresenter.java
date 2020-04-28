@@ -1,9 +1,11 @@
-package com.example.shopmall.shopmall1710a.main.presenter;
+package com.example.shopmall.buy.presenter;
+
+
 
 import com.example.shopmall.BaseBean;
+import com.example.shopmall.buy.entity.ShopCarEntity;
 import com.example.shopmall.framework.mvp.presenter.BasePresenter;
 import com.example.shopmall.framework.mvp.view.IBaseView;
-import com.example.shopmall.shopmall1710a.main.entity.ShopCarEntity;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;

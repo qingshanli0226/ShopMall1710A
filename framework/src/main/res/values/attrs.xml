@@ -8,6 +8,8 @@
         <attr name="leftImageId" format="reference"/>
         <attr name="rightImageId" format="reference"/>
         <attr name="titleText" format="string"/>
+        <attr name="isRightImageShow" format="boolean"/>
+        <attr name="textColor" format="color"/>
     </declare-styleable>
 
 

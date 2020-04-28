@@ -1,4 +1,4 @@
-package com.example.shopmall.shopmall1710a.main.presenter;
+package com.example.shopmall.shopmall1710a.login.presenter;
 
 
 

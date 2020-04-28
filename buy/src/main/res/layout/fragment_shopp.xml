@@ -6,11 +6,11 @@
                 android:layout_height="match_parent">
     <com.example.shopmall.framework.customView.CustomTitleBar
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            app:isRightTextShow="false"
-            app:leftImageId="@drawable/back"
-            app:rightImageId="@drawable/dot"
+            android:layout_height="40dp"
+            app:isRightTextShow="true"
             app:titleText="@string/titleBarTextCar"
+            app:rightText="编辑"
+            app:textColor="#000"
             android:id="@+id/customTitleBar"/>
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/shoppRecyclerView"
@@ -18,6 +18,11 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="@dimen/dp50"
     android:layout_marginTop="@dimen/dp40"></androidx.recyclerview.widget.RecyclerView>
+    <com.example.shopmall.buy.customView.ShopCarBottomBar
+            android:id="@+id/shopCarBottomBar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp50"
+            android:layout_alignParentBottom="true"/>
     <ProgressBar
             android:id="@+id/loadingBar"
             android:layout_width="@dimen/dp100"

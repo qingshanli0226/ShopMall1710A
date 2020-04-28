@@ -39,6 +39,7 @@ dependencies {
     implementation project(path: ':framework')
     implementation project(':net')
     implementation project(':point')
+    implementation project(path: ':buy')
 
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.22'  //------->>万能适配器
     implementation 'com.android.support:recyclerview-v7:29.0.0'//recyclerview
@@ -51,6 +52,7 @@ dependencies {
     //方法库
     api 'com.alibaba:arouter-api:1.5.0'
     annotationProcessor 'com.alibaba:arouter-compiler:1.2.2'
+
 
 
 }

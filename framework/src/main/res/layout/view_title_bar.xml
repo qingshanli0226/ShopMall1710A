@@ -39,8 +39,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:textSize="@dimen/sp10"
-                android:textColor="#000"
-                android:visibility="gone"/>
+                android:textColor="#000"/>
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

@@ -1,4 +1,4 @@
-package com.example.shopmall.shopmall1710a.main.entity;
+package com.example.shopmall.buy.entity;
 
 
 public class ShopCarEntity {
@@ -10,6 +10,7 @@ public class ShopCarEntity {
          * url : http://www.baidu.com
          * productPrice : 20
          */
+
 
         private String productId;
         private String productName;

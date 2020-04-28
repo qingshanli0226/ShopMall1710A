@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">buy</string>
+    <string name="titleBarTextCar">购物车</string>
+    <string name="shop_car_buttom_bar_checkout">全选</string>
+    <string name="shop_car_buttom_bar_total">合计</string>
+    <string name="shop_car_buttom_bar_closeMoney">去结算(0)</string>
+    <string name="all_money">0.00</string>
 </resources>

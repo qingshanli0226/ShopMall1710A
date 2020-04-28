@@ -1,5 +1,8 @@
 package com.example.shopmall.shopmall1710a.main.view;
 
+
+
+
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
@@ -8,11 +11,15 @@ import android.graphics.PathMeasure;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.blankj.utilcode.util.SPUtils;
 import com.bumptech.glide.Glide;
+import com.example.shopmall.buy.presenter.AddOneProductPresenter;
 import com.example.shopmall.common.Constant;
 import com.example.shopmall.common.ErrorBean;
 import com.example.shopmall.framework.customView.CustomTitleBar;
@@ -21,7 +28,6 @@ import com.example.shopmall.framework.mvp.presenter.IPresenter;
 import com.example.shopmall.framework.mvp.view.BaseActivity;
 import com.example.shopmall.shopmall1710a.R;
 import com.example.shopmall.shopmall1710a.main.entity.HomeEntity;
-import com.example.shopmall.shopmall1710a.main.presenter.AddOneProductPresenter;
 import com.example.shopmall.shopmall1710a.main.presenter.InventoryPresenter;
 
 import java.util.ArrayList;
@@ -62,11 +68,7 @@ public class DetailsPageActivity extends BaseActivity implements View.OnClickLis
         shortCarNum = findViewById(R.id.shortCarNum);
         addShopCarBtn = findViewById(R.id.addShopCarBtn);
         addShopCarBtn.setOnClickListener(this);
-
     }
-
-
-
     @Override
     public void initData() {
         mCustomTitleBar.setOnCustomTitleBarLisenner(this);
@@ -75,7 +77,6 @@ public class DetailsPageActivity extends BaseActivity implements View.OnClickLis
                 .into(detailsFigure);
         detailsName.setText(msg.getName());
         detailsPrice.setText(msg.getCover_price());
-
         shortCarNum.setText(SPUtils.getInstance().getInt(Constant.SP_SHOP_COUNT)+"");
     }
 
@@ -88,7 +89,6 @@ public class DetailsPageActivity extends BaseActivity implements View.OnClickLis
         list.add(addOneProductPresenter);
         return list;
     }
-
     @Override
     public void onHttpReceived(int requestCode, Object data) {
         if (requestCode == 100){
@@ -104,13 +104,10 @@ public class DetailsPageActivity extends BaseActivity implements View.OnClickLis
         }else if (requestCode == 200){ // 添加成功
             Log.i("boss", "onHttpReceived: 添加购物车"+data);
             CacheManager.getInstance().startShopMallService();
-
         }
     }
-
     @Override
     public void onHttpReceivedFailed(int requestCode, ErrorBean errorBean) {
-
     }
 
     @Override
@@ -122,39 +119,27 @@ public class DetailsPageActivity extends BaseActivity implements View.OnClickLis
                  */
                 inventoryPresenter.addparams(Integer.parseInt(msg.getProduct_id()),1);
                 inventoryPresenter.postHttpData(100);
-
                 starAnamation();
-
                 break;
             case R.id.detailsFigure:
                 break;
         }
     }
-
-    // 动画
     private void starAnamation() {
         this.imageView = new ImageView(this);
         imageView.setImageResource(R.drawable.logo);
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(100,100);
         this.addContentView(imageView,layoutParams);
-
         // 获取商品的位置
         int[] location = new int[2];
         detailsFigure.getLocationOnScreen(location);
-
         // 获取购物车的位置
         int[] location1 = new int[2];
         addShopCarBtn.getLocationOnScreen(location1);
-
-
-
         Path path = new Path();
         path.moveTo(location[0]+addShopCarBtn.getWidth(),location[1]);
-
         path.cubicTo(location[0]+1000,location[1],location[0],location[1]+1500,location1[0],location1[1]);
-
         final PathMeasure pathMeasure = new PathMeasure(path, false);
-
         valueAnimator = ValueAnimator.ofFloat(0, pathMeasure.getLength());
         valueAnimator.setDuration(500);
         valueAnimator.setInterpolator(new LinearInterpolator());
@@ -168,10 +153,7 @@ public class DetailsPageActivity extends BaseActivity implements View.OnClickLis
                 imageView.setTranslationY(mCurrentPosition[1]);
             }
         });
-
         valueAnimator.start();
-
-
         valueAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
@@ -181,19 +163,19 @@ public class DetailsPageActivity extends BaseActivity implements View.OnClickLis
             }
         });
     }
-
-
     // title 的点击事件
     @Override
     public void leftOk() { // 左边图片
         finish(); // 回退
     }
-
     @Override
     public void rightOk() {
 
     }
+    @Override
+    public void rightTextOk() {
 
+    }
     // 获取购物车数量成功!
     @Override
     public void onShopcarCountReceived(int conunt) {

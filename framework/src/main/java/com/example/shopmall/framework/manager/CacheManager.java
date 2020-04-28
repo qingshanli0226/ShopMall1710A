@@ -66,7 +66,6 @@ public class CacheManager {
             }
         }, Context.BIND_AUTO_CREATE);
 
-
         // 注册 监听 (登录状态)
         ShopUserManager.getInstance().registerListener(new ShopUserManager.IUserInfoListener() {
             @Override
@@ -81,7 +80,6 @@ public class CacheManager {
             }
         });
     }
-
     public void startShopMallService(){
         shopMallService.gitShopcarCount(SPUtils.getInstance().getString(Constant.SP_TOKEN), new ShopMallService.IShopcarCountListener() {
             @Override

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/dp50">
+    <CheckBox
+            android:id="@+id/shopCarBottomBarCheckBox"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+    android:text="@string/shop_car_buttom_bar_checkout" android:layout_gravity="left|center"/>
+    <TextView
+            android:id="@+id/shopCarBottomBarTotal"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+    android:text="@string/shop_car_buttom_bar_total" android:layout_gravity="left|center"
+    android:layout_marginLeft="@dimen/dp10"/>
+    <TextView
+            android:id="@+id/shopCarBottomBarAllMoney"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+    android:text="@string/all_money" android:layout_gravity="center|left"
+            android:textColor="@color/red"
+    android:textStyle="bold" android:layout_marginLeft="@dimen/dp5"/>
+    <RelativeLayout android:layout_width="0dp" android:layout_height="match_parent"
+    android:layout_weight="1">
+        <Button
+                android:id="@+id/shopCarBottomBarCloseMoney"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="@string/shop_car_buttom_bar_closeMoney" android:textColor="#fff" android:background="@color/red"
+                android:layout_alignParentRight="true"
+        />
+        <Button
+                android:id="@+id/shopCarBottomBarRemove"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="删除" android:textColor="#fff"
+                android:layout_alignParentRight="true"
+                android:visibility="gone"/>
+    </RelativeLayout>
+
+</LinearLayout>

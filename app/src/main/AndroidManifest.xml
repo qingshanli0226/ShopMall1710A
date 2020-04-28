@@ -21,7 +21,7 @@
             </activity>
         <!--商品详情页-->
         <activity android:name=".main.view.DetailsPageActivity"/>
-        <activity android:name=".main.view.LoginActivity"/>
+        <activity android:name=".login.LoginActivity"/>
         <service android:name="com.example.shopmall.framework.service.ShopMallService"/>
     </application>
 

@@ -11,6 +11,7 @@
             app:leftImageId="@drawable/back"
             app:rightImageId="@drawable/dot"
             android:id="@+id/customTitleBar"
+            app:isRightImageShow="true"
             android:visibility="gone"/>
     <LinearLayout
             android:layout_width="match_parent"

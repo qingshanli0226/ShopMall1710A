@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,9 +17,10 @@ public class CustomTitleBar extends RelativeLayout implements View.OnClickListen
     private ImageView leftImage,rightImage;
     private TextView titleTextView,rightTextView;
     // 自定义属性值
-    private String titleText,rightText;
+    private String titleText;
+    private String rightText;
     private int leftImagId,rightImageId;
-    private boolean isRightTextShow; // 判定右边文字是否显示
+    private boolean isRightTextShow,isRightImageShow; // 判定右边文字是否显示
     public CustomTitleBar(Context context) {
         super(context);
         initView(context);
@@ -50,6 +52,7 @@ public class CustomTitleBar extends RelativeLayout implements View.OnClickListen
 
         leftImage.setOnClickListener(this);
         rightImage.setOnClickListener(this);
+        rightTextView.setOnClickListener(this);
     }
 
     private void initValue(Context context, AttributeSet attrs) {
@@ -60,17 +63,20 @@ public class CustomTitleBar extends RelativeLayout implements View.OnClickListen
         leftImagId = typedArray.getResourceId(R.styleable.CustomTitleBar_leftImageId,R.drawable.back);
         rightImageId = typedArray.getResourceId(R.styleable.CustomTitleBar_rightImageId,R.drawable.dot);
         isRightTextShow = typedArray.getBoolean(R.styleable.CustomTitleBar_isRightTextShow,false);
-
+        isRightImageShow = typedArray.getBoolean(R.styleable.CustomTitleBar_isRightImageShow, false);
+        int color = typedArray.getColor(R.styleable.CustomTitleBar_textColor, Color.WHITE);
         // 把自定义属性 设置给控件
         if (isRightTextShow){
             rightTextView.setVisibility(VISIBLE);
         }else {
             rightTextView.setVisibility(GONE);
         }
+
         titleTextView.setText(titleText);
         leftImage.setImageResource(leftImagId);
         rightImage.setImageResource(rightImageId);
         rightTextView.setText(rightText);
+        rightTextView.setTextColor(color);
     }
 
     // 点击事件
@@ -84,16 +90,26 @@ public class CustomTitleBar extends RelativeLayout implements View.OnClickListen
             if (onCustomTitleBarLisenner != null){
                 onCustomTitleBarLisenner.rightOk();
             }
+        }else if (view.getId() == R.id.rightText){
+            if (onCustomTitleBarLisenner != null){
+                onCustomTitleBarLisenner.rightTextOk();
+            }
         }
     }
 
     public interface OnCustomTitleBarLisenner{
         void leftOk();
         void rightOk();
+        void rightTextOk();
     }
     private OnCustomTitleBarLisenner onCustomTitleBarLisenner;
 
     public void setOnCustomTitleBarLisenner(OnCustomTitleBarLisenner onCustomTitleBarLisenner) {
         this.onCustomTitleBarLisenner = onCustomTitleBarLisenner;
+    }
+
+    public void setRightText(String rightText) {
+        this.rightText = rightText;
+        rightTextView.setText(rightText);
     }
 }
