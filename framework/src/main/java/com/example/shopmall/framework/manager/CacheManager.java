@@ -5,9 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
-import com.example.shopmall.common.Constant;
-import com.example.shopmall.common.StringUtil;
 import com.example.shopmall.common.util.SpUtil;
+import com.example.shopmall.framework.bean.ShopCartBean;
 import com.example.shopmall.framework.service.ShopMallService;
 
 import java.util.LinkedList;
@@ -17,8 +16,9 @@ import java.util.List;
 public class CacheManager {
     private IHomeDataListener iHomeDataListener;
     private ShopMallService shopMallService;
+    private ShopCartBean shopCartBean;
 
-    private List<IShopCountRecevedLisener> shopCountRecevedLisenerList = new LinkedList<>();
+    private List<IShopcarDataRecevedLisener> shopCountRecevedLisenerList = new LinkedList<>();
 
     private static CacheManager instance;
     private CacheManager() {
@@ -32,16 +32,20 @@ public class CacheManager {
         return instance;
     }
 
-    public void registerShopCountListener(IShopCountRecevedLisener listener) {
+    public void registerShopCountListener(IShopcarDataRecevedLisener listener) {
         if (!shopCountRecevedLisenerList.contains(listener)) {
             shopCountRecevedLisenerList.add(listener);
         }
     }
 
-    public void unRegisterShopCountListener(IShopCountRecevedLisener listener) {
+    public void unRegisterShopCountListener(IShopcarDataRecevedLisener listener) {
         if (shopCountRecevedLisenerList.contains(listener)) {
             shopCountRecevedLisenerList.remove(listener);
         }
+    }
+
+    public ShopCartBean getShopCartBean() {
+        return shopCartBean;
     }
 
 
@@ -83,12 +87,13 @@ public class CacheManager {
         ShopUserManager.getInstance().registerUserLoginListener(new ShopUserManager.IUserLoginListener() {
             @Override
             public void onLoginSuccess() {//登录成功后，获取购物车数据。
-                shopMallService.getShopcarCount(SpUtil.getTpken(context), new ShopMallService.IShopcarCountListener() {
+                shopMallService.getShopcarCount(SpUtil.getTpken(context), new ShopMallService.IShopcarDataListener() {
                     @Override
-                    public void onReceiveCount(int count) {
+                    public void onReceiveShopcarData(int count, ShopCartBean shopCartBeanResult) {
                         SpUtil.saveShopcarCount(context, count);//把购物车的产品数量存起来
-                        for(IShopCountRecevedLisener lisener:shopCountRecevedLisenerList) {
-                            lisener.onShopcarCountReceived(count);
+                        shopCartBean = shopCartBeanResult;
+                        for(IShopcarDataRecevedLisener lisener:shopCountRecevedLisenerList) {
+                            lisener.onShopcarDataReceived(count,shopCartBean);
                         }
                     }
                 });
@@ -101,14 +106,28 @@ public class CacheManager {
         });
     }
 
-    public void addShopcarCount(Context context, int addNum) {
+    public void addNewShopcardata(Context context, int addNum, ShopCartBean.ShopcarData shopcarData) {
         //更新缓存的数据
         int sum = SpUtil.getShopcarCount(context) + addNum;
         SpUtil.saveShopcarCount(context, sum);
+        shopCartBean.getResult().add(shopcarData);
 
         //去通知UI刷新数据
-        for(IShopCountRecevedLisener lisener:shopCountRecevedLisenerList) {
-            lisener.onShopcarCountReceived(sum);
+        for(IShopcarDataRecevedLisener lisener:shopCountRecevedLisenerList) {
+            lisener.onShopcarDataReceived(sum,shopCartBean);
+        }
+    }
+
+    public void updateShopcarProductNum(Context context,String productId, ShopCartBean.ShopcarData newShopcarData) {
+        for(ShopCartBean.ShopcarData shopcarData:CacheManager.getInstance().getShopCartBean().getResult()) {
+            if (productId.equals(shopcarData.getProductId())) {
+                shopcarData.setProductNum(newShopcarData.getProductNum());
+            }
+        }
+        //去通知UI刷新数据
+        int sum = SpUtil.getShopcarCount(context);
+        for(IShopcarDataRecevedLisener lisener:shopCountRecevedLisenerList) {
+            lisener.onShopcarDataReceived(sum,shopCartBean);
         }
     }
 
@@ -121,8 +140,8 @@ public class CacheManager {
         return SpUtil.getShopcarCount(context);
     }
 
-    public interface IShopCountRecevedLisener {
-        void onShopcarCountReceived(int conunt);
+    public interface IShopcarDataRecevedLisener {
+        void onShopcarDataReceived(int conunt, ShopCartBean shopCartBean);
     }
 
 

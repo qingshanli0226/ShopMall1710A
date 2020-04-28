@@ -9,4 +9,5 @@
     <string name="edit">编辑</string>
     <string name="productName">产品名字</string>
     <string name="productPrice">产品价格</string>
+    <string name="shopcar">购物车</string>
 </resources>

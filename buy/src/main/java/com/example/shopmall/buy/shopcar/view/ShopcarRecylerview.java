@@ -12,8 +12,11 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.TextView;
+import com.bumptech.glide.Glide;
 import com.example.shopmall.buy.R;
 import com.example.shopmall.buy.shopcar.IShopcarEventListener;
+import com.example.shopmall.common.Constant;
 import com.example.shopmall.framework.bean.ShopCartBean;
 
 import java.util.ArrayList;
@@ -23,7 +26,13 @@ public class ShopcarRecylerview extends RecyclerView implements IShopcarEventLis
     private IShopcarEventListener iShopcarEventListener;
     private ShopcarAdapter shopcarAdapter;
 
-    private List<ShopCartBean.ResultBean> shopcarData = new ArrayList<>();
+    private List<ShopCartBean.ShopcarData> shopcarData = new ArrayList<>();
+
+    public void addShopcarData(List<ShopCartBean.ShopcarData> shopcardataList) {
+        shopcarData.clear();
+        shopcarData.addAll(shopcardataList);
+        shopcarAdapter.notifyDataSetChanged();
+    }
 
 
     public ShopcarRecylerview(@NonNull Context context) {
@@ -98,13 +107,18 @@ public class ShopcarRecylerview extends RecyclerView implements IShopcarEventLis
 
         @Override
         public void onBindViewHolder(@NonNull ShopcarViewHolder shopcarViewHolder, final int i) {
-             shopcarViewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+             shopcarViewHolder.productCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                  @Override
                  public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                      shopcarData.get(i).setProductSelected(isChecked);
                      iShopcarEventListener.onProductSelectChanged(isChecked, Float.valueOf(shopcarData.get(i).getProductPrice()));
                  }
              });
+
+             shopcarViewHolder.productCount.setText(shopcarData.get(i).getProductNum());
+            Glide.with(shopcarViewHolder.productImageView.getContext()).load(Constant.BASE_IMAGE_URL+
+            shopcarData.get(i).getUrl()).into(shopcarViewHolder.productImageView);
+
         }
 
         @Override
@@ -114,11 +128,14 @@ public class ShopcarRecylerview extends RecyclerView implements IShopcarEventLis
     }
 
     public static class ShopcarViewHolder extends RecyclerView.ViewHolder {
-        public ImageView imageView;
-        public CheckBox checkBox;
+        public ImageView productImageView;
+        public CheckBox productCheckBox;
+        public TextView productCount;
         public ShopcarViewHolder(View rootView) {
             super(rootView);
-            checkBox = rootView.findViewById(R.id.productSelect);
+            productCheckBox = rootView.findViewById(R.id.productSelect);
+            productImageView = rootView.findViewById(R.id.productImage);
+            productCount = rootView.findViewById(R.id.productCount);
         }
     }
 }

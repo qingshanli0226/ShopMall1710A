@@ -13,7 +13,17 @@ public class ShopCartBean {
 
     private String code;
     private String message;
-    private List<ResultBean> result;
+    private List<ShopcarData> result;
+
+    public void add(ShopcarData shopcarData) {
+        result.add(shopcarData);
+    }
+
+    public void remove(ShopcarData shopcarData) {
+        if (result.contains(shopcarData)) {
+            result.remove(shopcarData);
+        }
+    }
 
     public String getCode() {
         return code;
@@ -31,15 +41,15 @@ public class ShopCartBean {
         this.message = message;
     }
 
-    public List<ResultBean> getResult() {
+    public List<ShopcarData> getResult() {
         return result;
     }
 
-    public void setResult(List<ResultBean> result) {
+    public void setResult(List<ShopcarData> result) {
         this.result = result;
     }
 
-    public static class ResultBean {
+    public static class ShopcarData {
         /**
          * productId : 9356
          * productName : 现货【一方尘寰】剑侠情缘三剑三七秀 干将莫邪 90橙武仿烧蓝复古对簪

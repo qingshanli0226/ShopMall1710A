@@ -45,7 +45,7 @@ public abstract class BaseFragment <T> extends Fragment implements IBaseView<T>,
 
     protected abstract void initData();
 
-    private void initToolBar(View rootView) {
+    protected void initToolBar(View rootView) {
         toolBar = rootView.findViewById(R.id.toolBar);
         toolBar.setToolBarClickListener(this);
     }

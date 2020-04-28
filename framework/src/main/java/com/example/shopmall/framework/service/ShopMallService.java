@@ -4,15 +4,12 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
-import android.text.TextUtils;
 import com.example.shopmall.framework.bean.LoginBean;
 import com.example.shopmall.framework.bean.ShopCartBean;
 import com.example.shopmall.net.RetrofitCreator;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import io.reactivex.Observer;
-import io.reactivex.Scheduler;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -120,7 +117,7 @@ public class ShopMallService extends Service {
 
     }
 
-    public void getShopcarCount(String token, final IShopcarCountListener iShopcarCountListener) {
+    public void getShopcarCount(String token, final IShopcarDataListener iShopcarDataListener) {
         String path = "getShortcartProducts";
         //Header中的token在拦截器中添加的
 
@@ -138,7 +135,7 @@ public class ShopMallService extends Service {
                         Type type  =  new TypeToken<ShopCartBean>(){}.getType();
                         try {
                             ShopCartBean shopCartBean = new Gson().fromJson(responseBody.string(), type);
-                            iShopcarCountListener.onReceiveCount(shopCartBean.getResult().size());
+                            iShopcarDataListener.onReceiveShopcarData(shopCartBean.getResult().size(),shopCartBean);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -158,8 +155,8 @@ public class ShopMallService extends Service {
 
 
 
-    public interface IShopcarCountListener {
-        void onReceiveCount(int count);
+    public interface IShopcarDataListener {
+        void onReceiveShopcarData(int count, ShopCartBean shopCartBean);
     }
 
     //定义接口，实现获取数据后通知Manager

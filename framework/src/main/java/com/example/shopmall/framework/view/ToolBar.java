@@ -88,6 +88,7 @@ public class ToolBar extends LinearLayout implements View.OnClickListener {
         backgroundColor = typedArray.getColor(R.styleable.MYToolBar_toolbarBackgroundColor, Color.WHITE);
         //是否显示标题
         isShowTitle = typedArray.getBoolean(R.styleable.MYToolBar_isShowTitle, true);
+        //rightTv.setText(typedArray.getString(R.styleable.MYToolBar_rightText));
     }
 
     private void displayView() {
@@ -176,7 +177,15 @@ public class ToolBar extends LinearLayout implements View.OnClickListener {
         }
     }
 
-    //是否显示title
+    public void showLeft(boolean isShow) {
+        if (isShow) {
+            leftLayout.setVisibility(VISIBLE);
+        } else {
+            leftLayout.setVisibility(GONE);
+        }
+    }
+
+  //是否显示title
     public void showTitle(boolean isShowTitle) {
         if (isShowTitle) {
             titleTv.setVisibility(VISIBLE);

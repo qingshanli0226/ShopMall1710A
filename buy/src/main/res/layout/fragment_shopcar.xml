@@ -1,15 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             android:layout_width="match_parent"
-                                             android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
 >
 
     <com.example.shopmall.framework.view.ToolBar android:layout_width="match_parent"
                                                  android:layout_height="60dp"
                                                  android:id="@+id/toolBar"
-    android:layout_alignParentTop="true">
+    android:layout_alignParentTop="true"
+                                                 app:rightText="@string/edit"
+                                                 app:toolbarTile="@string/shopcar">
 
     </com.example.shopmall.framework.view.ToolBar>
+
+    <com.example.shopmall.buy.shopcar.view.ShopcarRecylerview android:layout_width="match_parent"
+                                                              android:layout_height="match_parent"
+    android:layout_below="@id/toolBar"
+    android:layout_above="@id/shopcarPayView"
+    android:id="@+id/shopcarRv">
+
+    </com.example.shopmall.buy.shopcar.view.ShopcarRecylerview>
 
     <com.example.shopmall.buy.shopcar.view.ShopcarPayView android:layout_width="match_parent"
                                                           android:layout_height="@dimen/tool_bar_height"

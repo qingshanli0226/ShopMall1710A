@@ -3,18 +3,13 @@ package com.example.shopmall.shopmall1710a.main;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
-import com.example.shopmall.common.util.SpUtil;
 import com.example.shopmall.framework.base.BaseFragment;
 import com.example.shopmall.framework.base.IPresenter;
+import com.example.shopmall.framework.bean.ShopCartBean;
 import com.example.shopmall.framework.manager.CacheManager;
 import com.example.shopmall.framework.manager.ShopUserManager;
 import com.example.shopmall.shopmall1710a.R;
@@ -24,7 +19,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.util.List;
 
-public class HomeFragment extends BaseFragment<Object> implements CacheManager.IShopCountRecevedLisener,CacheManager.IHomeDataListener {
+public class HomeFragment extends BaseFragment<Object> implements CacheManager.IShopcarDataRecevedLisener,CacheManager.IHomeDataListener {
     private TextView countTV;
     private RecyclerView recyclerView;
     private HomeAdapter homeAdapter;
@@ -85,7 +80,7 @@ public class HomeFragment extends BaseFragment<Object> implements CacheManager.I
     }
 
     @Override
-    public void onShopcarCountReceived(int conunt) {
+    public void onShopcarDataReceived(int conunt, ShopCartBean shopCartBean) {
         countTV.post(new Runnable() {
             @Override
             public void run() {
