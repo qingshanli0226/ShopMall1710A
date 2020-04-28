@@ -77,12 +77,12 @@ public abstract class BaseFragment <T> extends Fragment implements IBaseView<T>,
     }
 
     @Override
-    public void onLeftImgClick() {
+    public void onLeftClick() {
 
     }
 
     @Override
-    public void onRightImgClick() {
+    public void onRightClick() {
 
     }
 

@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.shopmall.framework.R;
@@ -133,11 +132,11 @@ public class ToolBar extends LinearLayout implements View.OnClickListener {
     public void onClick(View v) {
         if (v.getId() == R.id.leftLayout) {
             if(toolBarListener != null) {
-                toolBarListener.onLeftImgClick();
+                toolBarListener.onLeftClick();
             }
         }else if (v.getId() == R.id.rightLayout) {
             if (toolBarListener != null) {
-                toolBarListener.onRightImgClick();
+                toolBarListener.onRightClick();
             }
         }
     }
@@ -187,7 +186,7 @@ public class ToolBar extends LinearLayout implements View.OnClickListener {
     }
 
     public interface ToolBarListener{
-        void onLeftImgClick();
-        void onRightImgClick();
+        void onLeftClick();
+        void onRightClick();
     }
 }

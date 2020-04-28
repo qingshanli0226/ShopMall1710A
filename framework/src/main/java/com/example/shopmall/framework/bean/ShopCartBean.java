@@ -4,10 +4,11 @@ import java.util.List;
 
 public class ShopCartBean {
 
+
     /**
      * code : 200
      * message : 请求成功
-     * result : [{"productId":"1512","productName":"衬衫","productNum":"2","url":"http://www.baidu.com","productPrice":"20"}]
+     * result : [{"productId":"9356","productName":"现货【一方尘寰】剑侠情缘三剑三七秀 干将莫邪 90橙武仿烧蓝复古对簪","productNum":"1","url":"/1477984921265.jpg","productPrice":"159.00","productSelected":true},{"productId":"10136","productName":"【高冷猫】暗黑系软妹病娇药丸少女秋装假俩件加厚卫衣帽衫  预售","productNum":"5","url":"/1477360350123.png","productPrice":"143.10","productSelected":true},{"productId":"9414","productName":"【现货】【GIRLISM少女主义】 第4期 2016夏秋刊 lolita","productNum":"1","url":"/1474370572805.jpg","productPrice":"70.00","productSelected":true}]
      */
 
     private String code;
@@ -40,11 +41,12 @@ public class ShopCartBean {
 
     public static class ResultBean {
         /**
-         * productId : 1512
-         * productName : 衬衫
-         * productNum : 2
-         * url : http://www.baidu.com
-         * productPrice : 20
+         * productId : 9356
+         * productName : 现货【一方尘寰】剑侠情缘三剑三七秀 干将莫邪 90橙武仿烧蓝复古对簪
+         * productNum : 1
+         * url : /1477984921265.jpg
+         * productPrice : 159.00
+         * productSelected : true
          */
 
         private String productId;
@@ -52,6 +54,7 @@ public class ShopCartBean {
         private String productNum;
         private String url;
         private String productPrice;
+        private boolean productSelected;
 
         public String getProductId() {
             return productId;
@@ -91,6 +94,14 @@ public class ShopCartBean {
 
         public void setProductPrice(String productPrice) {
             this.productPrice = productPrice;
+        }
+
+        public boolean isProductSelected() {
+            return productSelected;
+        }
+
+        public void setProductSelected(boolean productSelected) {
+            this.productSelected = productSelected;
         }
     }
 }

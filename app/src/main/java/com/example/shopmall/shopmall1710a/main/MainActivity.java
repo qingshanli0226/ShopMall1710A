@@ -69,7 +69,7 @@ public class MainActivity extends BaseActivity<Object> {
     }
 
     @Override
-    public void onRightImgClick() {
+    public void onRightClick() {
         Toast.makeText(this,"点击了右侧按钮", Toast.LENGTH_SHORT).show();
     }
 

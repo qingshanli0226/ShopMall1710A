@@ -98,12 +98,12 @@ public abstract class BaseActivity<T> extends AppCompatActivity implements IBase
     protected abstract void destroy();
 
     @Override
-    public void onLeftImgClick() {
+    public void onLeftClick() {
         finish();//左侧大部分是关掉页面，默认实现是关掉页面
     }
 
     @Override
-    public void onRightImgClick() {
+    public void onRightClick() {
     }
 
     public void setToolBarTile(@StringRes int titleId) {
