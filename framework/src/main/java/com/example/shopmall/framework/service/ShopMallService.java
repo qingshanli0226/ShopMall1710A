@@ -134,14 +134,10 @@ public class ShopMallService extends Service {
 
                     @Override
                     public void onNext(ResponseBody responseBody) {
-                        int count = 0;
                         try {
                             ShortCarEntity shopCarEntity = new Gson().fromJson(responseBody.string(), new TypeToken<ShortCarEntity>(){}.getType());
-                            for (ShortCarEntity.ResultBean resultBean : shopCarEntity.getResult()) {
-                                count += Integer.parseInt(resultBean.getProductNum());
-                            }
                             // 集合的长度 即我购物车数量
-                            iShopcarCountListener.onReceiveCount(count);
+                            iShopcarCountListener.onReceiveCount(shopCarEntity.getResult().size());
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
