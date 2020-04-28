@@ -2,12 +2,15 @@ package com.example.shopmall.shopmall1710a.fragment.home;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.shopmall.common.ErrorBean;
 import com.example.shopmall.framework.base.BaseFragment;
 import com.example.shopmall.framework.base.IPresenter;
@@ -18,6 +21,7 @@ import com.example.shopmall.shopmall1710a.fragment.home.adapter.HomeAdapter;
 import com.example.shopmall.shopmall1710a.fragment.home.adapter.RecommendInfoAdapter;
 import com.example.shopmall.shopmall1710a.fragment.home.adapter.SeckillInfoAdapter;
 import com.example.shopmall.shopmall1710a.fragment.home.entity.HomeBean;
+import com.example.shopmall.shopmall1710a.product.ProductDetailActivity;
 import com.google.gson.Gson;
 import com.youth.banner.Banner;
 import com.youth.banner.loader.ImageLoader;
@@ -26,8 +30,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends BaseFragment<Object> implements CacheManager.IHomeDataListener {
-
-    private RecyclerView recyclerView;
     private List<HomeBean.ResultBean.HotInfoBean> hotInfoBeanList = new ArrayList<>();
     private List<HomeBean.ResultBean.ChannelInfoBean> channelInfoBeanList = new ArrayList<>();
     private List<HomeBean.ResultBean.SeckillInfoBean.ListBean> seckillInfoBeanList = new ArrayList<>();
@@ -39,8 +41,9 @@ public class HomeFragment extends BaseFragment<Object> implements CacheManager.I
     private SeckillInfoAdapter seckillInfoAdapter;
     private RecommendInfoAdapter recommendInfoAdapter;
     private Banner banner;
-    private RecyclerView rvChannelInfo;
     private Banner bannerActInfo;
+    private RecyclerView recyclerView;
+    private RecyclerView rvChannelInfo;
     private RecyclerView rvSeckillInfo;
     private RecyclerView rvRecommendInfo;
     @Override
@@ -55,15 +58,29 @@ public class HomeFragment extends BaseFragment<Object> implements CacheManager.I
 
     @Override
     protected void initView() {
-//        inflate = LayoutInflater.from(getContext()).inflate(getLayoutId(), null);
-//        MyToolBar myToolBar = inflate.findViewById(R.id.myToolBar);
-//        myToolBar.setToolBarClickListener(this);
-        recyclerView = inflate.findViewById(R.id.recyclerView);
         banner = inflate.findViewById(R.id.banner);
-        rvChannelInfo = inflate.findViewById(R.id.rv_channel_info);
         bannerActInfo = inflate.findViewById(R.id.banner_act_info);
+        recyclerView = inflate.findViewById(R.id.recyclerView);
+        rvChannelInfo = inflate.findViewById(R.id.rv_channel_info);
         rvSeckillInfo = inflate.findViewById(R.id.rv_seckill_info);
         rvRecommendInfo = inflate.findViewById(R.id.rv_recommend_info);
+        initAdapter();
+        homeAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent = new Intent(getContext(), ProductDetailActivity.class);
+                intent.putExtra("productImageUrl", hotInfoBeanList.get(position).getFigure());
+                intent.putExtra("productPrice",hotInfoBeanList.get(position).getCover_price());
+                intent.putExtra("productName", hotInfoBeanList.get(position).getName());
+                intent.putExtra("productId", hotInfoBeanList.get(position).getProduct_id());
+                startActivity(intent);
+                Toast.makeText(getContext(), "点击", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    private void initAdapter() {
         //设置适配器 （rvRecommendInfo）
         recommendInfoAdapter = new RecommendInfoAdapter(R.layout.item_seckillinfo, recommendInfoBeanList);
         rvRecommendInfo.setLayoutManager(new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL));
@@ -107,35 +124,40 @@ public class HomeFragment extends BaseFragment<Object> implements CacheManager.I
         if (homeDataStr == null) {
             showLoading();
         } else {
-            HomeBean homeBean = new Gson().fromJson(homeDataStr, HomeBean.class);
-            // rvRecommendBean
-            recommendInfoBeanList.addAll(homeBean.getResult().getRecommend_info());
-            recommendInfoAdapter.notifyDataSetChanged();
-            // seckillInfoBean
-            seckillInfoBeanList.addAll(homeBean.getResult().getSeckill_info().getList());
-            seckillInfoAdapter.notifyDataSetChanged();
-            // hotInfoBean
-            hotInfoBeanList.addAll(homeBean.getResult().getHot_info());
-            homeAdapter.notifyDataSetChanged();
-            // hotInfoBean
-            channelInfoBeanList.addAll(homeBean.getResult().getChannel_info());
-            channelInfoAdapter.notifyDataSetChanged();
-            //bannerInfoBean
-            for (int i = 0; i < homeBean.getResult().getBanner_info().size(); i++) {
-                bannerInfoBeanList.add("http://49.233.93.155:8080/atguigu/img/"+homeBean.getResult().getBanner_info().get(i).getImage());
-            }
-            banner.setImages(bannerInfoBeanList);
-            banner.start();
-            //bannerActInfo
-            for (int i = 0; i < homeBean.getResult().getAct_info().size(); i++) {
-                bannerInfoBeanList2.add("http://49.233.93.155:8080/atguigu/img/"+homeBean.getResult().getAct_info().get(i).getIcon_url());
-            }
-            bannerActInfo.setImages(bannerInfoBeanList2);
-            bannerActInfo.start();
+            //加载数据
+            initHome(homeDataStr);
         }
 
         CacheManager.getInstance().registerIHomeDataListener(this);
 
+    }
+
+    private void initHome(String homeDataStr) {
+        HomeBean homeBean = new Gson().fromJson(homeDataStr, HomeBean.class);
+        // rvRecommendBean
+        recommendInfoBeanList.addAll(homeBean.getResult().getRecommend_info());
+        recommendInfoAdapter.notifyDataSetChanged();
+        // seckillInfoBean
+        seckillInfoBeanList.addAll(homeBean.getResult().getSeckill_info().getList());
+        seckillInfoAdapter.notifyDataSetChanged();
+        // hotInfoBean
+        hotInfoBeanList.addAll(homeBean.getResult().getHot_info());
+        homeAdapter.notifyDataSetChanged();
+        // hotInfoBean
+        channelInfoBeanList.addAll(homeBean.getResult().getChannel_info());
+        channelInfoAdapter.notifyDataSetChanged();
+        //bannerInfoBean
+        for (int i = 0; i < homeBean.getResult().getBanner_info().size(); i++) {
+            bannerInfoBeanList.add("http://49.233.93.155:8080/atguigu/img/"+homeBean.getResult().getBanner_info().get(i).getImage());
+        }
+        banner.setImages(bannerInfoBeanList);
+        banner.start();
+        //bannerActInfo
+        for (int i = 0; i < homeBean.getResult().getAct_info().size(); i++) {
+            bannerInfoBeanList2.add("http://49.233.93.155:8080/atguigu/img/"+homeBean.getResult().getAct_info().get(i).getIcon_url());
+        }
+        bannerActInfo.setImages(bannerInfoBeanList2);
+        bannerActInfo.start();
     }
 
     @Override
@@ -156,14 +178,13 @@ public class HomeFragment extends BaseFragment<Object> implements CacheManager.I
 
     @Override
     public void onHomeDataReceived(final String homeDataJson) {
-//        getActivity().runOnUiThread(new Runnable() {
-//            @Override
-//            public void run() {
-//                HomeBean homeBean = new Gson().fromJson(homeDataJson, HomeBean.class);
-//                hotInfoBeanList.addAll(homeBean.getResult().getHot_info());
-//                homeAdapter.notifyDataSetChanged();
-//            }
-//        });
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                hideLoading();
+                initHome(homeDataJson);
+            }
+        });
     }
 
     @Override

@@ -52,6 +52,15 @@ public class ShopCartBean {
         private String productNum;
         private String url;
         private String productPrice;
+        private boolean productSelected;
+
+        public boolean isProductSelected() {
+            return productSelected;
+        }
+
+        public void setProductSelected(boolean productSelected) {
+            this.productSelected = productSelected;
+        }
 
         public String getProductId() {
             return productId;

@@ -9,7 +9,7 @@
             android:id="@+id/myToolBar"
             app:toolbarTile="@string/app_name"
             app:toolBarRightSrc="@drawable/personal"
-            app:toolbarBackgroundColor="#FFFFFF"
+            app:isShowTitle="true"
             />
     <ScrollView
             android:layout_below="@+id/myToolBar"
@@ -62,7 +62,7 @@
                     android:id="@+id/rv_recommend_info"
                     android:layout_width="match_parent"
                     android:layout_height="240dp"
-                    android:layout_marginLeft="30dp"
+                    android:layout_marginLeft="40dp"
                     />
             <android.support.v7.widget.RecyclerView
                     android:layout_marginTop="20dp"
@@ -70,7 +70,7 @@
                     android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="30dp"
+                    android:layout_marginLeft="20dp"
                     />
         </RelativeLayout>
     </ScrollView>

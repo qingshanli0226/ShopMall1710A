@@ -136,7 +136,7 @@ public class ShopMallService extends Service {
                         Type type  =  new TypeToken<ShopCartBean>(){}.getType();
                         try {
                             ShopCartBean shopCartBean = new Gson().fromJson(responseBody.string(), type);
-                            iShopcarCountListener.onReceiveCount(shopCartBean.getResult().size());
+                            iShopcarCountListener.onReceiveCount(shopCartBean.getResult().size(),shopCartBean);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -157,7 +157,7 @@ public class ShopMallService extends Service {
 
 
     public interface IShopcarCountListener {
-        void onReceiveCount(int count);
+        void onReceiveCount(int count,ShopCartBean shopCartBean);
     }
 
     //定义接口，实现获取数据后通知Manager

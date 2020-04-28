@@ -21,6 +21,5 @@ public class ShopMallApplication extends Application {
         NetModule.init(this);
         CacheManager.getInstance().init(this);
         ShopUserManager.getInstance().init(this);
-
     }
 }

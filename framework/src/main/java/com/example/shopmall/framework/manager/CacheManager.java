@@ -7,6 +7,7 @@ import android.content.ServiceConnection;
 import android.os.IBinder;
 
 import com.example.shopmall.common.util.SpUtil;
+import com.example.shopmall.framework.entity.ShopCartBean;
 import com.example.shopmall.framework.service.ShopMallService;
 
 import java.util.LinkedList;
@@ -16,7 +17,8 @@ import java.util.List;
 public class CacheManager {
     private IHomeDataListener iHomeDataListener;
     private ShopMallService shopMallService;
-    private List<IShopCountRecevedLisener> shopCountRecevedLisenerList = new LinkedList<>();
+    private List<IShopcarDataRecevedLisener> shopCountRecevedLisenerList = new LinkedList<>();
+    private ShopCartBean shopCartBean;
     private static CacheManager instance;
     private CacheManager() {
     }
@@ -29,18 +31,21 @@ public class CacheManager {
         return instance;
     }
 
-    public void registerShopCountListener(IShopCountRecevedLisener listener) {
+    public void registerShopCountListener(IShopcarDataRecevedLisener listener) {
         if (!shopCountRecevedLisenerList.contains(listener)) {
             shopCountRecevedLisenerList.add(listener);
         }
     }
 
-    public void unRegisterShopCountListener(IShopCountRecevedLisener listener) {
+    public void unRegisterShopCountListener(IShopcarDataRecevedLisener listener) {
         if (shopCountRecevedLisenerList.contains(listener)) {
             shopCountRecevedLisenerList.remove(listener);
         }
     }
 
+    public ShopCartBean getShopCartBean() {
+        return shopCartBean;
+    }
 
     //初始化函数
     public void init(final Context context) {
@@ -80,10 +85,11 @@ public class CacheManager {
             public void onLoginSuccess() {//登录成功后，获取购物车数据。
                 shopMallService.getShopcarCount(SpUtil.getToken(context), new ShopMallService.IShopcarCountListener() {
                     @Override
-                    public void onReceiveCount(int count) {
+                    public void onReceiveCount(int count,ShopCartBean shopCartBeanResult) {
                         SpUtil.saveShopcarCount(context, count);//把购物车的产品数量存起来
-                        for(IShopCountRecevedLisener lisener:shopCountRecevedLisenerList) {
-                            lisener.onShopcarCountReceived(count);
+                        shopCartBean = shopCartBeanResult;
+                        for(IShopcarDataRecevedLisener lisener:shopCountRecevedLisenerList) {
+                            lisener.onShopcarDataReceived(count, shopCartBean);
                         }
                     }
                 });
@@ -96,13 +102,39 @@ public class CacheManager {
         });
     }
 
+
+    public void addNewShopcardata(Context context, int addNum, ShopCartBean.ResultBean shopcarData) {
+        //更新缓存的数据
+        int sum = SpUtil.getShopcarCount(context) + addNum;
+        SpUtil.saveShopcarCount(context, sum);
+        shopCartBean.getResult().add(shopcarData);
+
+        //去通知UI刷新数据
+        for(IShopcarDataRecevedLisener lisener:shopCountRecevedLisenerList) {
+            lisener.onShopcarDataReceived(sum,shopCartBean);
+        }
+    }
+
+    public void updateShopcarProductNum(Context context,String productId, ShopCartBean.ResultBean newShopcarData) {
+        for(ShopCartBean.ResultBean shopcarData:CacheManager.getInstance().getShopCartBean().getResult()) {
+            if (productId.equals(shopcarData.getProductId())) {
+                shopcarData.setProductNum(newShopcarData.getProductNum());
+            }
+        }
+        //去通知UI刷新数据
+        int sum = SpUtil.getShopcarCount(context);
+        for(IShopcarDataRecevedLisener lisener:shopCountRecevedLisenerList) {
+            lisener.onShopcarDataReceived(sum,shopCartBean);
+        }
+    }
+
     //获取购物车产品数量
     public int getShopcarCount(Context context) {
         return SpUtil.getShopcarCount(context);
     }
 
-    public interface IShopCountRecevedLisener {
-        void onShopcarCountReceived(int conunt);
+    public interface IShopcarDataRecevedLisener {
+        void onShopcarDataReceived(int count, ShopCartBean shopCartBean);
     }
 
 

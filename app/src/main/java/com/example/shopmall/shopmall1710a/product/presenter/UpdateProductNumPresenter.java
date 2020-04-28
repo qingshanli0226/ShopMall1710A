@@ -1,4 +1,4 @@
-package com.example.shopmall.buy.shopcar.presenter;
+package com.example.shopmall.shopmall1710a.product.presenter;
 
 import com.example.shopmall.framework.base.BasePresenter;
 import com.example.shopmall.net.BaseBean;
@@ -12,10 +12,10 @@ import java.lang.reflect.Type;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
-public class AddShopcarPresenter extends BasePresenter<String> {
+public class UpdateProductNumPresenter extends BasePresenter<String> {
     @Override
     protected String getPath() {
-        return "addOneProduct";
+        return "updateProductNum";
     }
 
     @Override
@@ -23,15 +23,15 @@ public class AddShopcarPresenter extends BasePresenter<String> {
         return new TypeToken<BaseBean<String>>(){}.getType();
     }
 
-    public void addParams(String productId) {
+    public void addParams(String productId, String productName, String imageUrl,String productPrice, String productNum) {
         JSONObject object = new JSONObject();
         try {
             object.put("productId", productId);
             object.put("productNum", 1);
-            object.put("productName", "衬衫");
-            object.put("productPrice", "20");
+            object.put("productName", productName);
+            object.put("productPrice", productPrice);
             object.put("productSelected",true);
-            object.put("url", "http://www.baidu.com");
+            object.put("url", imageUrl);
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -1,32 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+>
 
     <com.example.shopmall.framework.view.MyToolBar
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:id="@+id/myToolBar">
+            android:id="@+id/myToolBar"
+            android:layout_alignParentTop="true"
+            app:toolbarTile="购物车">
     </com.example.shopmall.framework.view.MyToolBar>
 
-    <Button android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="添加一个商品"
-    android:id="@+id/btnAdd"/>
-
-    <TextView
-            android:id="@+id/tv_sum"
+    <com.example.shopmall.buy.shopcar.view.ShopcarRecylerview
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="0"
-            android:textSize="20dp"
-            />
+            android:layout_height="match_parent"
+            android:layout_below="@id/myToolBar"
+            android:layout_above="@id/shopcarPayView"
+            android:id="@+id/shopcarRv">
+    </com.example.shopmall.buy.shopcar.view.ShopcarRecylerview>
 
-    <ProgressBar android:layout_width="100dp" android:layout_height="100dp"
-                 android:id="@+id/loadingBar"
-                 android:layout_centerInParent="true"
-                 android:visibility="gone"/>
+    <com.example.shopmall.buy.shopcar.view.ShopcarPayView
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:id="@+id/shopcarPayView"
+            android:layout_alignParentBottom="true">
+    </com.example.shopmall.buy.shopcar.view.ShopcarPayView>
 
-</LinearLayout>
+    <ProgressBar
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/loadingBar"
+            android:layout_centerInParent="true"
+            android:visibility="gone"/>
+
+</RelativeLayout>
