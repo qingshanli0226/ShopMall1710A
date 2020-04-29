@@ -167,9 +167,9 @@ public class HomeFrag extends BaseFragment<HomePresenter, Goods> implements IBas
         seckillAdapter.notifyDataSetChanged();
 
 
-        recommendAdapter.setOnItemClickListener(new OnItemClickListener() {
+        recommendAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(@NonNull BaseQuickAdapter adapter, @NonNull View view, int position) {
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent(getActivity(), GoodDetailActivity.class);
                 Goods.RecommendInfoBean recommendInfoBean = recList.get(position);
                 intent.putExtra("goods", recommendInfoBean);

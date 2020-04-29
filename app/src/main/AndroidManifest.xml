@@ -13,14 +13,14 @@
         <activity
                 android:launchMode="singleTask"
                 android:name=".login.view.BetterLoginActivity">
+
+        </activity>
+        <activity android:name=".login.view.BetterRegisterActivity"/>
+        <activity android:name=".main.view.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-        </activity>
-        <activity android:name=".login.view.BetterRegisterActivity"/>
-        <activity android:name=".main.view.activity.MainActivity">
-
         </activity>
         <activity
                 android:launchMode="singleTask"

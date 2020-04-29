@@ -50,7 +50,7 @@
                         android:layout_gravity="right"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:text="锟¥0.0"
+                        android:text="¥0.0"
                         android:textColor="#f00" />
                 <LinearLayout
                         android:layout_weight="1"

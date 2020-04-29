@@ -6,7 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.viewholder.BaseViewHolder;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.shopmall.common.Constant;
 import com.example.shopmall.shopmall1710a.R;
 import com.example.shopmall.shopmall1710a.main.bean.Goods;
@@ -26,7 +26,7 @@ public class SeckillAdapter extends BaseQuickAdapter<Goods.SeckillInfoBean.ListB
         holder.setText(R.id.item_home_seckill_tv_origin_price, "￥" + seckillInfoBean.getOrigin_price());
         TextView textView = holder.getView(R.id.item_home_seckill_tv_origin_price);
         textView.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG); // 设置中划线并加清晰
-        Glide.with(getContext()).load(Constant.BASE_URL_IMG + seckillInfoBean.getFigure())
+        Glide.with(mContext).load(Constant.BASE_URL_IMG + seckillInfoBean.getFigure())
                 .into((ImageView) holder.getView(R.id.item_home_seckill_imtv));
     }
 }

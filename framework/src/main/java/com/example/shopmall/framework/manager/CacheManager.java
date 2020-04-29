@@ -44,7 +44,6 @@ public class CacheManager {
     }
 
 
-    //鍒濆§嬪寲鍑芥暟
     public void init(final Context context) {
         spUtill = new SpUtill(context);
         Intent intent = new Intent();
