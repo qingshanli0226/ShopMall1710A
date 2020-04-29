@@ -8,6 +8,7 @@
         <attr name="toolBarRightDisplay" format="boolean"></attr>
         <attr name="toolbarBackgroundColor" format="color"></attr>
         <attr name="isShowTitle" format="boolean"></attr>
+        <attr name="rightText" format="string"></attr>
     </declare-styleable>
     <declare-styleable name="MyRadioGroup">
 

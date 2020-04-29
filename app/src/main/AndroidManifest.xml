@@ -19,6 +19,7 @@
         </activity>
 
         <activity android:name=".login.view.BetterLoginActivity">
+
         </activity>
         <activity android:name=".register.view.BetterRegisterActivity"/>
         <activity android:name=".WelcomeActivity"/>

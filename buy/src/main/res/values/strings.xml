@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">buy</string>
+    <string name="finish">完成</string>
+    <string name="edit">编辑</string>
 </resources>

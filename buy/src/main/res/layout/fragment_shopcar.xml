@@ -10,7 +10,9 @@
             android:layout_height="60dp"
             android:id="@+id/myToolBar"
             android:layout_alignParentTop="true"
-            app:toolbarTile="购物车">
+            app:toolbarTile="购物车"
+            app:rightText="编辑"
+            >
     </com.example.shopmall.framework.view.MyToolBar>
 
     <com.example.shopmall.buy.shopcar.view.ShopcarRecylerview

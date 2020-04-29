@@ -160,9 +160,8 @@ public class ProductDetailActivity extends BaseActivity<Object> implements View.
         return false;
     }
 
-
     @Override
-    public void onShopcarDataReceived(final int count, ShopCartBean shopCartBean) {
+    public void onShopcarDataReceived(int count, ShopCartBean shopCartBean, int index) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -170,5 +169,10 @@ public class ProductDetailActivity extends BaseActivity<Object> implements View.
                 Toast.makeText(ProductDetailActivity.this, "成功", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void onShopcarDataSelectedReceived(ShopCartBean shopCartBean, int index) {
+
     }
 }

@@ -62,7 +62,8 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:src="@mipmap/home_arrow_right"
-                    android:gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:visibility="gone"
                 />
             <TextView
                 android:id="@+id/rightTv"
@@ -72,8 +73,8 @@
                 android:textSize="20dp"
                 android:textColor="@android:color/black"
                 android:gravity="center"
-                android:visibility="gone"
-                android:text="右侧"/>
+                android:text="右侧"
+                    />
         </LinearLayout>
 
     </RelativeLayout>

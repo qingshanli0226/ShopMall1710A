@@ -1,51 +1,66 @@
 package com.example.shopmall.buy.shopcar.view;
 
+
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.shopmall.buy.R;
 import com.example.shopmall.buy.shopcar.IShopcarEventListener;
+import com.example.shopmall.common.Constant;
 import com.example.shopmall.framework.entity.ShopCartBean;
+
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class ShopcarRecylerview extends RecyclerView implements IShopcarEventListener {
     private IShopcarEventListener iShopcarEventListener;
-    private ShopcarAdapter shopcarAdapter;
+    public ShopcarAdapter shopcarAdapter;
 
-    private List<ShopCartBean.ResultBean> shopcarData = new ArrayList<>();
+    public List<ShopCartBean.ResultBean> shopcarDataList = new ArrayList<>();
 
-    public void addShopcarData(List<ShopCartBean.ResultBean> shopcardataList) {
-        shopcarData.clear();
-        shopcarData.addAll(shopcardataList);
+    public void updateselect(boolean flag) {
+        for (int i = 0; i < shopcarDataList.size(); i++) {
+            shopcarDataList.get(i).setProductSelected(flag);
+        }
         shopcarAdapter.notifyDataSetChanged();
     }
 
+    public void addShopcarData(List<ShopCartBean.ResultBean> shopcardataList) {
+        shopcarDataList.clear();
+        shopcarDataList.addAll(shopcardataList);
+        shopcarAdapter.notifyDataSetChanged();
+    }
 
-    public ShopcarRecylerview(@NonNull Context context) {
+    //局部刷新列表数据
+    public void updateOneData(ShopCartBean.ResultBean shopcarData, int index) {
+        ShopCartBean.ResultBean item = shopcarDataList.get(index);
+        item.setProductNum(shopcarData.getProductNum());
+        item.setProductSelected(shopcarData.isProductSelected());
+        shopcarAdapter.notifyItemChanged(index);
+    }
+
+
+    public ShopcarRecylerview(Context context) {
         super(context);
         init(context, null);
     }
 
-    public ShopcarRecylerview(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public ShopcarRecylerview(Context context,AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs);
     }
 
-    public ShopcarRecylerview(@NonNull Context context, @Nullable AttributeSet attrs, int defStyle) {
+    public ShopcarRecylerview(Context context,AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(context, attrs);
     }
@@ -66,14 +81,15 @@ public class ShopcarRecylerview extends RecyclerView implements IShopcarEventLis
     }
 
     @Override
-    public void onProductSelectChanged(boolean isSelected, float productPrice) {
+    public void onProductSelectChanged(boolean isSelected, ShopCartBean.ResultBean shopcarData) {
 
     }
 
     @Override
-    public void onProductCountChanged(int count) {
+    public void onProductCountChanged(ShopCartBean.ResultBean shopcarData, int count) {
 
     }
+
 
     @Override
     public void onAllSelectChanged(boolean isAllSelected) {
@@ -86,7 +102,7 @@ public class ShopcarRecylerview extends RecyclerView implements IShopcarEventLis
     }
 
     @Override
-    public void onProductDeleted() {
+    public void onProductDeleted(ShopCartBean.ResultBean shopcarData) {
 
     }
 
@@ -97,33 +113,68 @@ public class ShopcarRecylerview extends RecyclerView implements IShopcarEventLis
 
     private class ShopcarAdapter extends RecyclerView.Adapter<ShopcarViewHolder> {
 
-        @NonNull
         @Override
-        public ShopcarViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        public ShopcarViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
             View rootView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_shop_car, viewGroup,false);
 
             return new ShopcarViewHolder(rootView);
         }
 
         @Override
-        public void onBindViewHolder(@NonNull ShopcarViewHolder shopcarViewHolder, final int i) {
-             shopcarViewHolder.productCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                 @Override
-                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                     shopcarData.get(i).setProductSelected(isChecked);
-                     iShopcarEventListener.onProductSelectChanged(isChecked, Float.valueOf(shopcarData.get(i).getProductPrice()));
-                 }
-             });
+        public void onBindViewHolder(ShopcarViewHolder shopcarViewHolder, final int i) {
+            shopcarViewHolder.productCheckBox.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    iShopcarEventListener.onProductSelectChanged(
+                            !shopcarDataList.get(i).isProductSelected(),
+                            shopcarDataList.get(i));
+                }
+            });
 
-             shopcarViewHolder.productCount.setText(shopcarData.get(i).getProductNum());
+            shopcarViewHolder.productCount.setText(shopcarDataList.get(i).getProductNum());
             Glide.with(shopcarViewHolder.productImageView.getContext()).load("http://49.233.93.155:8080/atguigu/img/"+
-            shopcarData.get(i).getUrl()).into(shopcarViewHolder.productImageView);
+                    shopcarDataList.get(i).getUrl()).into(shopcarViewHolder.productImageView);
+            shopcarViewHolder.productPrice.setText(shopcarDataList.get(i).getProductPrice());
+            shopcarViewHolder.productName.setText(shopcarDataList.get(i).getProductName());
+
+            //如果判断该产品选择值为true,需要做什么
+            if (shopcarDataList.get(i).isProductSelected()) {
+                shopcarViewHolder.productCheckBox.setChecked(true);
+            } else {
+                shopcarViewHolder.productCheckBox.setChecked(false);
+            }
+
+
+            shopcarViewHolder.btnAdd.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int num = Integer.valueOf(shopcarDataList.get(i).getProductNum());
+                    //当等于1时，值不能再改变
+
+                    int newNum = num +1;
+                    iShopcarEventListener.onProductCountChanged(shopcarDataList.get(i),newNum);
+                }
+            });
+
+            shopcarViewHolder.btnSub.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int num = Integer.valueOf(shopcarDataList.get(i).getProductNum());
+                    //当等于1时，值不能再改变
+                    if (num <= 1) {
+                        return;
+                    }
+
+                    int newNum = num -1;
+                    iShopcarEventListener.onProductCountChanged(shopcarDataList.get(i),newNum);
+                }
+            });
 
         }
 
         @Override
         public int getItemCount() {
-            return shopcarData.size();
+            return shopcarDataList.size();
         }
     }
 
@@ -131,11 +182,19 @@ public class ShopcarRecylerview extends RecyclerView implements IShopcarEventLis
         public ImageView productImageView;
         public CheckBox productCheckBox;
         public TextView productCount;
+        public TextView productPrice;
+        public TextView productName;
+        private ImageView btnAdd;
+        private ImageView btnSub;
         public ShopcarViewHolder(View rootView) {
             super(rootView);
             productCheckBox = rootView.findViewById(R.id.productSelect);
             productImageView = rootView.findViewById(R.id.productImage);
             productCount = rootView.findViewById(R.id.productCount);
+            productPrice = rootView.findViewById(R.id.productPrice);
+            productName = rootView.findViewById(R.id.productName);
+            btnAdd = rootView.findViewById(R.id.btnAdd);
+            btnSub = rootView.findViewById(R.id.btnSub);
         }
     }
 }

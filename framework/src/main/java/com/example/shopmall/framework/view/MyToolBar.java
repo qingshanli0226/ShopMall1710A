@@ -26,8 +26,10 @@ public class MyToolBar extends LinearLayout implements View.OnClickListener{
     private int leftImgSrcId;
     private int rightImgSrcId;
     private boolean isRightDisplay;
+    private boolean isLeftDisplay;
     private int backgroundColor;
     private boolean isShowTitle;
+    private String rightText;
     private LinearLayout   rightLayout;
     private LinearLayout   leftLayout;
     private LinearLayout rootLayout;
@@ -86,9 +88,13 @@ public class MyToolBar extends LinearLayout implements View.OnClickListener{
         backgroundColor = typedArray.getColor(R.styleable.MyToolBar_toolbarBackgroundColor, Color.WHITE);
         //是否显示标题
         isShowTitle = typedArray.getBoolean(R.styleable.MyToolBar_isShowTitle, true);
+        //右侧文字
+        rightText = typedArray.getString(R.styleable.MyToolBar_rightText);
     }
 
     private void displayView() {
+
+        setRightTvContent(rightText);
         //是否显示右边内容
         if (!isRightDisplay) {
             rightLayout.setVisibility(GONE);
@@ -116,6 +122,8 @@ public class MyToolBar extends LinearLayout implements View.OnClickListener{
 
         //设置右侧图片
         if (rightImgSrcId !=-1) {
+            rightImg.setVisibility(VISIBLE);
+            rightTv.setVisibility(GONE);
             rightImg.setImageResource(rightImgSrcId);
         }
     }
@@ -157,8 +165,10 @@ public class MyToolBar extends LinearLayout implements View.OnClickListener{
     }
 
     //设置右侧文本的内容
-    public void setRightTvContent(@StringRes int contentId) {
-        rightTv.setText(getContext().getResources().getString(contentId));
+    public void setRightTvContent(String contentId) {
+        rightImg.setVisibility(GONE);
+        rightTv.setVisibility(VISIBLE);
+        rightTv.setText(contentId);
     }
 
     //让右侧显示图片

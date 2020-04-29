@@ -89,7 +89,7 @@ public class CacheManager {
                         SpUtil.saveShopcarCount(context, count);//把购物车的产品数量存起来
                         shopCartBean = shopCartBeanResult;
                         for(IShopcarDataRecevedLisener lisener:shopCountRecevedLisenerList) {
-                            lisener.onShopcarDataReceived(count, shopCartBean);
+                            lisener.onShopcarDataReceived(count, shopCartBean,-1);
                         }
                     }
                 });
@@ -108,24 +108,57 @@ public class CacheManager {
         int sum = SpUtil.getShopcarCount(context) + addNum;
         SpUtil.saveShopcarCount(context, sum);
         shopCartBean.getResult().add(shopcarData);
+        //去通知UI刷新数据
+        for(IShopcarDataRecevedLisener lisener:shopCountRecevedLisenerList) {
+            lisener.onShopcarDataReceived(sum,shopCartBean,-1);
+        }
+    }
+
+    public void removeShopcardata(Context context, int removeNum, ShopCartBean.ResultBean shopcarData) {
+        //更新缓存的数据
+        int sum = SpUtil.getShopcarCount(context) - removeNum;
+        SpUtil.saveShopcarCount(context, sum);
+        shopCartBean.getResult().remove(shopcarData);
 
         //去通知UI刷新数据
         for(IShopcarDataRecevedLisener lisener:shopCountRecevedLisenerList) {
-            lisener.onShopcarDataReceived(sum,shopCartBean);
+            lisener.onShopcarDataReceived(sum,shopCartBean,-1);
         }
     }
 
     public void updateShopcarProductNum(Context context,String productId, ShopCartBean.ResultBean newShopcarData) {
+        int index = 0;
         for(ShopCartBean.ResultBean shopcarData:CacheManager.getInstance().getShopCartBean().getResult()) {
             if (productId.equals(shopcarData.getProductId())) {
                 shopcarData.setProductNum(newShopcarData.getProductNum());
+                break;
+            } else {
+                index++;
             }
         }
         //去通知UI刷新数据
         int sum = SpUtil.getShopcarCount(context);
         for(IShopcarDataRecevedLisener lisener:shopCountRecevedLisenerList) {
-            lisener.onShopcarDataReceived(sum,shopCartBean);
+            lisener.onShopcarDataReceived(sum,shopCartBean,index);
         }
+    }
+
+    public void updateShopcarProductSelected(ShopCartBean.ResultBean shopcarData) {
+        //第一步修改缓存中，该产品的选择值.
+        int index = 0;
+        for(ShopCartBean.ResultBean item:shopCartBean.getResult()) {
+            if (item.getProductId().equals(shopcarData.getProductId())) {
+                item.setProductSelected(shopcarData.isProductSelected());
+                break;
+            } else  {
+                index++;
+            }
+        }
+        //第二步，需要做什么事情?
+        for(IShopcarDataRecevedLisener lisener:shopCountRecevedLisenerList) {
+            lisener.onShopcarDataSelectedReceived(shopCartBean, index);
+        }
+
     }
 
     //获取购物车产品数量
@@ -134,7 +167,8 @@ public class CacheManager {
     }
 
     public interface IShopcarDataRecevedLisener {
-        void onShopcarDataReceived(int count, ShopCartBean shopCartBean);
+        void onShopcarDataReceived(int count, ShopCartBean shopCartBean,int index);
+        void onShopcarDataSelectedReceived(ShopCartBean shopCartBean, int index);
     }
 
 
