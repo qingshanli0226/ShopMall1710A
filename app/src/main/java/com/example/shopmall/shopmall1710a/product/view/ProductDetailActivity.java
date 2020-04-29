@@ -154,13 +154,18 @@ public class ProductDetailActivity extends BaseActivity<Object> implements View.
     }
 
     @Override
-    public void onShopcarDataReceived(final int count, ShopCartBean shopCartBean) {
+    public void onShopcarDataReceived(final int count, ShopCartBean shopCartBean, int index) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 shopcarCountTv.setText(String.valueOf(count));
             }
         });
+
+    }
+
+    @Override
+    public void onShopcarDataSelectedReceived(ShopCartBean shopCartBean, int index) {
 
     }
 }

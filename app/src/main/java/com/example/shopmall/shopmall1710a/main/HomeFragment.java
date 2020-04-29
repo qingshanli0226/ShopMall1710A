@@ -80,13 +80,18 @@ public class HomeFragment extends BaseFragment<Object> implements CacheManager.I
     }
 
     @Override
-    public void onShopcarDataReceived(int conunt, ShopCartBean shopCartBean) {
+    public void onShopcarDataReceived(int conunt, ShopCartBean shopCartBean, int index) {
         countTV.post(new Runnable() {
             @Override
             public void run() {
                 countTV.setText(String.valueOf(CacheManager.getInstance().getShopcarCount(getActivity())));
             }
         });
+    }
+
+    @Override
+    public void onShopcarDataSelectedReceived(ShopCartBean shopCartBean, int index) {
+
     }
 
     @Override

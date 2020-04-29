@@ -37,13 +37,28 @@
 
     </LinearLayout>
 
-    <LinearLayout android:layout_width="200dp" android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:layout_alignParentRight="true">
-    <TextView android:layout_width="100dp" android:layout_height="match_parent"
+    <RelativeLayout android:layout_width="130dp" android:layout_height="60dp"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/tool_bar_left_right_margin_size"
+                    android:layout_marginBottom="@dimen/tool_bar_left_right_margin_size"
+    >
+        <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/goods_add_btn"
+        android:id="@+id/btnAdd"/>
+
+        <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                   android:layout_alignParentRight="true"
+                   android:layout_centerVertical="true"
+                   android:id="@+id/btnSub"
+                   android:src="@mipmap/goods_sub_btn"/>
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
     android:id="@+id/productCount"
+              android:layout_centerInParent="true"
     android:textSize="@dimen/shop_car_text_size"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </RelativeLayout>
