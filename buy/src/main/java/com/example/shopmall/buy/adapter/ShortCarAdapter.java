@@ -1,8 +1,8 @@
 package com.example.shopmall.buy.adapter;
 
 
+
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,7 +25,7 @@ public class ShortCarAdapter extends BaseQuickAdapter<ShortCarEntity.ResultBean,
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, ShortCarEntity.ResultBean item) {
+    protected void convert(final BaseViewHolder helper, ShortCarEntity.ResultBean item) {
         CheckBox itemShortCarCheckBox = helper.getView(R.id.itemShortCarCheckBox);
         itemShortCarCheckBox.setChecked(item.isProductSelected());
         Glide.with(AppCore.getInstance().getApp())
@@ -37,5 +37,44 @@ public class ShortCarAdapter extends BaseQuickAdapter<ShortCarEntity.ResultBean,
         TextView itemShortCarRemove = helper.getView(R.id.itemShortCarRemove);
         TextView itemShortCarAdd = helper.getView(R.id.itemShortCarAdd);
 
+
+        itemShortCarCheckBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onShortCarClickLisener != null){
+                    onShortCarClickLisener.onChangeCheckState(helper.getAdapterPosition());
+                }
+            }
+        });
+        itemShortCarRemove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onShortCarClickLisener != null){
+                    onShortCarClickLisener.onReduceNum(helper.getAdapterPosition());
+                }
+            }
+        });
+        itemShortCarAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onShortCarClickLisener != null){
+                    onShortCarClickLisener.onAddNum(helper.getAdapterPosition());
+                }
+            }
+        });
+    }
+
+
+
+    public interface OnShortCarClickLisener{
+        void onReduceNum(int position); // 减少商品数量
+        void onAddNum(int position); // 增加商品数量
+        void onChangeCheckState(int position); // 选中状态的改变
+    }
+
+    private OnShortCarClickLisener onShortCarClickLisener;
+
+    public void setOnShortCarClickLisener(OnShortCarClickLisener onShortCarClickLisener) {
+        this.onShortCarClickLisener = onShortCarClickLisener;
     }
 }

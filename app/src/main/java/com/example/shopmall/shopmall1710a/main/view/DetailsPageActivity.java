@@ -98,7 +98,7 @@ public class DetailsPageActivity extends BaseActivity implements View.OnClickLis
                 Log.i("boss", "onHttpReceived: 库存充足");
                 // 调用添加购物车接口
                 addOneProductPresenter.addParams(msg.getProduct_id(),1
-                ,msg.getName(),msg.getFigure(),msg.getCover_price());
+                ,msg.getName(),msg.getFigure(),msg.getCover_price(),true);
                 addOneProductPresenter.postHttpDataWithJson(200);
             }
         }else if (requestCode == 200){ // 添加成功

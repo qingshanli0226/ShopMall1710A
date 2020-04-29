@@ -7,12 +7,9 @@ import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.util.Log;
 import com.blankj.utilcode.util.SPUtils;
-import com.example.shopmall.BaseBean;
 import com.example.shopmall.common.Constant;
 import com.example.shopmall.framework.entity.ShortCarEntity;
 import com.example.shopmall.framework.service.ShopMallService;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -20,7 +17,7 @@ import java.util.List;
 
 public class CacheManager {
     // 缓存 购物车数据
-    private static List<ShortCarEntity.ResultBean> shortCarResultBeans = new ArrayList<>();
+    private List<ShortCarEntity.ResultBean> shortCarResultBeans = new ArrayList<>();
     private IHomeDataListener iHomeDataListener;
     private ShopMallService shopMallService;
     private static CacheManager instance;

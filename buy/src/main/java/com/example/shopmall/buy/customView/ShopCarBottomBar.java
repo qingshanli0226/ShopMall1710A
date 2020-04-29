@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.*;
 import com.example.shopmall.buy.R;
 
@@ -49,6 +50,14 @@ public class ShopCarBottomBar extends RelativeLayout {
                     }
             }
         });
+        shopCarBottomBarRemove.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (shopCarBottomBarLisenner != null){
+                    shopCarBottomBarLisenner.removeOk();
+                }
+            }
+        });
 
     }
     private void initValue(Context context, AttributeSet attrs) {
@@ -72,6 +81,7 @@ public class ShopCarBottomBar extends RelativeLayout {
 
     public interface ShopCarBottomBarLisenner{
         void checkBoxAllOk(boolean flag); // 全选
+        void removeOk(); // 删除
     }
     private ShopCarBottomBarLisenner shopCarBottomBarLisenner;
 
