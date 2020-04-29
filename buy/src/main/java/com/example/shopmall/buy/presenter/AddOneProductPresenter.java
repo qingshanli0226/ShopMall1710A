@@ -34,6 +34,7 @@ public class AddOneProductPresenter extends BasePresenter<String, IBaseView<Stri
         jsonObject.addProperty("productName",productName);
         jsonObject.addProperty("url",url);
         jsonObject.addProperty("productPrice",productPrice);
+        jsonObject.addProperty("productSelected",true);
 
         RequestBody body = RequestBody.create(MediaType.get("application/json"), jsonObject.toString());
         setRequestBody(body);

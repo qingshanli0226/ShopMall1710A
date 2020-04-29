@@ -9,24 +9,25 @@ import android.util.Log;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.shopmall.BaseBean;
 import com.example.shopmall.common.Constant;
+import com.example.shopmall.framework.entity.ShortCarEntity;
 import com.example.shopmall.framework.service.ShopMallService;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 public class CacheManager {
-
-
+    // 缓存 购物车数据
+    private static List<ShortCarEntity.ResultBean> shortCarResultBeans = new ArrayList<>();
     private IHomeDataListener iHomeDataListener;
     private ShopMallService shopMallService;
     private static CacheManager instance;
     private List<IShopCountRecevedLisener> shopCountRecevedLisenerList = new LinkedList<>();
-
     private CacheManager() {
     }
-
+    // 获取实例
     public static CacheManager getInstance() {
         if (instance == null) {
             instance = new CacheManager();
@@ -73,47 +74,61 @@ public class CacheManager {
                 // 获取 购物车数据(数量)
                startShopMallService();
             }
-
             @Override
             public void onLogout() {
 
             }
         });
     }
+    // 启动service 线程获取 购物车商品种类数量
     public void startShopMallService(){
         shopMallService.gitShopcarCount(SPUtils.getInstance().getString(Constant.SP_TOKEN), new ShopMallService.IShopcarCountListener() {
             @Override
-            public void onReceiveCount(int count) {
+            public void onReceiveCount(int count, List<ShortCarEntity.ResultBean> shortEntity) {
                 Log.i("boss", "onReceiveCount: 购物车页面数量"+count);
+                // 缓存 总金额 (遍历集合 计算总金)
+                float totalMoney = 0;
+                for (ShortCarEntity.ResultBean resultBean : shortEntity) {
+                    if (resultBean.isProductSelected()){
+                      totalMoney +=  Float.parseFloat(resultBean.getProductPrice()) * Float.parseFloat(resultBean.getProductNum());
+                    }
+                }
+                SPUtils.getInstance().put(Constant.SP_TOTAL_MONEY,totalMoney);
+                shortCarResultBeans.clear();
+                shortCarResultBeans.addAll(shortEntity);
                 SPUtils.getInstance().put(Constant.SP_SHOP_COUNT,count);
                 notifyShopCountRecevedLisener();
             }
         });
     }
-
-
-    // 通知 有新的的商品添加购物车
+    // 获取 购物车数据 集合
+    public List<ShortCarEntity.ResultBean> getShortCarDatas(){
+       return  this.shortCarResultBeans;
+    }
+    // 获取 总金额
+    public float getTotalMoney(){
+        return SPUtils.getInstance().getFloat(Constant.SP_TOTAL_MONEY);
+    }
+    // 通知 获取购物车数据成功!
     public void notifyShopCountRecevedLisener(){
         for(IShopCountRecevedLisener lisener:shopCountRecevedLisenerList) { // 通知监听页面 跟新购物车数据
             lisener.onShopcarCountReceived(SPUtils.getInstance().getInt(Constant.SP_SHOP_COUNT));
         }
     }
-
-
-    // 提供方法 获取 购物车数据
+    // 获取购物车 商品种类数量
     public int getShopcarCount() {
         return Integer.parseInt(SPUtils.getInstance().getString(Constant.SP_SHOP_COUNT));
     }
 
+
+
     public interface IShopCountRecevedLisener {
         void onShopcarCountReceived(int conunt);
     }
-
+    // 注册监听
     public void registerCountLisenner(IShopCountRecevedLisener iShopCountRecevedLisener){
         shopCountRecevedLisenerList.add(iShopCountRecevedLisener);
     }
-
-
     //定义接口，通知homeData数据已经获取到。,Manager屏蔽了Service, Activity是直接和Manager进行通信
     public interface IHomeDataListener{
         void onHomeDataReceived(String homeDataJson);
@@ -122,6 +137,7 @@ public class CacheManager {
     public void registerIHomeDataListener(IHomeDataListener listener) {
        this.iHomeDataListener = listener;
     }
+    // 注销监听
     public void unRegisterIHomeDataListener() {
         iHomeDataListener = null;
     }

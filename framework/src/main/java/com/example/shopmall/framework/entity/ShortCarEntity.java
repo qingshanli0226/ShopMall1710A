@@ -1,4 +1,4 @@
-package com.example.shopmall.framework.manager;
+package com.example.shopmall.framework.entity;
 
 import java.util.List;
 
@@ -52,6 +52,7 @@ public class ShortCarEntity {
         private String productNum;
         private String url;
         private String productPrice;
+        private boolean productSelected;
 
         public String getProductId() {
             return productId;
@@ -91,6 +92,14 @@ public class ShortCarEntity {
 
         public void setProductPrice(String productPrice) {
             this.productPrice = productPrice;
+        }
+
+        public boolean isProductSelected() {
+            return productSelected;
+        }
+
+        public void setProductSelected(boolean productSelected) {
+            this.productSelected = productSelected;
         }
     }
 }

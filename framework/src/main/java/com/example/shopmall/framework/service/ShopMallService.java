@@ -4,7 +4,6 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
-import android.os.UserManager;
 import android.util.Log;
 import com.alibaba.fastjson.JSON;
 import com.blankj.utilcode.util.SPUtils;
@@ -12,8 +11,7 @@ import com.example.shopmall.BaseObserver;
 import com.example.shopmall.RetrofitManager;
 import com.example.shopmall.common.Constant;
 import com.example.shopmall.framework.entity.BossBean;
-import com.example.shopmall.framework.manager.ShopUserManager;
-import com.example.shopmall.framework.manager.ShortCarEntity;
+import com.example.shopmall.framework.entity.ShortCarEntity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import io.reactivex.Observer;
@@ -24,6 +22,7 @@ import okhttp3.ResponseBody;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 
 public class ShopMallService extends Service {
 
@@ -137,7 +136,7 @@ public class ShopMallService extends Service {
                         try {
                             ShortCarEntity shopCarEntity = new Gson().fromJson(responseBody.string(), new TypeToken<ShortCarEntity>(){}.getType());
                             // 集合的长度 即我购物车数量
-                            iShopcarCountListener.onReceiveCount(shopCarEntity.getResult().size());
+                            iShopcarCountListener.onReceiveCount(shopCarEntity.getResult().size(),shopCarEntity.getResult());
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -159,7 +158,9 @@ public class ShopMallService extends Service {
 
     //获取购物车商品count 的监听
     public interface IShopcarCountListener {
-        void onReceiveCount(int count);
+        void onReceiveCount(int count, List<ShortCarEntity.ResultBean> shortEntity);
+
+
     }
 
     //定义接口，实现获取数据后通知Manager

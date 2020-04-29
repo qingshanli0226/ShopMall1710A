@@ -1,5 +1,7 @@
 package com.example.shopmall.common;
 
+import com.blankj.utilcode.util.SPUtils;
+
 public class Constant {
     //-----------------------Error-------------------------------
     public static final int HTTP_REQUEST_ERROR = -1;
@@ -21,6 +23,7 @@ public class Constant {
     public static final String SP_USER_LOGIN_INFO = "user_msg"; // 登录
     public static final String SP_CACHE_HOME_DATA_INFO = "cache_home_data"; // 缓存首页数据
     public static final String SP_SHOP_COUNT = "count"; // 购物车数量
+    public static final String SP_TOTAL_MONEY = "money"; // 总金额
 
     //----------------------ARouter Path-----------------------
     // Activity
