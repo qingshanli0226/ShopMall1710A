@@ -26,8 +26,10 @@ import java.util.List;
 public class ShopcarRecylerview extends RecyclerView implements IShopcarEventListener {
     private IShopcarEventListener iShopcarEventListener;
     private ShopcarAdapter shopcarAdapter;
+    private boolean isEdit = false;
 
     private List<ShopCartBean.ShopcarData> shopcarDataList = new ArrayList<>();
+    private List<ShopCartBean.ShopcarData> shopcarDelteDataList = new ArrayList<>();
 
     public void addShopcarData(List<ShopCartBean.ShopcarData> shopcardataList) {
         shopcarDataList.clear();
@@ -69,9 +71,16 @@ public class ShopcarRecylerview extends RecyclerView implements IShopcarEventLis
         this.iShopcarEventListener = iShopcarEventListener;
     }
 
+    //定义一个接口，让Fragment可以获取删除的列表，删除该列表
+    public List<ShopCartBean.ShopcarData> getShopcarDelteDataList() {
+        return shopcarDelteDataList;
+    }
+
     @Override
     public void onEditChange(boolean isEdit) {
-
+        //收到是否处于编辑状态
+        this.isEdit = isEdit;
+        shopcarAdapter.notifyDataSetChanged();//刷新UI
     }
 
     @Override
@@ -116,14 +125,49 @@ public class ShopcarRecylerview extends RecyclerView implements IShopcarEventLis
         }
 
         @Override
-        public void onBindViewHolder(@NonNull ShopcarViewHolder shopcarViewHolder, final int i) {
-             shopcarViewHolder.productCheckBox.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    iShopcarEventListener.onProductSelectChanged(!shopcarDataList.get(i).isProductSelected(),
-                            shopcarDataList.get(i));
+        public void onBindViewHolder(@NonNull final ShopcarViewHolder shopcarViewHolder, final int i) {
+
+
+            if (!isEdit) {//处于非编辑状态
+                shopcarViewHolder.productCheckBox.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        iShopcarEventListener.onProductSelectChanged(!shopcarDataList.get(i).isProductSelected(),
+                                shopcarDataList.get(i));
+                    }
+                });
+                //如果判断该产品选择值为true,需要做什么
+                if (shopcarDataList.get(i).isProductSelected()) {
+                    shopcarViewHolder.productCheckBox.setChecked(true);
+                } else {
+                    shopcarViewHolder.productCheckBox.setChecked(false);
                 }
-            });
+            } else {//处于编辑状态
+                shopcarViewHolder.productCheckBox.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        boolean isChecked = shopcarViewHolder.productCheckBox.isChecked();
+                        if (isChecked) {
+                            //添加到删除列表中
+                            shopcarDelteDataList.add(shopcarDataList.get(i));
+                            if (shopcarDelteDataList.size() == shopcarDataList.size()) {
+                                iShopcarEventListener.onAllSelectChanged(true);
+                            }
+                        } else {
+                            if (shopcarDelteDataList.contains(shopcarDataList.get(i))) {
+                                shopcarDelteDataList.remove(shopcarDataList.get(i));
+                                iShopcarEventListener.onAllSelectChanged(false);
+                            }
+                        }
+                    }
+                });
+                if (shopcarDelteDataList.contains(shopcarDataList.get(i))) {
+                    shopcarViewHolder.productCheckBox.setChecked(true);
+                } else {
+                    shopcarViewHolder.productCheckBox.setChecked(false);
+                }
+
+            }
 
              shopcarViewHolder.productCount.setText(shopcarDataList.get(i).getProductNum());
              Glide.with(shopcarViewHolder.productImageView.getContext()).load(Constant.BASE_IMAGE_URL+
@@ -131,12 +175,7 @@ public class ShopcarRecylerview extends RecyclerView implements IShopcarEventLis
              shopcarViewHolder.productPrice.setText(shopcarDataList.get(i).getProductPrice());
              shopcarViewHolder.productName.setText(shopcarDataList.get(i).getProductName());
 
-             //如果判断该产品选择值为true,需要做什么
-             if (shopcarDataList.get(i).isProductSelected()) {
-                 shopcarViewHolder.productCheckBox.setChecked(true);
-             } else {
-                 shopcarViewHolder.productCheckBox.setChecked(false);
-             }
+
 
 
              shopcarViewHolder.btnAdd.setOnClickListener(new OnClickListener() {

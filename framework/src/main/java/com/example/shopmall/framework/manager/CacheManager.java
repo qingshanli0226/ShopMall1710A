@@ -153,6 +153,17 @@ public class CacheManager {
 
     }
 
+    public void selectAllProduct(boolean selected) {
+        for(ShopCartBean.ShopcarData item:shopCartBean.getResult()) {
+            item.setProductSelected(selected);
+        }
+
+        //第二步，需要做什么事情?
+        for(IShopcarDataRecevedLisener lisener:shopCountRecevedLisenerList) {
+            lisener.onShopcarDataReceived(shopCartBean.getResult().size(),shopCartBean,-1);
+        }
+    }
+
     public void saveShopCount(Context context, int count) {
         SpUtil.saveShopcarCount(context, count);
     }

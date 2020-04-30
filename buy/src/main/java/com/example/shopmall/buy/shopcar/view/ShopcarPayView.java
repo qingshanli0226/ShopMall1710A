@@ -21,7 +21,9 @@ public class ShopcarPayView extends LinearLayout implements IShopcarEventListene
     private RelativeLayout normalLayout;
     private RelativeLayout editLayout;
     private CheckBox allSelectCheckbox;
+    private CheckBox allEditSelectCheckbox;
     private TextView payVlaue;
+    private boolean isEdit;
 
     public ShopcarPayView(Context context) {
         super(context);
@@ -44,6 +46,7 @@ public class ShopcarPayView extends LinearLayout implements IShopcarEventListene
         editLayout = rootView.findViewById(R.id.editLayout);
         payVlaue = rootView.findViewById(R.id.sumValue);
         allSelectCheckbox = rootView.findViewById(R.id.allSelect);
+        allEditSelectCheckbox = rootView.findViewById(R.id.allEditSelect);
 
         rootView.findViewById(R.id.allSelect).setOnClickListener(this);
         rootView.findViewById(R.id.payBtn).setOnClickListener(this);
@@ -65,6 +68,7 @@ public class ShopcarPayView extends LinearLayout implements IShopcarEventListene
             normalLayout.setVisibility(VISIBLE);
             editLayout.setVisibility(GONE);
         }
+        this.isEdit = isEdit;
     }
 
     @Override
@@ -80,7 +84,11 @@ public class ShopcarPayView extends LinearLayout implements IShopcarEventListene
 
     @Override
     public void onAllSelectChanged(boolean isAllSelected) {
-
+        if (!isEdit) {
+            allSelectCheckbox.setChecked(isAllSelected);
+        } else {
+            allEditSelectCheckbox.setChecked(isAllSelected);
+        }
     }
 
     @Override

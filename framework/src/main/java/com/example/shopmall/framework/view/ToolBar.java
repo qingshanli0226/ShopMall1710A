@@ -33,6 +33,7 @@ public class ToolBar extends LinearLayout implements View.OnClickListener {
     private LinearLayout   rightLayout;
     private LinearLayout   leftLayout;
     private LinearLayout rootLayout;
+    private int rightTextId;
 
     public ToolBar(Context context) {
         super(context);
@@ -88,7 +89,7 @@ public class ToolBar extends LinearLayout implements View.OnClickListener {
         backgroundColor = typedArray.getColor(R.styleable.MYToolBar_toolbarBackgroundColor, Color.WHITE);
         //是否显示标题
         isShowTitle = typedArray.getBoolean(R.styleable.MYToolBar_isShowTitle, true);
-        //rightTv.setText(typedArray.getString(R.styleable.MYToolBar_rightText));
+        rightTextId = typedArray.getResourceId(R.styleable.MYToolBar_rightText,-1);
     }
 
     private void displayView() {
@@ -120,6 +121,10 @@ public class ToolBar extends LinearLayout implements View.OnClickListener {
         //设置右侧图片
         if (rightImgSrcId !=-1) {
             rightImg.setImageResource(rightImgSrcId);
+        }
+
+        if (rightTextId!=-1) {
+            rightTv.setText(getContext().getResources().getString(rightTextId));
         }
     }
 

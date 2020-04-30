@@ -3,6 +3,7 @@ package com.example.shopmall.buy.shopcar;
 import android.view.View;
 import com.example.shopmall.buy.R;
 import com.example.shopmall.buy.shopcar.presenter.AddShopcarPresenter;
+import com.example.shopmall.buy.shopcar.presenter.SelectAllProductPresenter;
 import com.example.shopmall.buy.shopcar.presenter.UpdateProductNumPresenter;
 import com.example.shopmall.buy.shopcar.presenter.UpdateProductSelectPresenter;
 import com.example.shopmall.buy.shopcar.view.ShopcarPayView;
@@ -20,6 +21,7 @@ public class ShopcarFragment extends BaseFragment<String> implements IShopcarEve
     private AddShopcarPresenter addShopcarPresenter;
     private UpdateProductSelectPresenter updateProductSelectPresenter;
     private UpdateProductNumPresenter updateProductNumPresenter;
+    private SelectAllProductPresenter selectAllProductPresenter;
     private ShopcarPayView shopcarPayView;
     private List<IShopcarEventListener> shopcarEventListenerList = new ArrayList<>();
     private ShopcarRecylerview shopcarRecylerview;
@@ -28,15 +30,18 @@ public class ShopcarFragment extends BaseFragment<String> implements IShopcarEve
     private ShopCartBean.ShopcarData shopcarData;//存正在操作的数据
     private boolean productSelected;
     private int productCount;
+    private int productAllSelectedType = -1;
     @Override
     protected List<IPresenter<String>> getPresenter() {
         addShopcarPresenter = new AddShopcarPresenter();
         updateProductSelectPresenter = new UpdateProductSelectPresenter();
         updateProductNumPresenter = new UpdateProductNumPresenter();
+        selectAllProductPresenter = new SelectAllProductPresenter();
         List<IPresenter<String>> iPresenterList = new ArrayList<>();
         iPresenterList.add(addShopcarPresenter);
         iPresenterList.add(updateProductSelectPresenter);
         iPresenterList.add(updateProductNumPresenter);
+        iPresenterList.add(selectAllProductPresenter);
         return iPresenterList;
     }
 
@@ -48,6 +53,7 @@ public class ShopcarFragment extends BaseFragment<String> implements IShopcarEve
             shopCartBean = CacheManager.getInstance().getShopCartBean();
             shopcarRecylerview.addShopcarData(shopCartBean.getResult());
             shopcarPayView.notifyMoneyChanged();
+            updateAllSelectUI(shopCartBean);
         }
     }
 
@@ -89,6 +95,12 @@ public class ShopcarFragment extends BaseFragment<String> implements IShopcarEve
         } else if (requestCode == 200) {
             shopcarData.setProductNum(String.valueOf(productCount));
             CacheManager.getInstance().updateShopcarProductNum(getActivity(),shopcarData.getProductId(),shopcarData);
+        } else if (requestCode == 400) {
+            if (productAllSelectedType == -1) {
+                return;
+            }
+            //告诉我们的缓存数据是全选还是全不选
+            CacheManager.getInstance().selectAllProduct(productAllSelectedType==1?true:false);
         }
     }
 
@@ -125,7 +137,15 @@ public class ShopcarFragment extends BaseFragment<String> implements IShopcarEve
 
     @Override
     public void onAllSelectChanged(boolean isAllSelected) {
-
+        if (!isEdit) {
+            selectAllProductPresenter.addParams(isAllSelected);
+            selectAllProductPresenter.postHttpDataWithJson(400);
+            productAllSelectedType = isAllSelected ? 1 : 2;//1代表的全选，2代表全不选 -1代表初始值
+        } else {
+            for (IShopcarEventListener listener:shopcarEventListenerList) {
+                listener.onAllSelectChanged(isAllSelected);
+            }
+        }
     }
 
     @Override
@@ -160,5 +180,24 @@ public class ShopcarFragment extends BaseFragment<String> implements IShopcarEve
     public void onShopcarDataSelectedReceived(ShopCartBean shopCartBean, int index) {
         shopcarRecylerview.updateOneData(shopcarData, index);
         shopcarPayView.notifyMoneyChanged();
+        updateAllSelectUI(shopCartBean);
+    }
+
+    private void updateAllSelectUI(ShopCartBean shopCartBean) {
+        int selectNums = 0;
+        for(ShopCartBean.ShopcarData shopcarData :shopCartBean.getResult()) {
+            if (shopcarData.isProductSelected()) {
+                selectNums++;
+            }
+        }
+        if (selectNums == shopCartBean.getResult().size()) {
+            for (IShopcarEventListener listener:shopcarEventListenerList) {
+                listener.onAllSelectChanged(true);
+            }
+        } else {
+            for (IShopcarEventListener listener:shopcarEventListenerList) {
+                listener.onAllSelectChanged(false);
+            }
+        }
     }
 }
