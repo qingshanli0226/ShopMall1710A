@@ -65,7 +65,7 @@ public abstract class BasePresenter<T> implements IPresenter {
                     //onNext是异步运行的,如果直接返回数据的话，onNext函数执行时间在返回结果之后运行的
                     @Override
                     public void onNext(T result) {
-                        Log.d("LAE", "onNext: ");
+                        Log.d("LMQ", "onHtttpReceived: 321");
                         if (iBaseView != null) {
                             iBaseView.onHtttpReceived(requestCode, result);
                         }
@@ -74,10 +74,13 @@ public abstract class BasePresenter<T> implements IPresenter {
                     //onError是所有错误的入口
                     @Override
                     public void onError(Throwable e) {
-                        Log.d("LAE", "onError: ");
+                        Log.d("LMQ", "onHtttpReceived: 4321");
                         if (iBaseView != null) {
+                            Log.d("LMQ", "onHtttpReceived: 54321");
                             iBaseView.onHttpReceivedFailed(requestCode, ErrorUtil.handleError(e));//将结果返回给UI层
                         }
+                        Log.d("LMQ", "onHtttpReceived: 654321");
+
                     }
 
                 });

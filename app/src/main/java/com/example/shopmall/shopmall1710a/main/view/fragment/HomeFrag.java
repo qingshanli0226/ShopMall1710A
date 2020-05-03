@@ -128,8 +128,9 @@ public class HomeFrag extends BaseFragment<HomePresenter, Goods> implements IBas
         Log.d("LAE", "initData: ");
         homePresenter = new HomePresenter();
         homePresenter.attachView(this);
+        Log.d("LMQ", "onHtttpReceived: 1236");
         homePresenter.getHttpData(0);
-
+        Log.d("LMQ", "onHtttpReceived: 1238");
     }
 
     public void processHomeBean(String homeDataJson) {
@@ -141,7 +142,7 @@ public class HomeFrag extends BaseFragment<HomePresenter, Goods> implements IBas
     @Override
     public void onHtttpReceived(int requestCode, Goods data) {
         Log.d("LAE", "onHtttpReceived: " + data);
-
+        Log.d("LMQ", "onHtttpReceived: 1237");
         List<Goods.BannerInfoBean> banner_info = data.getBanner_info();
         initAdapter(data);
         initBanner(banner_info);
