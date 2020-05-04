@@ -2,6 +2,7 @@ package com.example.shopmall.framework.manager;
 
 
 
+import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -56,6 +57,7 @@ public class ShopUserManager {
                         }
                     }
                 });
+
             }
 
             @Override

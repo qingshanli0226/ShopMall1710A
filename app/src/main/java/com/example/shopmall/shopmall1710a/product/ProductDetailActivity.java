@@ -1,6 +1,7 @@
 package com.example.shopmall.shopmall1710a.product;
 
 import android.content.Intent;
+import android.preference.PreferenceActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -8,6 +9,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.shopmall.shopmall1710a.greenDao.DaoMaster;
+import com.example.shopmall.shopmall1710a.greenDao.DaoSession;
+import com.example.shopmall.shopmall1710a.greenDao.ShopMessage;
+import com.example.shopmall.shopmall1710a.greenDao.ShopMessageDao;
 import com.example.shopmall.shopmall1710a.product.presenter.AddShopcarPresenter;
 import com.example.shopmall.common.ErrorBean;
 import com.example.shopmall.framework.base.BaseActivity;
@@ -29,6 +34,7 @@ public class ProductDetailActivity extends BaseActivity<Object> implements View.
     private String productName;
     private String productId;
     private String productNewNum;
+
     private ShopCartBean.ResultBean shopcarData = new ShopCartBean.ResultBean();
     private CheckOneProductInventoryPresenter checkOneProductInventoryPresenter;
     private AddShopcarPresenter addShopcarPresenter;
@@ -37,6 +43,7 @@ public class ProductDetailActivity extends BaseActivity<Object> implements View.
     private ImageView ivGoodInfoImage;
     private TextView tvGoodInfoName;
     private TextView tvGoodInfoPrice;
+    private TextView tvGoodInfoCollection;
     @Override
     protected void initData() {
         CacheManager.getInstance().registerShopCountListener(this);
@@ -70,11 +77,22 @@ public class ProductDetailActivity extends BaseActivity<Object> implements View.
         ivGoodInfoImage = (ImageView) findViewById(R.id.iv_good_info_image);
         tvGoodInfoName = (TextView) findViewById(R.id.tv_good_info_name);
         tvGoodInfoPrice = (TextView) findViewById(R.id.tv_good_info_price);
-        Log.d("TAGddd", "initView: "+productImageUrl);
+        tvGoodInfoCollection = (TextView) findViewById(R.id.tv_good_info_collection);
+
         Glide.with(this).load("http://49.233.93.155:8080/atguigu/img/"+productImageUrl).into(ivGoodInfoImage);
         tvGoodInfoName.setText(productName);
         tvGoodInfoPrice.setText("￥"+productPrice);
 
+        tvGoodInfoCollection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DaoMaster.OpenHelper openHelper = new DaoMaster.DevOpenHelper(ProductDetailActivity.this, "gd.db");
+                DaoMaster daoMaster = new DaoMaster(openHelper.getWritableDatabase());
+                DaoSession daoSession = daoMaster.newSession();
+                ShopMessage shopMessage = new ShopMessage(productImageUrl, productPrice, productId, productName);
+                daoSession.insert(shopMessage);
+            }
+        });
     }
 
     @Override

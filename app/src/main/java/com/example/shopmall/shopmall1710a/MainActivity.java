@@ -18,6 +18,7 @@ import com.example.shopmall.framework.base.IPresenter;
 import com.example.shopmall.framework.manager.CacheManager;
 import com.example.shopmall.framework.view.RadioButtonBean;
 import com.example.shopmall.shopmall1710a.fragment.home.HomeFragment;
+import com.example.shopmall.shopmall1710a.fragment.type.TypeFragment;
 import com.example.shopmall.shopmall1710a.fragment.user.UserFragment;
 
 import java.util.ArrayList;
@@ -57,7 +58,7 @@ public class MainActivity extends BaseActivity<Object> {
 //        titlelist.add("购物车");
 //        titlelist.add("个人中心");
         fragmentList.add(new HomeFragment());
-        fragmentList.add(new HomeFragment());
+        fragmentList.add(new TypeFragment());
         fragmentList.add(new HomeFragment());
         fragmentList.add(new ShopcarFragment());
         fragmentList.add(new UserFragment());

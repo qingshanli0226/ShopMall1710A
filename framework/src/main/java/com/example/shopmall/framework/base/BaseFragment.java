@@ -20,9 +20,9 @@ public abstract class BaseFragment<T> extends Fragment implements IBaseView<T>,M
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         inflate = inflater.inflate(getLayoutId(), container, false);
         loadingBar = inflate.findViewById(R.id.loadingBar);
-        initView();//初始化控件
         myToolBar = inflate.findViewById(R.id.myToolBar);
         myToolBar.setToolBarClickListener(this);
+        initView();//初始化控件
         initPresenter();//初始化presenter
         initData();//初始化数据
         return inflate;
