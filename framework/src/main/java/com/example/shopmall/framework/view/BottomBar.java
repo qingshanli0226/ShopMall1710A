@@ -4,21 +4,23 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-
+import android.widget.TextView;
 import com.example.shopmall.framework.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BottomBar extends LinearLayout implements RadioGroup.OnCheckedChangeListener {
+public class BottomBar extends LinearLayout implements RadioGroup.OnCheckedChangeListener ,View.OnClickListener{
     private View rootView;
     private RadioGroup radioGroup;
     private RadioButton radioButton01;
@@ -29,6 +31,7 @@ public class BottomBar extends LinearLayout implements RadioGroup.OnCheckedChang
     private List<ButtonInfo> list = new ArrayList<>();
     private List<RadioButton> radioButtons = new ArrayList<>();
     private ViewPager pager;
+    private bottomBarListener bottomBarListener;
     public BottomBar(Context context) {
         super(context);
         init(context,null);
@@ -58,6 +61,11 @@ public class BottomBar extends LinearLayout implements RadioGroup.OnCheckedChang
         radioButtons.add(radioButton03);
         radioButtons.add(radioButton04);
         radioButtons.add(radioButton05);
+        radioButton02.setOnClickListener(this);
+
+
+
+
 
     }
 
@@ -131,6 +139,21 @@ public class BottomBar extends LinearLayout implements RadioGroup.OnCheckedChang
 
             }
         });
+    }
+    public void setBottomBarListener(bottomBarListener bottomBarListener){
+        this.bottomBarListener=bottomBarListener;
+    }
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.btn02) {
+            if (bottomBarListener!=null){
+                bottomBarListener.onSecondClick();
+            }
+        }
+    }
+
+    public interface bottomBarListener{
+        void onSecondClick();
     }
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {

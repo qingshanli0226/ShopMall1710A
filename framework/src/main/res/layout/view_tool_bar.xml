@@ -42,7 +42,8 @@
         <LinearLayout
                 android:id="@+id/rightLayout"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="5dp"
                 android:orientation="vertical">
@@ -60,7 +61,7 @@
                     android:id="@+id/right_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+
                     android:text="右侧"/>
         </LinearLayout>
     </RelativeLayout>

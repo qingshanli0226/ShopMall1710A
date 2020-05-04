@@ -7,9 +7,8 @@ public class SpCache {
 
     private String name = "token";
     private SharedPreferences sharedPreferences;
-
-    private final String adrTimeName = "adrTime";
     private final String lastOpen = "lastOpen";
+    private final String adrTimeName = "adrTime";
     private final String homeData="homeData";
     public SpCache(Context context) {
         sharedPreferences = context.getSharedPreferences(name, Context.MODE_PRIVATE);
@@ -18,16 +17,6 @@ public class SpCache {
     public void saveToken(String token) {
         SharedPreferences.Editor editor =  sharedPreferences.edit();
         editor.putString(name, token);
-        editor.commit();
-    }
-
-    public long getlastOpen() {
-        return sharedPreferences.getLong(lastOpen, 0);
-    }
-
-    public void savetlastOpen(long time) {
-        SharedPreferences.Editor editor =  sharedPreferences.edit();
-        editor.putLong(lastOpen, time);
         editor.commit();
     }
 
@@ -54,5 +43,13 @@ public class SpCache {
     public String getHomeData() {
         return sharedPreferences.getString(homeData,null);
     }
+    public long getlastOpen() {
+        return sharedPreferences.getLong(lastOpen, 0);
+    }
 
+    public void savetlastOpen(long time) {
+        SharedPreferences.Editor editor =  sharedPreferences.edit();
+        editor.putLong(lastOpen, time);
+        editor.commit();
+    }
 }

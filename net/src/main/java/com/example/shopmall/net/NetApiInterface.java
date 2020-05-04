@@ -13,7 +13,8 @@ public interface NetApiInterface {
     //如果类型不确定的话，可以使用ResponseBody类型。它支持所有类型
     @GET("{path}")
     Observable<ResponseBody> getData(@Path(value = "path", encoded = true) String path, @QueryMap Map<String, String> params);
-
+    @GET("{path}")
+    Observable<ResponseBody> getBanner(@Path(value = "path", encoded = true) String path);
     //如果类型不确定的话，可以使用ResponseBody类型。它支持所有类型
     @POST("{path}")
     @FormUrlEncoded

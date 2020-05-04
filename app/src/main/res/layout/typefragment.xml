@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent" android:layout_height="match_parent">
+    <com.example.shopmall.framework.view.ToorBar
+            android:background="#555"
+            android:id="@+id/toor_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></com.example.shopmall.framework.view.ToorBar>
+    <LinearLayout
+            android:layout_below="@+id/toor_bar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+                android:layout_weight="1"
+                android:id="@+id/proType"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+        <android.support.v7.widget.RecyclerView
+                android:layout_weight="4"
+                android:id="@+id/productShow"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+    </LinearLayout>
+    <ProgressBar
+            android:layout_centerInParent="true"
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></ProgressBar>
+</RelativeLayout>

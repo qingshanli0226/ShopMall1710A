@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">buy</string>
+    <string name="selectAll">全选</string>
+    <string name="sum">合计:</string>
+    <string name="pay">去结算</string>
+    <string name="save">收藏</string>
+    <string name="delete">删除</string>
+    <string name="finish">完成</string>
+    <string name="edit">编辑</string>
+    <string name="productName">产品名字</string>
+    <string name="productPrice">产品价格</string>
+    <string name="shopcar">购物车</string>
 </resources>

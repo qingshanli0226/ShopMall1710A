@@ -1,5 +1,7 @@
 package com.example.shopmall.net;
 
+import com.example.shopmall.common.util.SpUtil;
+
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -11,10 +13,9 @@ public class TokenInterceptor implements Interceptor {
 
     @Override
     public Response intercept(Chain chain) throws IOException {
-       /* Request request = chain.request();
-        Request newRequest = request.newBuilder().addHeader("token", CacheManager.getInstance().getSpCache().getTpken())
-                .addHeader("appversoin", "v1.0").build();*/
+        Request request = chain.request();
+        Request newRequest = request.newBuilder().addHeader("token", SpUtil.getTpken(NetModule.context)).build();
 
-        return chain.proceed(chain.request());
+        return chain.proceed(newRequest);
     }
 }

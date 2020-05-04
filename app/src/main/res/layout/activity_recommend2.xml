@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent"
+        tools:context=".recommend.RecommendActivity">
+        <com.example.shopmall.framework.view.ToorBar
+                android:id="@+id/toor_bar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/tool_bar">
+
+        </com.example.shopmall.framework.view.ToorBar>
+        <ImageView
+                android:layout_below="@id/toor_bar"
+                android:id="@+id/pic"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/activity_recomend_image">
+
+        </ImageView>
+    <TextView
+
+            android:layout_below="@id/pic"
+            android:id="@+id/title1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+    </TextView>
+    <TextView
+            android:text="预售截止10月15日，预售期为限量礼盒版，包括特制木盒"
+
+            android:layout_below="@id/title1"
+            android:layout_marginTop="@dimen/marginTop"
+            android:id="@+id/title2"
+            android:textColor="#8F8F8F"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+    </TextView>
+    <TextView
+            android:layout_below="@id/title2"
+            android:id="@+id/price"
+            android:textColor="#FF0000"
+            android:textSize="@dimen/sp_20"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+    </TextView>
+    <RelativeLayout
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <com.example.shopmall.framework.view.BottomBar
+                android:id="@+id/bottomBar_recommend"
+
+                android:layout_width="@dimen/bottom_bar"
+                android:layout_height="wrap_content">
+
+        </com.example.shopmall.framework.view.BottomBar>
+        <Button
+                android:id="@+id/into_car"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:background="#FF0000"
+                android:text="加入购物车"
+                android:textColor="#fff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+        </Button>
+    </RelativeLayout>
+    <ProgressBar
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/progress_bar"
+            android:layout_centerInParent="true"
+            android:visibility="gone"/>
+</RelativeLayout>

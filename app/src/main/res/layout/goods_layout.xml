@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        android:background="#B6B6B6"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent">
+   <TextView
+           android:textColor="#000"
+           android:text="这里都是买的棒棒哒"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+
+   </TextView>
+   <android.support.v7.widget.RecyclerView
+           android:id="@+id/re_view"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent">
+
+   </android.support.v7.widget.RecyclerView>
+
+</LinearLayout>

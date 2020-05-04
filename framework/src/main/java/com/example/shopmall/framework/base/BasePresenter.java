@@ -1,33 +1,40 @@
 package com.example.shopmall.framework.base;
 
 
+import android.util.Log;
+
 import com.example.shopmall.common.util.ErrorUtil;
 import com.example.shopmall.net.*;
-
+import com.example.shopmall.common.exception.BusinessException;
+import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
+import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 
-public abstract class BasePresenter<T> implements IPresenter<T> {
+public abstract class BasePresenter<T> implements IPresenter {
 
     private IBaseView<T> iBaseView;
     private Map<String, String> parmas = new HashMap<>();
     private RequestBody requestBody;
-    @Override
+
     public void attachView(IBaseView iBaseView) {
         this.iBaseView = iBaseView;
     }
-    @Override
+
     public void detachView() {
         iBaseView = null;
     }
@@ -37,6 +44,7 @@ public abstract class BasePresenter<T> implements IPresenter<T> {
     public void getHttpData(final int requestCode) {
         RetrofitCreator.getNetAPIService()
                 .getData(getPath(), getParamsMap())
+                .delay(2,TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 //类型错误，业务错误放到onError中处理
                 .map(new NetFunction<ResponseBody, T>(getBeanType()))
@@ -104,7 +112,8 @@ public abstract class BasePresenter<T> implements IPresenter<T> {
                     //onError是所有错误的入口
                     @Override
                     public void onError(Throwable e) {
-                        iBaseView.onHttpReceivedFailed(requestCode, ErrorUtil.handleError(e));//将结果返回给UI层
+                        Log.i("TAG", "onError: "+e.getMessage());
+                            iBaseView.onHttpReceivedFailed(requestCode, ErrorUtil.handleError(e));//将结果返回给UI层
                     }
 
                 });
