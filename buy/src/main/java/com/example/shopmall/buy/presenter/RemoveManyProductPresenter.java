@@ -39,6 +39,7 @@ public class RemoveManyProductPresenter extends BasePresenter<String, IBaseView<
             jsonObject.addProperty("productNum",resultBean.getProductNum());
             jsonObject.addProperty("productName",resultBean.getProductName());
             jsonObject.addProperty("url",resultBean.getUrl());
+            jsonObject.addProperty("productPrice",resultBean.getProductPrice());
 
             jsonArray.put(jsonObject);
         }
