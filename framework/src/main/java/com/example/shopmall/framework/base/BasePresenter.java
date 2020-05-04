@@ -1,6 +1,8 @@
 package com.example.shopmall.framework.base;
 
 
+import android.util.Log;
+
 import com.example.shopmall.common.util.ErrorUtil;
 import com.example.shopmall.net.*;
 import com.example.shopmall.common.exception.BusinessException;
@@ -110,7 +112,8 @@ public abstract class BasePresenter<T> implements IPresenter {
                     //onError是所有错误的入口
                     @Override
                     public void onError(Throwable e) {
-                        iBaseView.onHttpReceivedFailed(requestCode, ErrorUtil.handleError(e));//将结果返回给UI层
+                        Log.i("TAG", "onError: "+e.getMessage());
+                            iBaseView.onHttpReceivedFailed(requestCode, ErrorUtil.handleError(e));//将结果返回给UI层
                     }
 
                 });

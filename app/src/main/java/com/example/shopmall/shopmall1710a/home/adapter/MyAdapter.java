@@ -6,19 +6,18 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.shopmall.common.Constant;
 import com.example.shopmall.shopmall1710a.R;
-import com.example.shopmall.shopmall1710a.RecommendActivity;
+import com.example.shopmall.shopmall1710a.recommend.RecommendActivity;
 import com.example.shopmall.shopmall1710a.home.base.ResultBean;
 import com.youth.banner.Banner;
 import com.youth.banner.loader.ImageLoader;
@@ -241,16 +240,6 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             RecommendAdapter recommendAdapter = new RecommendAdapter(R.layout.recommend_item_layout, recommendInfoBeans);
 
             recyclerView.setAdapter(recommendAdapter);
-            recommendAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                    Intent intent = new Intent(context, RecommendActivity.class);
-
-                    intent.putExtra("recommend",recommendInfoBeans.get(position));
-                    context.startActivity(intent);
-                }
-            });
-
         }
 
     }
@@ -267,10 +256,24 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             this.resultBean = resultBean;
         }
 
-        public void setData(List<ResultBean.HotInfoBean> hotInfoBeans){
+        public void setData(final List<ResultBean.HotInfoBean> hotInfoBeans){
 
             recyclerView.setLayoutManager(new GridLayoutManager(context,2));
-            recyclerView.setAdapter(new GoodsAdapter(R.layout.goods_item_layout,hotInfoBeans));
+            GoodsAdapter goodsAdapter = new GoodsAdapter(R.layout.goods_item_layout, hotInfoBeans);
+            recyclerView.setAdapter(goodsAdapter);
+            goodsAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                    Intent intent = new Intent();
+                    intent.setClass(context,RecommendActivity.class);
+                    intent.putExtra("productImageUrl", hotInfoBeans.get(position).getFigure());
+                    intent.putExtra("productPrice", hotInfoBeans.get(position).getCover_price());
+                    intent.putExtra("productName", hotInfoBeans.get(position).getName());
+                    intent.putExtra("productId", hotInfoBeans.get(position).getProduct_id());
+                    context.startActivity(intent);
+                    Toast.makeText(context, "点击", Toast.LENGTH_SHORT).show();
+                }
+            });
 
         }
     }

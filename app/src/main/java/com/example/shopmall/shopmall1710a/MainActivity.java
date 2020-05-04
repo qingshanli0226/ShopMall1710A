@@ -13,10 +13,10 @@ import android.util.Log;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.example.shopmall.buy.CarFragment;
 import com.example.shopmall.framework.manager.CacheManager;
 import com.example.shopmall.framework.view.BottomBar;
 import com.example.shopmall.framework.view.ButtonInfo;
-import com.example.shopmall.shopmall1710a.car.CarFragment;
 import com.example.shopmall.shopmall1710a.find.FindFragment;
 import com.example.shopmall.shopmall1710a.home.HomeFragment;
 import com.example.shopmall.shopmall1710a.mine.MineFragment;

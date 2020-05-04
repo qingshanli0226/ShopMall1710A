@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.shopmall.common.ErrorBean;
 import com.example.shopmall.framework.base.IBaseView;
+import com.example.shopmall.framework.manager.ShopUserManager;
 import com.example.shopmall.shopmall1710a.MainActivity;
 import com.example.shopmall.shopmall1710a.R;
 import com.example.shopmall.shopmall1710a.login.model.LoginBean;
@@ -18,7 +19,7 @@ import com.example.shopmall.shopmall1710a.login.presenter.LoginPresenter;
 import com.example.shopmall.shopmall1710a.regist.RegistActivity;
 
 
-public class LoginActivity extends AppCompatActivity implements IBaseView<LoginBean>, View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements IBaseView<Object>, View.OnClickListener {
     private EditText username;
     private EditText password;
     private Button loginBt;
@@ -42,12 +43,15 @@ public class LoginActivity extends AppCompatActivity implements IBaseView<LoginB
 
     }
 
-    @Override
-    public void onHtttpReceived(int requestCode, LoginBean data) {
 
+    @Override
+    public void onHtttpReceived(int requestCode, Object data) {
         Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        com.example.shopmall.framework.bean.LoginBean.ResultBean resultBean = (com.example.shopmall.framework.bean.LoginBean.ResultBean)data;
+        ShopUserManager.getInstance().saveToken(this, resultBean.getToken());
+        ShopUserManager.getInstance().saveUserLoginBeanAndNotify(resultBean);
     }
 
     @Override

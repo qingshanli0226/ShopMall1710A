@@ -36,7 +36,7 @@ public abstract class BaseFragment<T> extends Fragment implements IBaseView<T>, 
     protected abstract void initData();
     private void initToorBar() {
         toorBar=rootView.findViewById(R.id.toor_bar);
-        toorBar.setToolBarListener(this);
+       // toorBar.setToolBarListener(this);
     }
     //使presenter和页面关联起来
     private void initPresenter() {
