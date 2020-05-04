@@ -4,13 +4,14 @@
                 android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
 >
     <com.example.shopmall.framework.view.ToorBar
-            android:id="@+id/toolBar"
+            android:background="#FF5722"
+            android:id="@+id/toor_bar"
             android:layout_width="match_parent"
             android:layout_height="60dp">
 
     </com.example.shopmall.framework.view.ToorBar>
     <com.example.shopmall.buy.view.ShopcarRecylerview
-            android:layout_below="@id/toolBar"
+            android:layout_below="@id/toor_bar"
             android:layout_above="@id/shopcarPayView"
             android:id="@+id/shopcarRv"
             android:layout_width="match_parent"

@@ -39,6 +39,7 @@ public class ToorBar extends LinearLayout implements View.OnClickListener {
         leftTv.setOnClickListener(this);
         rightTv.setOnClickListener(this);
         rightImg.setOnClickListener(this);
+
     }
 
     public ToorBar(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {

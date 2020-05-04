@@ -1,6 +1,7 @@
 package com.example.shopmall.shopmall1710a.recommend;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -18,6 +19,8 @@ import com.example.shopmall.framework.manager.ShopUserManager;
 import com.example.shopmall.framework.view.BottomBar;
 import com.example.shopmall.framework.view.ButtonInfo;
 import com.example.shopmall.shopmall1710a.R;
+import com.example.shopmall.shopmall1710a.greendao.DbController;
+import com.example.shopmall.shopmall1710a.greendao.Product;
 import com.example.shopmall.shopmall1710a.home.base.ResultBean;
 import com.example.shopmall.shopmall1710a.login.view.LoginActivity;
 import com.example.shopmall.shopmall1710a.recommend.presenter.AddShopcarPresenter;
@@ -27,7 +30,7 @@ import com.example.shopmall.shopmall1710a.recommend.presenter.UpdateProductNumPr
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecommendActivity extends BaseActivity<Object> implements IBaseView<Object> {
+public class RecommendActivity extends BaseActivity<Object> implements IBaseView<Object>, BottomBar.bottomBarListener {
     private List<ButtonInfo> list1 = new ArrayList<>();
     private ImageView mPic;
     private TextView mTitle1;
@@ -89,6 +92,7 @@ public class RecommendActivity extends BaseActivity<Object> implements IBaseView
         list1.add(new ButtonInfo("收藏",R.drawable.good_uncollected));
         list1.add(new ButtonInfo("购物车",R.drawable.icon_good_detail_cart));
         mBottomBarRecommend.setBtnData(list1,false);
+        mBottomBarRecommend.setBottomBarListener(this);
         intoCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -180,4 +184,15 @@ public class RecommendActivity extends BaseActivity<Object> implements IBaseView
         findViewById(R.id.progress_bar).setVisibility(View.GONE);
     }
 
+    @Override
+    public void onSecondClick() {
+        Toast.makeText(this, "收藏成功", Toast.LENGTH_SHORT).show();
+        DbController dbController = DbController.getDbController(this);
+        Product product = new Product();
+        product.setId(Long.valueOf(productId));
+        product.setName(productName);
+        dbController.insert(product);
+
+        Log.e("TAG", "onSecondClick: "+dbController.queryAll().size() );
+    }
 }

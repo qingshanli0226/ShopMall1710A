@@ -164,8 +164,8 @@ public class ShopcarRecylerview extends RecyclerView implements IShopcarEventLis
             }
 
             shopcarViewHolder.productCount.setText(shopcarDataList.get(i).getProductNum());
-//            Glide.with(shopcarViewHolder.productImageView.getContext()).load(Constant.BASE_IMAGE_URL+
-//                    shopcarDataList.get(i).getUrl()).into(shopcarViewHolder.productImageView);
+            Glide.with(shopcarViewHolder.productImageView.getContext()).load(Constant.BASE_IMAGE_URL+
+                    shopcarDataList.get(i).getUrl()).into(shopcarViewHolder.productImageView);
             shopcarViewHolder.productPrice.setText(shopcarDataList.get(i).getProductPrice());
             shopcarViewHolder.productName.setText(shopcarDataList.get(i).getProductName());
 
@@ -177,7 +177,6 @@ public class ShopcarRecylerview extends RecyclerView implements IShopcarEventLis
                 public void onClick(View v) {
                     int num = Integer.valueOf(shopcarDataList.get(i).getProductNum());
                     //当等于1时，值不能再改变
-
                     int newNum = num +1;
                     iShopcarEventListener.onProductCountChanged(shopcarDataList.get(i),newNum);
                 }

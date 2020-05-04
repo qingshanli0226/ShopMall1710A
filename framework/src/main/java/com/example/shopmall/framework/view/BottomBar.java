@@ -15,12 +15,14 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.shopmall.framework.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BottomBar extends LinearLayout implements RadioGroup.OnCheckedChangeListener {
+public class BottomBar extends LinearLayout implements RadioGroup.OnCheckedChangeListener,View.OnClickListener {
     private View rootView;
     private RadioGroup radioGroup;
     private RadioButton radioButton01;
@@ -28,6 +30,7 @@ public class BottomBar extends LinearLayout implements RadioGroup.OnCheckedChang
     private RadioButton radioButton03;
     private RadioButton radioButton04;
     private RadioButton radioButton05;
+    private bottomBarListener bottomBarListener;
     private List<ButtonInfo> list = new ArrayList<>();
     private List<RadioButton> radioButtons = new ArrayList<>();
     private ViewPager pager;
@@ -60,9 +63,12 @@ public class BottomBar extends LinearLayout implements RadioGroup.OnCheckedChang
         radioButtons.add(radioButton03);
         radioButtons.add(radioButton04);
         radioButtons.add(radioButton05);
+        radioButton02.setOnClickListener(this);
 
     }
-
+    public void setBottomBarListener(bottomBarListener bottomBarListener){
+        this.bottomBarListener=bottomBarListener;
+    }
     public void setOnCheckedChangeListener(){
         radioGroup.setOnCheckedChangeListener(this);
 
@@ -152,5 +158,20 @@ public class BottomBar extends LinearLayout implements RadioGroup.OnCheckedChang
             setData(4);
             pager.setCurrentItem(4);
         }
+    }
+
+
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.btn02) {
+            if (bottomBarListener!=null){
+                bottomBarListener.onSecondClick();
+            }
+        }
+    }
+
+    public interface bottomBarListener{
+        void onSecondClick();
     }
 }

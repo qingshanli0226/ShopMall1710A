@@ -1,6 +1,8 @@
 package com.example.shopmall.net;
 
 
+import android.util.Log;
+
 import com.example.shopmall.common.exception.BusinessException;
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
@@ -19,7 +21,9 @@ public class NetFunction<R extends ResponseBody,T> implements Function<R,T> {
     @Override
     public T apply(R r) throws Exception {
         try {
+
             BaseBean<T> data = new Gson().fromJson(r.string(), type);
+            Log.e("TAG", "apply: "+data.toString() );
             if (data.getCode()!=200) {
                 //在这个方法中抛出去的异常，在onError中处理异常
                 throw new BusinessException(data.getCode(), data.getMsg());

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        android:paddingLeft="@dimen/dp_5"
+        android:paddingRight="@dimen/dp_5"
+        android:orientation="vertical"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="110dp" android:layout_height="120dp">
+
+        <ImageView
+                android:id="@+id/hotProPic"
+                android:layout_width="100dp"
+                android:layout_height="100dp"></ImageView>
+        <TextView
+                android:textColor="#F44336"
+                android:gravity="center"
+                android:id="@+id/hotProTv"
+                android:layout_width="100dp"
+                android:layout_height="@dimen/sp_20"></TextView>
+
+</LinearLayout>

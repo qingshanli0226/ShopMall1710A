@@ -4,13 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.shopmall.buy.CarFragment;
@@ -20,7 +17,7 @@ import com.example.shopmall.framework.view.ButtonInfo;
 import com.example.shopmall.shopmall1710a.find.FindFragment;
 import com.example.shopmall.shopmall1710a.home.HomeFragment;
 import com.example.shopmall.shopmall1710a.mine.MineFragment;
-import com.example.shopmall.shopmall1710a.type.TypeFragment;
+import com.example.shopmall.shopmall1710a.type.adapter.TypeFragment;
 
 import java.util.ArrayList;
 import java.util.List;

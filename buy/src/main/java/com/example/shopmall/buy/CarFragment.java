@@ -1,6 +1,7 @@
 package com.example.shopmall.buy;
 
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.shopmall.buy.presenter.AddShopcarPresenter;
 import com.example.shopmall.buy.presenter.SelectAllProductPresenter;
@@ -55,6 +56,12 @@ public class CarFragment extends BaseFragment<String> implements IShopcarEventLi
         shopcarRecylerview=rootView.findViewById(R.id.shopcarRv);
         shopcarEventListenerList.add((IShopcarEventListener)(shopcarRecylerview));
         shopcarRecylerview.setiShopcarEventListener(this);
+        toorBar.showAll(false);
+        toorBar.showRightTv(true);
+        toorBar.setRightTv(R.string.edit);
+        toorBar.showToorBarTitle(true);
+        toorBar.setTitle(R.string.shopcar);
+        toorBar.setTextSize(R.id.ToolBarTitle,25);
     }
 
     @Override
@@ -143,6 +150,18 @@ public class CarFragment extends BaseFragment<String> implements IShopcarEventLi
             for (IShopcarEventListener listener:shopcarEventListenerList) {
                 listener.onAllSelectChanged(isAllSelected);
             }
+        }
+    }
+
+    @Override
+    public void onRightTvClick() {
+        super.onRightTvClick();
+        isEdit = !isEdit;
+        onEditChange(isEdit);
+        if (isEdit) {
+            toorBar.setRightTv(R.string.finish);
+        }else {
+            toorBar.setRightTv(R.string.edit);
         }
     }
 
