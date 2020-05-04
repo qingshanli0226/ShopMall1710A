@@ -90,11 +90,6 @@ public class HomeFragment extends BaseFragment<Object> implements CacheManager.I
     }
 
     @Override
-    public void onShopcarDataSelectedReceived(ShopCartBean shopCartBean, int index) {
-
-    }
-
-    @Override
     public void onHomeDataReceived(final String homeDataJson) {
         getActivity().runOnUiThread(new Runnable() {
             @Override

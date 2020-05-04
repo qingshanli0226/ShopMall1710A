@@ -1,11 +1,9 @@
 package com.example.shopmall.buy.shopcar;
 
 import android.view.View;
+import android.widget.Toast;
 import com.example.shopmall.buy.R;
-import com.example.shopmall.buy.shopcar.presenter.AddShopcarPresenter;
-import com.example.shopmall.buy.shopcar.presenter.SelectAllProductPresenter;
-import com.example.shopmall.buy.shopcar.presenter.UpdateProductNumPresenter;
-import com.example.shopmall.buy.shopcar.presenter.UpdateProductSelectPresenter;
+import com.example.shopmall.buy.shopcar.presenter.*;
 import com.example.shopmall.buy.shopcar.view.ShopcarPayView;
 import com.example.shopmall.buy.shopcar.view.ShopcarRecylerview;
 import com.example.shopmall.framework.base.BaseFragment;
@@ -22,6 +20,7 @@ public class ShopcarFragment extends BaseFragment<String> implements IShopcarEve
     private UpdateProductSelectPresenter updateProductSelectPresenter;
     private UpdateProductNumPresenter updateProductNumPresenter;
     private SelectAllProductPresenter selectAllProductPresenter;
+    private RemoveProductsPresenter removeProductsPresenter;
     private ShopcarPayView shopcarPayView;
     private List<IShopcarEventListener> shopcarEventListenerList = new ArrayList<>();
     private ShopcarRecylerview shopcarRecylerview;
@@ -31,17 +30,23 @@ public class ShopcarFragment extends BaseFragment<String> implements IShopcarEve
     private boolean productSelected;
     private int productCount;
     private int productAllSelectedType = -1;
+    //定义类型，用来区分到底是那个view发出的事件。有时同一个事件，不同的view都可发出，通过该type来区分那个view发出的.所以定义下面三个类型
+    public static final int PAY_VIEW_TYPE = 1;
+    public static final int TOOLBAR_VIEW_TYPE = 2;
+    public static final int RECYCLERVIEW_VIEW_TYPE = 3;
     @Override
     protected List<IPresenter<String>> getPresenter() {
         addShopcarPresenter = new AddShopcarPresenter();
         updateProductSelectPresenter = new UpdateProductSelectPresenter();
         updateProductNumPresenter = new UpdateProductNumPresenter();
         selectAllProductPresenter = new SelectAllProductPresenter();
+        removeProductsPresenter = new RemoveProductsPresenter();
         List<IPresenter<String>> iPresenterList = new ArrayList<>();
         iPresenterList.add(addShopcarPresenter);
         iPresenterList.add(updateProductSelectPresenter);
         iPresenterList.add(updateProductNumPresenter);
         iPresenterList.add(selectAllProductPresenter);
+        iPresenterList.add(removeProductsPresenter);
         return iPresenterList;
     }
 
@@ -101,6 +106,9 @@ public class ShopcarFragment extends BaseFragment<String> implements IShopcarEve
             }
             //告诉我们的缓存数据是全选还是全不选
             CacheManager.getInstance().selectAllProduct(productAllSelectedType==1?true:false);
+        } else if (requestCode == 500) {
+            Toast.makeText(getActivity(), "删除成功",Toast.LENGTH_SHORT).show();
+            CacheManager.getInstance().removeManyProducts(shopcarRecylerview.getShopcarDelteDataList());
         }
     }
 
@@ -113,6 +121,11 @@ public class ShopcarFragment extends BaseFragment<String> implements IShopcarEve
     public void onEditChange(boolean isEdit) {
         for(IShopcarEventListener listener:shopcarEventListenerList) {
             listener.onEditChange(isEdit);
+        }
+
+        //当从编辑状态返回时，需要检查当前列表是否还有数据，如果没有，则不可以在全选状态
+        if (!isEdit) {
+            updateAllSelectUI(CacheManager.getInstance().getShopCartBean());
         }
     }
 
@@ -136,14 +149,14 @@ public class ShopcarFragment extends BaseFragment<String> implements IShopcarEve
 
 
     @Override
-    public void onAllSelectChanged(boolean isAllSelected) {
+    public void onAllSelectChanged(boolean isAllSelected, int viewType) {
         if (!isEdit) {
             selectAllProductPresenter.addParams(isAllSelected);
             selectAllProductPresenter.postHttpDataWithJson(400);
             productAllSelectedType = isAllSelected ? 1 : 2;//1代表的全选，2代表全不选 -1代表初始值
         } else {
             for (IShopcarEventListener listener:shopcarEventListenerList) {
-                listener.onAllSelectChanged(isAllSelected);
+                listener.onAllSelectChanged(isAllSelected,viewType);
             }
         }
     }
@@ -155,7 +168,8 @@ public class ShopcarFragment extends BaseFragment<String> implements IShopcarEve
 
     @Override
     public void onProductDeleted() {
-
+        removeProductsPresenter.addParams(shopcarRecylerview.getShopcarDelteDataList());
+        removeProductsPresenter.postHttpDataWithJson(500);
     }
 
     @Override
@@ -172,17 +186,11 @@ public class ShopcarFragment extends BaseFragment<String> implements IShopcarEve
         } else {
             shopcarRecylerview.updateOneData(shopcarData, index);
         }
-        shopcarPayView.notifyMoneyChanged();
-    }
-
-    //购物车产品选择改变
-    @Override
-    public void onShopcarDataSelectedReceived(ShopCartBean shopCartBean, int index) {
-        shopcarRecylerview.updateOneData(shopcarData, index);
-        shopcarPayView.notifyMoneyChanged();
         updateAllSelectUI(shopCartBean);
+        shopcarPayView.notifyMoneyChanged();
     }
 
+    //更新UI,主要是更新是否全选，当个数为0时，不是全选
     private void updateAllSelectUI(ShopCartBean shopCartBean) {
         int selectNums = 0;
         for(ShopCartBean.ShopcarData shopcarData :shopCartBean.getResult()) {
@@ -190,13 +198,14 @@ public class ShopcarFragment extends BaseFragment<String> implements IShopcarEve
                 selectNums++;
             }
         }
-        if (selectNums == shopCartBean.getResult().size()) {
+        //当数量相等，且个数大于零
+        if (selectNums == shopCartBean.getResult().size() && selectNums > 0) {
             for (IShopcarEventListener listener:shopcarEventListenerList) {
-                listener.onAllSelectChanged(true);
+                listener.onAllSelectChanged(true,RECYCLERVIEW_VIEW_TYPE);
             }
         } else {
             for (IShopcarEventListener listener:shopcarEventListenerList) {
-                listener.onAllSelectChanged(false);
+                listener.onAllSelectChanged(false,RECYCLERVIEW_VIEW_TYPE);
             }
         }
     }

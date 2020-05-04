@@ -14,6 +14,8 @@ import com.example.shopmall.buy.shopcar.IShopcarEventListener;
 import com.example.shopmall.framework.bean.ShopCartBean;
 import com.example.shopmall.framework.manager.CacheManager;
 
+import static com.example.shopmall.buy.shopcar.ShopcarFragment.PAY_VIEW_TYPE;
+
 //让该view去实现接口，当其他模块事件发生时，可以通过这个接口，去获取事件
 public class ShopcarPayView extends LinearLayout implements IShopcarEventListener, View.OnClickListener {
     private IShopcarEventListener iShopcarEventListener;
@@ -49,6 +51,7 @@ public class ShopcarPayView extends LinearLayout implements IShopcarEventListene
         allEditSelectCheckbox = rootView.findViewById(R.id.allEditSelect);
 
         rootView.findViewById(R.id.allSelect).setOnClickListener(this);
+        rootView.findViewById(R.id.allEditSelect).setOnClickListener(this);
         rootView.findViewById(R.id.payBtn).setOnClickListener(this);
         rootView.findViewById(R.id.deleteBtn).setOnClickListener(this);
         rootView.findViewById(R.id.saveBtn).setOnClickListener(this);
@@ -83,7 +86,7 @@ public class ShopcarPayView extends LinearLayout implements IShopcarEventListene
 
 
     @Override
-    public void onAllSelectChanged(boolean isAllSelected) {
+    public void onAllSelectChanged(boolean isAllSelected,int viewType) {
         if (!isEdit) {
             allSelectCheckbox.setChecked(isAllSelected);
         } else {
@@ -113,9 +116,9 @@ public class ShopcarPayView extends LinearLayout implements IShopcarEventListene
         }
         if (v.getId() == R.id.allSelect) {
             if (allSelectCheckbox.isChecked()) {
-                iShopcarEventListener.onAllSelectChanged(true);
+                iShopcarEventListener.onAllSelectChanged(true,PAY_VIEW_TYPE);
             } else {
-                iShopcarEventListener.onAllSelectChanged(false);
+                iShopcarEventListener.onAllSelectChanged(false,PAY_VIEW_TYPE);
             }
 
         } else if (v.getId() == R.id.payBtn) {
@@ -127,6 +130,12 @@ public class ShopcarPayView extends LinearLayout implements IShopcarEventListene
             iShopcarEventListener.onProductSaved();
         } else if (v.getId() == R.id.deleteBtn) {
             iShopcarEventListener.onProductDeleted();
+        } else if (v.getId() == R.id.allEditSelect) {//在编辑状态下，点击全选
+            if (allEditSelectCheckbox.isChecked()) {
+                iShopcarEventListener.onAllSelectChanged(true,PAY_VIEW_TYPE);
+            } else {
+                iShopcarEventListener.onAllSelectChanged(false,PAY_VIEW_TYPE);
+            }
         }
     }
 

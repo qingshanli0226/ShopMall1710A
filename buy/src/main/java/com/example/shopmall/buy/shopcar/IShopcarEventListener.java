@@ -7,7 +7,7 @@ public interface IShopcarEventListener {
     void onEditChange(boolean isEdit);//编辑事件
     void onProductSelectChanged(boolean isSelected, ShopCartBean.ShopcarData shopcarData);//产品选择事件
     void onProductCountChanged(ShopCartBean.ShopcarData shopcarData, int count);
-    void onAllSelectChanged(boolean isAllSelected);
+    void onAllSelectChanged(boolean isAllSelected, int viewType);
     void onPayEventChanged(float payValue);
     void onProductDeleted();
     void onProductSaved();

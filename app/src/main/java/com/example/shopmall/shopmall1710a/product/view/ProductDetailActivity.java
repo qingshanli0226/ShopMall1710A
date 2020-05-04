@@ -163,9 +163,4 @@ public class ProductDetailActivity extends BaseActivity<Object> implements View.
         });
 
     }
-
-    @Override
-    public void onShopcarDataSelectedReceived(ShopCartBean shopCartBean, int index) {
-
-    }
 }

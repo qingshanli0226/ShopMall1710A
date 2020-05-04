@@ -23,6 +23,9 @@ import okhttp3.Interceptor;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.shopmall.buy.shopcar.ShopcarFragment.PAY_VIEW_TYPE;
+import static com.example.shopmall.buy.shopcar.ShopcarFragment.RECYCLERVIEW_VIEW_TYPE;
+
 public class ShopcarRecylerview extends RecyclerView implements IShopcarEventListener {
     private IShopcarEventListener iShopcarEventListener;
     private ShopcarAdapter shopcarAdapter;
@@ -95,8 +98,16 @@ public class ShopcarRecylerview extends RecyclerView implements IShopcarEventLis
 
 
     @Override
-    public void onAllSelectChanged(boolean isAllSelected) {
-
+    public void onAllSelectChanged(boolean isAllSelected,int viewType) {
+        if (isEdit && viewType == PAY_VIEW_TYPE) {
+            if (isAllSelected) {
+                shopcarDelteDataList.clear();
+                shopcarDelteDataList.addAll(shopcarDataList);
+            } else {
+                shopcarDelteDataList.clear();
+            }
+            shopcarAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -151,12 +162,12 @@ public class ShopcarRecylerview extends RecyclerView implements IShopcarEventLis
                             //添加到删除列表中
                             shopcarDelteDataList.add(shopcarDataList.get(i));
                             if (shopcarDelteDataList.size() == shopcarDataList.size()) {
-                                iShopcarEventListener.onAllSelectChanged(true);
+                                iShopcarEventListener.onAllSelectChanged(true,RECYCLERVIEW_VIEW_TYPE);
                             }
                         } else {
                             if (shopcarDelteDataList.contains(shopcarDataList.get(i))) {
                                 shopcarDelteDataList.remove(shopcarDataList.get(i));
-                                iShopcarEventListener.onAllSelectChanged(false);
+                                iShopcarEventListener.onAllSelectChanged(false,RECYCLERVIEW_VIEW_TYPE);
                             }
                         }
                     }

@@ -148,7 +148,7 @@ public class CacheManager {
         }
         //第二步，需要做什么事情?
         for(IShopcarDataRecevedLisener lisener:shopCountRecevedLisenerList) {
-            lisener.onShopcarDataSelectedReceived(shopCartBean, index);
+            lisener.onShopcarDataReceived(shopCartBean.getResult().size(),shopCartBean, index);
         }
 
     }
@@ -156,6 +156,20 @@ public class CacheManager {
     public void selectAllProduct(boolean selected) {
         for(ShopCartBean.ShopcarData item:shopCartBean.getResult()) {
             item.setProductSelected(selected);
+        }
+
+        //第二步，需要做什么事情?
+        for(IShopcarDataRecevedLisener lisener:shopCountRecevedLisenerList) {
+            lisener.onShopcarDataReceived(shopCartBean.getResult().size(),shopCartBean,-1);
+        }
+    }
+
+    //删除产品
+    public void removeManyProducts(List<ShopCartBean.ShopcarData> shopcarDataList) {
+        for(ShopCartBean.ShopcarData item:shopcarDataList) {
+           if (shopCartBean.getResult().contains(item)) {
+               shopCartBean.getResult().remove(item);
+           }
         }
 
         //第二步，需要做什么事情?
@@ -175,7 +189,6 @@ public class CacheManager {
 
     public interface IShopcarDataRecevedLisener {
         void onShopcarDataReceived(int conunt, ShopCartBean shopCartBean, int index);
-        void onShopcarDataSelectedReceived(ShopCartBean shopCartBean, int index);
     }
 
 
