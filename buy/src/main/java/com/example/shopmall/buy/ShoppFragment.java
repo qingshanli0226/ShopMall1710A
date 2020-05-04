@@ -1,5 +1,7 @@
 package com.example.shopmall.buy;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -148,6 +150,16 @@ public class ShoppFragment extends BaseFragment implements CustomTitleBar.OnCust
         }
         removeManyProductPresenter.addParams(list);
         removeManyProductPresenter.postHttpDataWithJson(500);
+    }
+
+    @Override
+    public void closeMoney() { // 结算
+        Log.i("boss", "closeMoney: 结算");
+        Intent intent = new Intent(getActivity(), OrderActivity.class);
+        Bundle bundle = new Bundle();
+//        bundle.putStringArrayList("list",);
+//        intent.putExtra()
+        startActivity(intent);
     }
 
     // 减少商品数量

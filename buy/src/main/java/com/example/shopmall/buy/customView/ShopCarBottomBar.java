@@ -58,6 +58,14 @@ public class ShopCarBottomBar extends RelativeLayout {
                 }
             }
         });
+        shopCarBottomBarCloseMoney.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (shopCarBottomBarLisenner != null){
+                    shopCarBottomBarLisenner.closeMoney();
+                }
+            }
+        });
 
     }
     private void initValue(Context context, AttributeSet attrs) {
@@ -82,6 +90,7 @@ public class ShopCarBottomBar extends RelativeLayout {
     public interface ShopCarBottomBarLisenner{
         void checkBoxAllOk(boolean flag); // 全选
         void removeOk(); // 删除
+        void closeMoney(); // 结算
     }
     private ShopCarBottomBarLisenner shopCarBottomBarLisenner;
 

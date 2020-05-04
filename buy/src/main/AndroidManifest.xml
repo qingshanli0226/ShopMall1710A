@@ -3,7 +3,7 @@
           package="com.example.shopmall.buy">
 
     <application>
-        <activity android:name=".MainActivity">
+        <activity android:name=".OrderActivity">
         </activity>
     </application>
 
