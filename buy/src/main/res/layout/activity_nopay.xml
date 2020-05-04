@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+    <com.example.shopmall.framework.customView.CustomTitleBar
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            app:isRightTextShow="false"
+            app:leftImageId="@drawable/back"
+            app:rightImageId="@drawable/dot"
+            app:titleText="我的订单"
+            android:id="@+id/customTitleBar"/>
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/noPayRecyclerView"
+            android:layout_width="match_parent" android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/dp40"/>
+    <ProgressBar
+            android:id="@+id/loadingBar"
+            android:layout_width="@dimen/dp100"
+            android:layout_height="@dimen/dp100"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"/>
+</RelativeLayout>

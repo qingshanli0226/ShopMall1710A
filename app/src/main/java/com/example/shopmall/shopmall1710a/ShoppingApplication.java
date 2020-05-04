@@ -13,5 +13,6 @@ public class ShoppingApplication extends Application {
         AppCore.getInstance().init(this);
         CacheManager.getInstance().init(this);
         ShopUserManager.getInstance().init(this);
+
     }
 }

@@ -22,6 +22,7 @@ public class CacheManager {
     private ShopMallService shopMallService;
     private static CacheManager instance;
     private List<IShopCountRecevedLisener> shopCountRecevedLisenerList = new LinkedList<>();
+    private boolean isPitch;
     private CacheManager() {
     }
     // 获取实例
@@ -102,14 +103,31 @@ public class CacheManager {
     public List<ShortCarEntity.ResultBean> getShortCarDatas(){
        return  this.shortCarResultBeans;
     }
+    // 获取 选中状态下的 集合
+    public List<ShortCarEntity.ResultBean> getPitchOnShortCarDatas(){
+        List<ShortCarEntity.ResultBean> list = new ArrayList<>();
+        for (ShortCarEntity.ResultBean shortCarResultBean : shortCarResultBeans) {
+            if (shortCarResultBean.isProductSelected()){
+                list.add(shortCarResultBean);
+            }
+        }
+        return list;
+    }
     // 获取 总金额
     public float getTotalMoney(){
         return SPUtils.getInstance().getFloat(Constant.SP_TOTAL_MONEY);
     }
     // 通知 获取购物车数据成功!
     public void notifyShopCountRecevedLisener(){
+        isPitch = true;
+        for (ShortCarEntity.ResultBean shortCarResultBean : shortCarResultBeans) {
+            if (!shortCarResultBean.isProductSelected()){
+                isPitch = false;
+                break;
+            }
+        }
         for(IShopCountRecevedLisener lisener:shopCountRecevedLisenerList) { // 通知监听页面 跟新购物车数据
-            lisener.onShopcarCountReceived(SPUtils.getInstance().getInt(Constant.SP_SHOP_COUNT));
+            lisener.onShopcarCountReceived(SPUtils.getInstance().getInt(Constant.SP_SHOP_COUNT),isPitch);
         }
     }
     // 获取购物车 商品种类数量
@@ -120,7 +138,7 @@ public class CacheManager {
 
 
     public interface IShopCountRecevedLisener {
-        void onShopcarCountReceived(int conunt);
+        void onShopcarCountReceived(int conunt,boolean is);
     }
     // 注册监听
     public void registerCountLisenner(IShopCountRecevedLisener iShopCountRecevedLisener){

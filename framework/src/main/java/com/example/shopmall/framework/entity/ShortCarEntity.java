@@ -1,5 +1,6 @@
 package com.example.shopmall.framework.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class ShortCarEntity {
@@ -38,7 +39,7 @@ public class ShortCarEntity {
         this.result = result;
     }
 
-    public static class ResultBean {
+    public static class ResultBean implements Serializable {
         /**
          * productId : 1512
          * productName : 衬衫

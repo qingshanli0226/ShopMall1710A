@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+            android:background="@color/fray">
     <com.example.shopmall.framework.customView.CustomTitleBar
             android:layout_width="match_parent"
             android:layout_height="30dp"
@@ -12,10 +13,76 @@
             app:rightImageId="@drawable/dot"
             app:titleText="@string/user_title"
             android:id="@+id/customTitleBar"/>
-    <Button android:layout_width="match_parent"
-            android:layout_height="@dimen/dp50"
-            android:layout_marginTop="@dimen/dp100"
-            android:id="@+id/userLoginBtn"/>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                  android:orientation="vertical"
+    >
+        <RelativeLayout android:layout_width="match_parent" android:layout_height="@dimen/dp200"
+                        android:background="@mipmap/new_user_icon_background">
+            <ImageView
+                    android:id="@+id/topImg"
+                    android:layout_width="@dimen/dp50" android:layout_height="@dimen/dp50"
+                    android:background="@mipmap/new_user_icon"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"/>
+            <TextView
+                    android:id="@+id/userLoginBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/userLoginBtnText"
+                    android:layout_below="@+id/topImg"
+                    android:gravity="center"/>
+        </RelativeLayout>
+        <TextView
+                android:id="@+id/userCollect"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="商品收藏"
+        android:textSize="@dimen/sp15"/>
+        <RadioGroup android:layout_width="match_parent" android:layout_height="@dimen/dp70"
+        android:orientation="horizontal"
+        android:background="@color/white">
+            <RadioButton
+                    android:id="@+id/userNoPay"
+                    android:layout_width="0dp" android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:text="@string/noSH"
+            android:drawableTop="@mipmap/new_order_status_fukuan"
+            android:gravity="center"
+            android:layout_marginBottom="@dimen/dp3"/>
+            <RadioButton android:layout_width="0dp" android:layout_height="match_parent"
+                         android:layout_weight="1"
+                         android:button="@null"
+                         android:text="@string/noFK"
+                         android:drawableTop="@mipmap/new_order_status_fahuo"
+                         android:gravity="center"/>
+            <RadioButton android:layout_width="0dp" android:layout_height="match_parent"
+                         android:layout_weight="1"
+                         android:button="@null"
+                         android:text="@string/noSH"
+                         android:drawableTop="@mipmap/new_order_status_shouhuo"
+                         android:gravity="center"/>
+            <RadioButton android:layout_width="0dp" android:layout_height="match_parent"
+                         android:layout_weight="1"
+                         android:button="@null"
+                         android:text="@string/yes"
+                         android:drawableTop="@mipmap/icon_order_status_finish"
+                         android:gravity="center"/>
+            <RadioButton android:layout_width="0dp" android:layout_height="match_parent"
+                         android:layout_weight="1"
+                         android:button="@null"
+                         android:text="@string/SHTK"
+                         android:drawableTop="@mipmap/new_order_status_help"
+                         android:gravity="center"/>
+        </RadioGroup>
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/userRecyclerView"
+                android:layout_marginTop="@dimen/dp3"
+                android:layout_width="match_parent"
+                 android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/white"/>
+    </LinearLayout>
+
 
     <ProgressBar
             android:id="@+id/loadingBar"

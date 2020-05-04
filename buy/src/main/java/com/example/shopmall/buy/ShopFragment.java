@@ -11,7 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.shopmall.buy.adapter.ShortCarAdapter;
 import com.example.shopmall.buy.customView.ShopCarBottomBar;
+import com.example.shopmall.buy.manager.CollectManager;
 import com.example.shopmall.buy.presenter.*;
+import com.example.shopmall.common.Constant;
 import com.example.shopmall.common.ErrorBean;
 import com.example.shopmall.framework.customView.CustomTitleBar;
 import com.example.shopmall.framework.entity.ShortCarEntity;
@@ -20,11 +22,11 @@ import com.example.shopmall.framework.mvp.presenter.IPresenter;
 import com.example.shopmall.framework.mvp.view.BaseFragment;
 
 
-import javax.xml.transform.sax.TemplatesHandler;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShoppFragment extends BaseFragment implements CustomTitleBar.OnCustomTitleBarLisenner
+public class ShopFragment extends BaseFragment implements CustomTitleBar.OnCustomTitleBarLisenner
         , CacheManager.IShopCountRecevedLisener, ShopCarBottomBar.ShopCarBottomBarLisenner ,ShortCarAdapter.OnShortCarClickLisener{
     private RecyclerView shoppRecyclerView;
     private ShortCarAdapter shortCarAdapter;
@@ -46,6 +48,8 @@ public class ShoppFragment extends BaseFragment implements CustomTitleBar.OnCust
                 }
                 // 给 结算view 设置 总金额
                 shopCarBottomBar.setMoney(CacheManager.getInstance().getTotalMoney());
+                boolean obj = (boolean) msg.obj;
+                shopCarBottomBar.setCheckBoxAll(obj);
             }
         }
     };
@@ -126,11 +130,13 @@ public class ShoppFragment extends BaseFragment implements CustomTitleBar.OnCust
     }
     // 购物车数据获取成功
     @Override
-    public void onShopcarCountReceived(int conunt) {
+    public void onShopcarCountReceived(int conunt,boolean is) {
         Log.i("boss", "onShopcarCountReceived: 购物车页面"+CacheManager.getInstance().getShortCarDatas().size());
         Message message = new Message();
         message.what = 1;
+        message.obj = is;
         handler.sendMessage(message);
+
     }
     // 全选触发
     @Override
@@ -157,9 +163,16 @@ public class ShoppFragment extends BaseFragment implements CustomTitleBar.OnCust
         Log.i("boss", "closeMoney: 结算");
         Intent intent = new Intent(getActivity(), OrderActivity.class);
         Bundle bundle = new Bundle();
-//        bundle.putStringArrayList("list",);
-//        intent.putExtra()
+        bundle.putSerializable("list", (Serializable) CacheManager.getInstance().getPitchOnShortCarDatas());
+        bundle.putString("price",SPUtils.getInstance().getFloat(Constant.SP_TOTAL_MONEY)+"");
+        intent.putExtra("bundle",bundle);
         startActivity(intent);
+    }
+
+    @Override
+    public void collect() { // 收藏
+        List<ShortCarEntity.ResultBean> pitchOnShortCarDatas = CacheManager.getInstance().getPitchOnShortCarDatas();
+        CollectManager.getInstance().collectShort(pitchOnShortCarDatas);
     }
 
     // 减少商品数量

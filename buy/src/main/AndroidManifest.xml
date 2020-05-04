@@ -3,8 +3,8 @@
           package="com.example.shopmall.buy">
 
     <application>
-        <activity android:name=".OrderActivity">
-        </activity>
+        <activity android:name=".OrderActivity"/>
+        <activity android:name=".NoPayActivity"/>
     </application>
 
 </manifest>

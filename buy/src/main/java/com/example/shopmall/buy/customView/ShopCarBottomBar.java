@@ -15,6 +15,8 @@ public class ShopCarBottomBar extends RelativeLayout {
     private TextView shopCarBottomBarAllMoney;
     private Button shopCarBottomBarCloseMoney;
     private Button shopCarBottomBarRemove;
+    private Button shopCarBottomBarCollect;
+    private boolean isChecked;
 
     public ShopCarBottomBar(Context context) {
         super(context);
@@ -39,15 +41,24 @@ public class ShopCarBottomBar extends RelativeLayout {
         shopCarBottomBarAllMoney = inflate.findViewById(R.id.shopCarBottomBarAllMoney);
         shopCarBottomBarCloseMoney = inflate.findViewById(R.id.shopCarBottomBarCloseMoney);
         shopCarBottomBarRemove = inflate.findViewById(R.id.shopCarBottomBarRemove);
+        shopCarBottomBarCollect = inflate.findViewById(R.id.shopCarBottomBarCollect);
 
         shopCarBottomBarRemove.setVisibility(GONE); // 默认 编辑模式
-
-        shopCarBottomBarCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        shopCarBottomBarCollect.setOnClickListener(new OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (shopCarBottomBarLisenner != null){
-                        shopCarBottomBarLisenner.checkBoxAllOk(isChecked);
-                    }
+            public void onClick(View v) {
+                if (shopCarBottomBarLisenner != null){
+                    shopCarBottomBarLisenner.collect();
+                }
+            }
+        });
+
+        shopCarBottomBarCheckBox.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (shopCarBottomBarLisenner != null){
+                    shopCarBottomBarLisenner.checkBoxAllOk(!isChecked);
+                }
             }
         });
         shopCarBottomBarRemove.setOnClickListener(new OnClickListener() {
@@ -78,12 +89,15 @@ public class ShopCarBottomBar extends RelativeLayout {
             shopCarBottomBarAllMoney.setVisibility(VISIBLE);
             shopCarBottomBarCloseMoney.setVisibility(VISIBLE);
             shopCarBottomBarRemove.setVisibility(GONE);
+            shopCarBottomBarCollect.setVisibility(GONE);
+
         }else { // 完成模式
             shopCarBottomBarCheckBox.setVisibility(VISIBLE);
             shopCarBottomBarTotal.setVisibility(GONE);
             shopCarBottomBarAllMoney.setVisibility(GONE);
             shopCarBottomBarCloseMoney.setVisibility(GONE);
             shopCarBottomBarRemove.setVisibility(VISIBLE); // 默认 编辑模式
+            shopCarBottomBarCollect.setVisibility(VISIBLE);
         }
     }
 
@@ -91,6 +105,7 @@ public class ShopCarBottomBar extends RelativeLayout {
         void checkBoxAllOk(boolean flag); // 全选
         void removeOk(); // 删除
         void closeMoney(); // 结算
+        void collect(); // 收藏
     }
     private ShopCarBottomBarLisenner shopCarBottomBarLisenner;
 
@@ -103,5 +118,10 @@ public class ShopCarBottomBar extends RelativeLayout {
 
     public void setCount(int count){ // 提供设置数量的方法
         shopCarBottomBarCloseMoney.setText("去结算("+count+")");
+    }
+
+    public void setCheckBoxAll(boolean flag){
+        isChecked = flag;
+        shopCarBottomBarCheckBox.setChecked(flag);
     }
 }

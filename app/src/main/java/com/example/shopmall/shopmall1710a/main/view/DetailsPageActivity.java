@@ -178,7 +178,7 @@ public class DetailsPageActivity extends BaseActivity implements View.OnClickLis
     }
     // 获取购物车数量成功!
     @Override
-    public void onShopcarCountReceived(int conunt) {
+    public void onShopcarCountReceived(int conunt,boolean is) {
         Log.i("boss", "onShopcarCountReceived: ----------------------------");
         shortCarNum.setText(conunt+"");
     }

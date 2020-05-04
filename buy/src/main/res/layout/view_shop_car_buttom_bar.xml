@@ -26,12 +26,23 @@
                 android:text="@string/shop_car_buttom_bar_closeMoney" android:textColor="#fff" android:background="@color/red"
                 android:layout_alignParentRight="true"
         />
-        <Button
-                android:id="@+id/shopCarBottomBarRemove"
-                android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="删除" android:textColor="#fff"
-                android:layout_alignParentRight="true"
-                android:visibility="gone"/>
+        <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:orientation="horizontal">
+            <Button
+                    android:id="@+id/shopCarBottomBarCollect"
+                    android:layout_width="wrap_content" android:layout_height="match_parent"
+            android:text="收藏"
+                    android:visibility="gone"
+            />
+            <Button
+                    android:id="@+id/shopCarBottomBarRemove"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="删除" android:textColor="#fff"
+                    android:layout_alignParentRight="true"
+                    android:visibility="gone"
+                    />
+        </LinearLayout>
+
     </RelativeLayout>
 
 </LinearLayout>

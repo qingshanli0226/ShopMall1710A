@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-
+apply plugin: 'org.greenrobot.greendao'
 android {
     compileSdkVersion 28
 
@@ -27,6 +27,12 @@ android {
         }
     }
 
+    greendao {
+        schemaVersion 2 //当前数据库版本
+        //生成的DAO，DaoMaster和DaoSession的包路径。默认与表实体所在的包路径相同
+        daoPackage 'com.dev.base.model.db'
+    }
+
 }
 
 dependencies {
@@ -40,6 +46,12 @@ dependencies {
     implementation project(':framework')
     implementation project(':net')
 
+
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.22'  //------->>万能适配器
     implementation 'com.android.support:recyclerview-v7:29.0.0'//recyclerview
+
+    implementation 'org.greenrobot:greendao:3.2.2' // 添加库
+
+    implementation (name: 'alipaySdk-15.7.5-20200422171619', ext: 'aar')
+
 }

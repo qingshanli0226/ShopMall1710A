@@ -1,17 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
     <com.example.shopmall.framework.customView.CustomTitleBar
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="@dimen/dp30"
             app:isRightTextShow="false"
             app:leftImageId="@drawable/back"
             app:rightImageId="@drawable/dot"
             app:titleText="@string/titleBarTextType"
-            android:id="@+id/customTitleBar"/>
+            android:id="@+id/customTitleBar"
+            android:visibility="gone"/>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                  android:orientation="horizontal"
+    >
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/TypeLeftRecyclerView"
+                android:layout_width="@dimen/dp100"
+                android:layout_height="match_parent"
+        android:background="@color/gray"/>
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/TypeRightRecyclerView"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+    </LinearLayout>
 
     <ProgressBar
             android:id="@+id/loadingBar"
@@ -19,4 +34,4 @@
             android:layout_height="@dimen/dp100"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"/>
-</LinearLayout>
+</RelativeLayout>

@@ -12,6 +12,8 @@ import com.google.gson.reflect.TypeToken;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -34,13 +36,16 @@ public class RemoveManyProductPresenter extends BasePresenter<String, IBaseView<
     public void addParams(List<ShortCarEntity.ResultBean> list){
         JSONArray jsonArray = new JSONArray();
         for (ShortCarEntity.ResultBean resultBean : list) {
-            JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("productId",resultBean.getProductId());
-            jsonObject.addProperty("productNum",resultBean.getProductNum());
-            jsonObject.addProperty("productName",resultBean.getProductName());
-            jsonObject.addProperty("url",resultBean.getUrl());
-            jsonObject.addProperty("productPrice",resultBean.getProductPrice());
-
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject.put("productId",resultBean.getProductId());
+                jsonObject.put("productNum",resultBean.getProductNum());
+                jsonObject.put("productName",resultBean.getProductName());
+                jsonObject.put("url",resultBean.getUrl());
+                jsonObject.put("productPrice",resultBean.getProductPrice());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             jsonArray.put(jsonObject);
         }
         Log.i("boss", "addParams: "+jsonArray.toString());

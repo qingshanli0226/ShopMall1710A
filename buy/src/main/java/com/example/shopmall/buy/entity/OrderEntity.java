@@ -26,4 +26,11 @@ public class OrderEntity {
             this.outTradeNo = outTradeNo;
         }
 
+    @Override
+    public String toString() {
+        return "OrderEntity{" +
+                "orderInfo='" + orderInfo + '\'' +
+                ", outTradeNo='" + outTradeNo + '\'' +
+                '}';
+    }
 }

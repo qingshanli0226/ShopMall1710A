@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.blankj.utilcode.util.SPUtils;
-import com.example.shopmall.buy.ShoppFragment;
+import com.example.shopmall.buy.ShopFragment;
 import com.example.shopmall.common.Constant;
 import com.example.shopmall.common.ErrorBean;
 import com.example.shopmall.framework.customView.CustomBottomBar;
@@ -21,6 +21,8 @@ import com.example.shopmall.framework.mvp.view.BaseActivity;
 import com.example.shopmall.shopmall1710a.R;
 import com.example.shopmall.shopmall1710a.main.adapter.MyPagerAdapter;
 import com.example.shopmall.shopmall1710a.main.view.fragment.*;
+import com.example.shopmall.shopmall1710a.type.TypeFragment;
+import com.example.shopmall.shopmall1710a.user.UserFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,7 +73,7 @@ public class MainActivity extends BaseActivity implements CacheManager.IHomeData
         fragments.add(new HomeFragment());
         fragments.add(new TypeFragment());
         fragments.add(new FindFragment());
-        fragments.add(new ShoppFragment());
+        fragments.add(new ShopFragment());
         fragments.add(new UserFragment());
 
         myPagerAdapter = new MyPagerAdapter(getSupportFragmentManager(),fragments);
@@ -111,7 +113,7 @@ public class MainActivity extends BaseActivity implements CacheManager.IHomeData
 
 
     @Override
-    public void onShopcarCountReceived(final int conunt) {
+    public void onShopcarCountReceived(final int conunt,boolean is) {
         Message message = new Message();
         message.what = conunt;
         handler.sendMessage(message);

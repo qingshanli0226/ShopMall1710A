@@ -25,5 +25,11 @@
     <string name="titleBarTextFind">发现</string>
     <string name="titleBarTextType">分类</string>
     <string name="titleBarTextCar">购物车</string>
+    <string name="userLoginBtnText">登录/注册</string>
+    <string name="noSH">待收货</string>
+    <string name="noFH">待发货</string>
+    <string name="noFK">待付款</string>
+    <string name="yes">已完成</string>
+    <string name="SHTK">售后/退款</string>
 
 </resources>

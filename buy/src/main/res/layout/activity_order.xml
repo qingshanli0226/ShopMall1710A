@@ -12,6 +12,21 @@
             app:rightImageId="@drawable/dot"
             app:titleText="填写订单"
             android:id="@+id/customTitleBar"/>
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="50dp"
+    android:layout_alignParentBottom="true" android:orientation="horizontal">
+        <TextView
+                android:id="@+id/orderProce"
+                android:layout_width="0dp" android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center|left"
+        android:textSize="@dimen/sp20"
+        android:textColor="@color/red"/>
+        <Button
+                android:id="@+id/orderBtn"
+                android:layout_width="@dimen/dp100" android:layout_height="match_parent"
+        android:background="@color/red" android:textColor="#fff" android:text="提交订单"/>
+    </LinearLayout>
     <ProgressBar
             android:id="@+id/loadingBar"
             android:layout_width="@dimen/dp100"
