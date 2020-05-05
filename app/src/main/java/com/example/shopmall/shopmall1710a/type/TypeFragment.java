@@ -1,4 +1,4 @@
-package com.example.shopmall.shopmall1710a.type.adapter;
+package com.example.shopmall.shopmall1710a.type;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
@@ -9,6 +9,8 @@ import com.example.shopmall.common.ErrorBean;
 import com.example.shopmall.framework.base.BaseFragment;
 import com.example.shopmall.framework.base.IPresenter;
 import com.example.shopmall.shopmall1710a.R;
+import com.example.shopmall.shopmall1710a.type.adapter.DataAdapter;
+import com.example.shopmall.shopmall1710a.type.adapter.TypeAdapter;
 import com.example.shopmall.shopmall1710a.type.mode.DataBean;
 import com.example.shopmall.shopmall1710a.type.mode.TypeBean;
 import com.example.shopmall.shopmall1710a.type.presenter.DataPresenter;

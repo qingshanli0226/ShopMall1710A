@@ -12,7 +12,7 @@
                 android:layout_width="wrap_content"
                 android:textColor="#131313"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:gravity="center"
                 android:layout_centerInParent="true"
                 />
         <LinearLayout
@@ -35,7 +35,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:layout_gravity="center"
+                    android:gravity="center"
                     android:text="左侧"
                     android:visibility="gone"/>
         </LinearLayout>
@@ -50,17 +50,19 @@
                     android:layout_marginTop="10dp"
                     android:id="@+id/right_image"
                     android:src="@drawable/new_message_icon"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
                     android:layout_gravity="center"
                     android:visibility="gone"
                     />
             <TextView
+                    android:gravity="center"
                     android:visibility="gone"
                     android:id="@+id/right_tv"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
                     android:text="右侧"/>
         </LinearLayout>
     </RelativeLayout>

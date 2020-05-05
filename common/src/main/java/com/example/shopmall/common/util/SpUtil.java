@@ -52,4 +52,16 @@ public class SpUtil {
         return sharedPreferences.getInt("shopcarCount", -1);
     }
 
+    public static void saveHistoryRecord(Context context, String json) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("shopmall", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor =  sharedPreferences.edit();
+        editor.putString("historyRecord",json);
+        editor.commit();
+    }
+
+    public static String getHistoryRecord(Context context){
+        SharedPreferences sharedPreferences = context.getSharedPreferences("shopmall", Context.MODE_PRIVATE);
+        return sharedPreferences.getString("historyRecord",null);
+    }
+
 }
