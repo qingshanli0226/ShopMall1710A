@@ -10,4 +10,7 @@
     <string name="productName">产品名字</string>
     <string name="productPrice">产品价格</string>
     <string name="shopcar">购物车</string>
+    <string name="zhifubao">支付宝</string>
+    <string name="zhifu">支付</string>
+    <string name="order_info">订单详情</string>
 </resources>

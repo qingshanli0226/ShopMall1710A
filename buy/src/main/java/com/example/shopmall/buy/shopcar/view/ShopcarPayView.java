@@ -154,4 +154,9 @@ public class ShopcarPayView extends LinearLayout implements IShopcarEventListene
 
         payVlaue.setText(sumValue+"");
     }
+
+    //返回总价
+    public String getTotalPrice() {
+        return payVlaue.getText().toString();
+    }
 }

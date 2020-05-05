@@ -39,7 +39,7 @@ public class ProductDetailActivity extends BaseActivity<Object> implements View.
         CacheManager.getInstance().registerShopCountListener(this);
         //如果登录成功，sp中已经存储了购物产品的数量
         if (ShopUserManager.getInstance().isUserLogin()) {
-            shopcarCountTv.setText(String.valueOf(CacheManager.getInstance().getShopcarCount(this)));
+            shopcarCountTv.setText(String.valueOf(CacheManager.getInstance().getShopcarCount()));
         }
     }
 

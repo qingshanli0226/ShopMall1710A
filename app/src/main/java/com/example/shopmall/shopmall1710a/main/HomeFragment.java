@@ -69,7 +69,7 @@ public class HomeFragment extends BaseFragment<Object> implements CacheManager.I
         CacheManager.getInstance().registerShopCountListener(this);
         //如果登录成功，sp中已经存储了购物产品的数量
         if (ShopUserManager.getInstance().isUserLogin()) {
-            countTV.setText(String.valueOf(CacheManager.getInstance().getShopcarCount(getActivity())));
+            countTV.setText(String.valueOf(CacheManager.getInstance().getShopcarCount()));
         }
     }
 
@@ -77,6 +77,7 @@ public class HomeFragment extends BaseFragment<Object> implements CacheManager.I
     public void onDestroy() {
         super.onDestroy();
         CacheManager.getInstance().unRegisterShopCountListener(this);
+        CacheManager.getInstance().unRegisterIHomeDataListener();
     }
 
     @Override
@@ -84,7 +85,7 @@ public class HomeFragment extends BaseFragment<Object> implements CacheManager.I
         countTV.post(new Runnable() {
             @Override
             public void run() {
-                countTV.setText(String.valueOf(CacheManager.getInstance().getShopcarCount(getActivity())));
+                countTV.setText(String.valueOf(CacheManager.getInstance().getShopcarCount()));
             }
         });
     }

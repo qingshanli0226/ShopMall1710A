@@ -9,6 +9,7 @@ import com.example.shopmall.common.util.SpUtil;
 import com.example.shopmall.framework.bean.ShopCartBean;
 import com.example.shopmall.framework.service.ShopMallService;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -90,7 +91,6 @@ public class CacheManager {
                 shopMallService.getShopcarCount(SpUtil.getTpken(context), new ShopMallService.IShopcarDataListener() {
                     @Override
                     public void onReceiveShopcarData(int count, ShopCartBean shopCartBeanResult) {
-                        SpUtil.saveShopcarCount(context, count);//把购物车的产品数量存起来
                         shopCartBean = shopCartBeanResult;
                         for(IShopcarDataRecevedLisener lisener:shopCountRecevedLisenerList) {
                             lisener.onShopcarDataReceived(count,shopCartBean,-1);//如果是-1的话全部刷新
@@ -108,13 +108,11 @@ public class CacheManager {
 
     public void addNewShopcardata(Context context, int addNum, ShopCartBean.ShopcarData shopcarData) {
         //更新缓存的数据
-        int sum = SpUtil.getShopcarCount(context) + addNum;
-        SpUtil.saveShopcarCount(context, sum);
         shopCartBean.getResult().add(shopcarData);
 
         //去通知UI刷新数据
         for(IShopcarDataRecevedLisener lisener:shopCountRecevedLisenerList) {
-            lisener.onShopcarDataReceived(sum,shopCartBean,-1);
+            lisener.onShopcarDataReceived(shopCartBean.getResult().size(),shopCartBean,-1);
         }
     }
 
@@ -129,9 +127,8 @@ public class CacheManager {
             }
         }
         //去通知UI刷新数据
-        int sum = SpUtil.getShopcarCount(context);
         for(IShopcarDataRecevedLisener lisener:shopCountRecevedLisenerList) {
-            lisener.onShopcarDataReceived(sum,shopCartBean,index);
+            lisener.onShopcarDataReceived(shopCartBean.getResult().size(),shopCartBean,index);
         }
     }
 
@@ -151,6 +148,17 @@ public class CacheManager {
             lisener.onShopcarDataReceived(shopCartBean.getResult().size(),shopCartBean, index);
         }
 
+    }
+
+    //获取购物车选择的商品
+    public List<ShopCartBean.ShopcarData> getSelectedProducts() {
+        List<ShopCartBean.ShopcarData> selectedShopcarDataList = new ArrayList<>();
+        for(ShopCartBean.ShopcarData item:shopCartBean.getResult()) {
+            if (item.isProductSelected()) {
+                selectedShopcarDataList.add(item);
+            }
+        }
+        return selectedShopcarDataList;
     }
 
     public void selectAllProduct(boolean selected) {
@@ -178,13 +186,9 @@ public class CacheManager {
         }
     }
 
-    public void saveShopCount(Context context, int count) {
-        SpUtil.saveShopcarCount(context, count);
-    }
-
 //获取购物车产品数量
-    public int getShopcarCount(Context context) {
-        return SpUtil.getShopcarCount(context);
+    public int getShopcarCount() {
+        return shopCartBean.getResult().size();
     }
 
     public interface IShopcarDataRecevedLisener {

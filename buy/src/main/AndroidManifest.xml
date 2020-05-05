@@ -1,2 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.example.shopmall.buy"/>
+          package="com.example.shopmall.buy"
+
+>
+    <application>
+        <activity android:name=".shopcar.view.OrderInfoActivity"/>
+    </application>
+</manifest>

@@ -1,9 +1,13 @@
 package com.example.shopmall.buy.shopcar;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.Toast;
 import com.example.shopmall.buy.R;
+import com.example.shopmall.buy.shopcar.mode.InventoryBean;
+import com.example.shopmall.buy.shopcar.mode.OrderInfoBean;
 import com.example.shopmall.buy.shopcar.presenter.*;
+import com.example.shopmall.buy.shopcar.view.OrderInfoActivity;
 import com.example.shopmall.buy.shopcar.view.ShopcarPayView;
 import com.example.shopmall.buy.shopcar.view.ShopcarRecylerview;
 import com.example.shopmall.framework.base.BaseFragment;
@@ -15,12 +19,14 @@ import com.example.shopmall.framework.manager.ShopUserManager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShopcarFragment extends BaseFragment<String> implements IShopcarEventListener, CacheManager.IShopcarDataRecevedLisener {
+public class ShopcarFragment extends BaseFragment<Object> implements IShopcarEventListener, CacheManager.IShopcarDataRecevedLisener {
     private AddShopcarPresenter addShopcarPresenter;
     private UpdateProductSelectPresenter updateProductSelectPresenter;
     private UpdateProductNumPresenter updateProductNumPresenter;
     private SelectAllProductPresenter selectAllProductPresenter;
     private RemoveProductsPresenter removeProductsPresenter;
+    private CheckInvtenoryPresenter checkInvtenoryPresenter;
+    private OrderInfoPresenter orderInfoPresenter;
     private ShopcarPayView shopcarPayView;
     private List<IShopcarEventListener> shopcarEventListenerList = new ArrayList<>();
     private ShopcarRecylerview shopcarRecylerview;
@@ -35,18 +41,22 @@ public class ShopcarFragment extends BaseFragment<String> implements IShopcarEve
     public static final int TOOLBAR_VIEW_TYPE = 2;
     public static final int RECYCLERVIEW_VIEW_TYPE = 3;
     @Override
-    protected List<IPresenter<String>> getPresenter() {
+    protected List<IPresenter<Object>> getPresenter() {
         addShopcarPresenter = new AddShopcarPresenter();
         updateProductSelectPresenter = new UpdateProductSelectPresenter();
         updateProductNumPresenter = new UpdateProductNumPresenter();
         selectAllProductPresenter = new SelectAllProductPresenter();
         removeProductsPresenter = new RemoveProductsPresenter();
-        List<IPresenter<String>> iPresenterList = new ArrayList<>();
+        checkInvtenoryPresenter = new CheckInvtenoryPresenter();
+        orderInfoPresenter = new OrderInfoPresenter();
+        List<IPresenter<Object>> iPresenterList = new ArrayList<>();
         iPresenterList.add(addShopcarPresenter);
         iPresenterList.add(updateProductSelectPresenter);
         iPresenterList.add(updateProductNumPresenter);
         iPresenterList.add(selectAllProductPresenter);
         iPresenterList.add(removeProductsPresenter);
+        iPresenterList.add(checkInvtenoryPresenter);
+        iPresenterList.add(orderInfoPresenter);
         return iPresenterList;
     }
 
@@ -91,7 +101,7 @@ public class ShopcarFragment extends BaseFragment<String> implements IShopcarEve
     }
 
     @Override
-    public void onHtttpReceived(int requestCode, String data) {
+    public void onHtttpReceived(int requestCode, Object data) {
         if (requestCode == 100) {
              //代表服务端购物车的选择完成
              //修改购物车缓存中的该产品的选择值
@@ -109,7 +119,47 @@ public class ShopcarFragment extends BaseFragment<String> implements IShopcarEve
         } else if (requestCode == 500) {
             Toast.makeText(getActivity(), "删除成功",Toast.LENGTH_SHORT).show();
             CacheManager.getInstance().removeManyProducts(shopcarRecylerview.getShopcarDelteDataList());
+        } else if (requestCode == 600) {//检查购物车库存
+            List<InventoryBean> inventoryBeanList = (List<InventoryBean>)data;
+            if (checkIfCanOrder(inventoryBeanList)) {
+                getOrder();
+            }
+
+        } else if (requestCode == 700) {//生成订单信息
+            Toast.makeText(getActivity(), "生成订单成功",Toast.LENGTH_SHORT).show();
+            //生成点单后，需要把列表选择的商品从购物车列表中删除
+            CacheManager.getInstance().removeManyProducts(CacheManager.getInstance().getSelectedProducts());
+
+            OrderInfoBean orderInfoBean = (OrderInfoBean)data;
+            OrderInfoActivity.launch(getActivity(), orderInfoBean.getOrderInfo(),orderInfoBean.getOutTradeNo());
+
+            //显示订单详情页面，并且把参数传递过去
+
         }
+    }
+
+    //需要手动比较库存是否充足
+    private boolean checkIfCanOrder(List<InventoryBean> inventoryBeanList) {
+        boolean flag = true;
+        for(InventoryBean item:inventoryBeanList) {
+            for(ShopCartBean.ShopcarData shopcarData:CacheManager.getInstance().getSelectedProducts()) {
+                if (item.getProductId().equals(shopcarData.getProductId())) {
+                    if (!item.getProductNum().equals(shopcarData.getProductNum())) {
+                        Toast.makeText(getActivity(), "库存不足，无法生成订单",Toast.LENGTH_SHORT).show();
+                        flag = false;
+                    }
+                }
+            }
+        }
+        //库存充足，下订单
+
+        return flag;
+    }
+
+    //生成订单信息
+    private void getOrder() {
+        orderInfoPresenter.addParams("buy", shopcarPayView.getTotalPrice(), CacheManager.getInstance().getSelectedProducts());
+        orderInfoPresenter.postHttpDataWithJson(700);
     }
 
     @Override
@@ -163,6 +213,16 @@ public class ShopcarFragment extends BaseFragment<String> implements IShopcarEve
 
     @Override
     public void onPayEventChanged(float payValue) {
+
+        //需要做两件事：1,检查库存是否够 2，生成订单信息
+        if (CacheManager.getInstance().getSelectedProducts().size() == 0) {
+            return;
+        }
+        checkInvtenoryPresenter.addParams(CacheManager.getInstance().getSelectedProducts());
+        checkInvtenoryPresenter.postHttpDataWithJson(600);
+
+        //能不能在这里直接生成订单信息
+
 
     }
 
