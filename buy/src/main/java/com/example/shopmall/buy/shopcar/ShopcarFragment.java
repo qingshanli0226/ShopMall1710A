@@ -239,15 +239,20 @@ public class ShopcarFragment extends BaseFragment<Object> implements IShopcarEve
 
     //监听获取购物车的数据，将数据添加购物车列表中，并且更新购物车价格
     @Override
-    public void onShopcarDataReceived(int conunt, ShopCartBean shopCartBean,int index) {
-        if (index == -1) {//当index为-1时，代表的刷新全部列表，否则只刷新某一个itemview
-            this.shopCartBean = shopCartBean;
-            shopcarRecylerview.addShopcarData(shopCartBean.getResult());
-        } else {
-            shopcarRecylerview.updateOneData(shopcarData, index);
-        }
-        updateAllSelectUI(shopCartBean);
-        shopcarPayView.notifyMoneyChanged();
+    public void onShopcarDataReceived(int conunt, final ShopCartBean shopCartBean, final int index) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (index == -1) {//当index为-1时，代表的刷新全部列表，否则只刷新某一个itemview
+                    ShopcarFragment.this.shopCartBean = shopCartBean;
+                    shopcarRecylerview.addShopcarData(shopCartBean.getResult());
+                } else {
+                    shopcarRecylerview.updateOneData(shopcarData, index);
+                }
+                updateAllSelectUI(shopCartBean);
+                shopcarPayView.notifyMoneyChanged();
+            }
+        });
     }
 
     //更新UI,主要是更新是否全选，当个数为0时，不是全选

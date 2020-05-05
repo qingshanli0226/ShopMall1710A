@@ -2,6 +2,8 @@ package com.example.shopmall.buy.shopcar.view;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.Toast;
 import com.alipay.sdk.app.EnvUtils;
@@ -37,9 +39,10 @@ public class OrderInfoActivity extends BaseActivity<Boolean> implements View.OnC
 
     @Override
     protected void initView() {
-         findViewById(R.id.btnZF).setOnClickListener(this);
+        findViewById(R.id.btnZF).setOnClickListener(this);
         //配置支付宝测试沙箱环境
         EnvUtils.setEnv(EnvUtils.EnvEnum.SANDBOX);//设置沙箱环境.
+        toolBar.showRightTv(false);
     }
 
     @Override
@@ -67,12 +70,21 @@ public class OrderInfoActivity extends BaseActivity<Boolean> implements View.OnC
                 PayTask payTask = new PayTask(OrderInfoActivity.this);
                 Map<String,String> result = payTask.payV2(orderInfo, true);
                 if(result.get("resultStatus").equals("9000")) {//客户端接到支付宝返回值是9000的话，代表着支付宝支付成功,但是需要和服务端再次确认
-                    confirmResultPresenter.addParams(outTradeNo, result.get("result"));
-                    confirmResultPresenter.postHttpDataWithJson(100);
+                    Message message = Message.obtain(handler, 1, result.get("result"));
+                    message.sendToTarget();
                 }
             }
         }).start();
     }
+
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            confirmResultPresenter.addParams(outTradeNo, (String) msg.obj);
+            confirmResultPresenter.postHttpDataWithJson(100);
+        }
+    };
 
     @Override
     public void onHtttpReceived(int requestCode, Boolean success) {
@@ -82,8 +94,8 @@ public class OrderInfoActivity extends BaseActivity<Boolean> implements View.OnC
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Intent intent = new Intent();
-                        startActivity(intent);
+                       /* Intent intent = new Intent();
+                        startActivity(intent);*/
                     }
                 });
             } else {
