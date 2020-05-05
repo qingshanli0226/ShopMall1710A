@@ -17,7 +17,7 @@ import com.example.shopmall.framework.view.ButtonInfo;
 import com.example.shopmall.shopmall1710a.find.FindFragment;
 import com.example.shopmall.shopmall1710a.home.HomeFragment;
 import com.example.shopmall.shopmall1710a.mine.MineFragment;
-import com.example.shopmall.shopmall1710a.type.adapter.TypeFragment;
+import com.example.shopmall.shopmall1710a.type.TypeFragment;
 
 import java.util.ArrayList;
 import java.util.List;

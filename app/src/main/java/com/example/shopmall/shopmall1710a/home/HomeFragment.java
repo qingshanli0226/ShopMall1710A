@@ -1,32 +1,24 @@
 package com.example.shopmall.shopmall1710a.home;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.Toast;
+import android.view.View;
 
-import com.bumptech.glide.Glide;
-import com.example.shopmall.common.Constant;
 import com.example.shopmall.common.ErrorBean;
 import com.example.shopmall.framework.base.BaseFragment;
 import com.example.shopmall.framework.base.IPresenter;
 import com.example.shopmall.framework.manager.CacheManager;
-import com.example.shopmall.framework.view.ToorBar;
 import com.example.shopmall.net.BaseBean;
 import com.example.shopmall.shopmall1710a.R;
 import com.example.shopmall.shopmall1710a.home.adapter.MyAdapter;
 import com.example.shopmall.shopmall1710a.home.base.ResultBean;
 import com.example.shopmall.shopmall1710a.home.presenter.BannerPresenter;
+import com.example.shopmall.shopmall1710a.search.view.SearchActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.youth.banner.Banner;
-import com.youth.banner.loader.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +29,8 @@ public class HomeFragment extends BaseFragment<ResultBean> implements CacheManag
     MyAdapter myAdapter;
     BaseBean<ResultBean> resultBean;
     private Handler handler=new Handler();
+    private android.widget.EditText editPrint;
+
     @Override
     protected void initData() {
        // bannerPresenter.getHttpData(1);
@@ -65,9 +59,8 @@ public class HomeFragment extends BaseFragment<ResultBean> implements CacheManag
     @Override
     protected void initView() {
         reView = (RecyclerView) rootView.findViewById(R.id.re_view);
-
         loadingBar = rootView.findViewById(R.id.progressBar);
-
+        editPrint = rootView.findViewById(R.id.edit_print);
         reView.setLayoutManager(new LinearLayoutManager(getContext()));
         toorBar.showAll(false);
         toorBar.showRightImg(true);
@@ -75,6 +68,14 @@ public class HomeFragment extends BaseFragment<ResultBean> implements CacheManag
         toorBar.setRightImg(R.drawable.new_message_icon);
         toorBar.setRightTv(R.string.home_right_tv);
         toorBar.setTextSize(R.id.right_tv,14);
+
+        editPrint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SearchActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

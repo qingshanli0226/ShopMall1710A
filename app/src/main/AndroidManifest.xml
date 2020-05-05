@@ -12,6 +12,7 @@
             android:roundIcon="@drawable/atguigu_logo"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".search.view.SearchActivity"></activity>
         <activity android:name=".recommend.RecommendActivity" android:launchMode="singleTop"></activity>
         <activity android:name=".regist.RegistActivity" />
         <activity android:name=".login.view.LoginActivity"  android:launchMode="singleTop"/>
