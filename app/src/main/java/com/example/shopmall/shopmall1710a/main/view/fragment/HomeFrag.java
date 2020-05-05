@@ -28,6 +28,7 @@ import com.example.shopmall.shopmall1710a.main.bean.Goods;
 import com.example.shopmall.shopmall1710a.main.bean.GoodsBean;
 import com.example.shopmall.shopmall1710a.main.presenter.HomePresenter;
 import com.example.shopmall.shopmall1710a.main.view.activity.GoodDetailActivity;
+import com.example.shopmall.shopmall1710a.main.view.activity.SearchActicvity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.youth.banner.Banner;
@@ -37,7 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class HomeFrag extends BaseFragment<HomePresenter, Goods> implements IBaseView<Goods>, CacheManager.IHomeDataListener, CacheManager.IShopCountRecevedLisener {
+public class HomeFrag extends BaseFragment<HomePresenter, Goods> implements IBaseView<Goods>, CacheManager.IHomeDataListener, CacheManager.IShopCountRecevedLisener, View.OnClickListener {
 
     private HomePresenter homePresenter;
 
@@ -105,6 +106,7 @@ public class HomeFrag extends BaseFragment<HomePresenter, Goods> implements IBas
         homeRecycler3.setAdapter(recommendAdapter);
         homeRecycler3.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
 
+        tvSearchHome.setOnClickListener(this);
 
     }
 
@@ -231,5 +233,15 @@ public class HomeFrag extends BaseFragment<HomePresenter, Goods> implements IBas
     public void onDestroy() {
         super.onDestroy();
         CacheManager.getInstance().unRegisterShopCountListener(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.tv_search_home:
+                Intent intent = new Intent(getActivity(), SearchActicvity.class);
+                startActivity(intent);
+                break;
+        }
     }
 }
