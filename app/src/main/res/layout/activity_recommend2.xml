@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="match_parent"
-        tools:context=".recommend.RecommendActivity">
+        tools:context=".product.RecommendActivity">
         <com.example.shopmall.framework.view.ToorBar
                 android:id="@+id/toor_bar"
                 android:layout_width="match_parent"

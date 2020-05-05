@@ -1,4 +1,4 @@
-package com.example.shopmall.shopmall1710a.recommend;
+package com.example.shopmall.shopmall1710a.product;
 
 import android.content.Intent;
 import android.util.Log;
@@ -21,11 +21,10 @@ import com.example.shopmall.framework.view.ButtonInfo;
 import com.example.shopmall.shopmall1710a.R;
 import com.example.shopmall.shopmall1710a.greendao.DbController;
 import com.example.shopmall.shopmall1710a.greendao.Product;
-import com.example.shopmall.shopmall1710a.home.base.ResultBean;
 import com.example.shopmall.shopmall1710a.login.view.LoginActivity;
-import com.example.shopmall.shopmall1710a.recommend.presenter.AddShopcarPresenter;
-import com.example.shopmall.shopmall1710a.recommend.presenter.RecommendPresenter;
-import com.example.shopmall.shopmall1710a.recommend.presenter.UpdateProductNumPresenter;
+import com.example.shopmall.shopmall1710a.product.presenter.AddShopcarPresenter;
+import com.example.shopmall.shopmall1710a.product.presenter.RecommendPresenter;
+import com.example.shopmall.shopmall1710a.product.presenter.UpdateProductNumPresenter;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -3,21 +3,17 @@ package com.example.shopmall.shopmall1710a.search.view;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
+import android.widget.Toast;
 
 import com.example.shopmall.common.ErrorBean;
 import com.example.shopmall.common.util.SpUtil;
 import com.example.shopmall.framework.base.BaseActivity;
 import com.example.shopmall.framework.base.IPresenter;
 import com.example.shopmall.shopmall1710a.R;
-import com.example.shopmall.shopmall1710a.search.HotSearchFragment;
-import com.example.shopmall.shopmall1710a.search.SearchDisFragment;
 import com.example.shopmall.shopmall1710a.search.adapter.RecordAdapter;
 import com.example.shopmall.shopmall1710a.search.adapter.SearchProAdapter;
 import com.example.shopmall.shopmall1710a.search.mode.SearchResultBean;
@@ -125,14 +121,18 @@ public class SearchActivity extends BaseActivity<Object>{
         if (requestCode==5){
             List<SearchResultBean> data1 = (List<SearchResultBean>) data;
             List<SearchResultBean.HotProductListBean> hot_product_list = data1.get(0).getHot_product_list();
-            Log.e("TAG", "guofeng: "+hot_product_list.size());
-            list.addAll(hot_product_list);
-            searchProAdapter.notifyDataSetChanged();
+            if (hot_product_list==null){
+                Toast.makeText(this, "未查询到", Toast.LENGTH_SHORT).show();
+            }else{
+                list.addAll(hot_product_list);
+                searchProAdapter.notifyDataSetChanged();
 //            recordShow.setVisibility(View.GONE);
-            searchResult.setVisibility(View.VISIBLE);
-            pager.setVisibility(View.GONE);
-            tab.setVisibility(View.GONE);
-            showRecords.setVisibility(View.GONE);
+                searchResult.setVisibility(View.VISIBLE);
+                pager.setVisibility(View.GONE);
+                tab.setVisibility(View.GONE);
+                showRecords.setVisibility(View.GONE);
+            }
+
         }
     }
 
@@ -145,14 +145,22 @@ public class SearchActivity extends BaseActivity<Object>{
     public void onRightTvClick() {
         super.onRightTvClick();
         String string = editPrint.getText().toString();
-        records.add(string);
-        String s = new Gson().toJson(records);
-        SpUtil.saveHistoryRecord(this,s);
+        saveRecord(string);
         getSearchResult(string);
     }
 
+    private void saveRecord(String string) {
+        records.add(string);
+        if (records.size()>10){
+            for (int i = 0; i <= records.size()-10; i++) {
+                records.remove(i);
+            }
+        }
+        String s = new Gson().toJson(records);
+        SpUtil.saveHistoryRecord(this,s);
+    }
+
     private void getSearchResult(String string) {
-        Log.e("TAG", "getSearchResult: " );
         SearchPresenter searchPresenter = new SearchPresenter();
         searchPresenter.attachView(this);
         searchPresenter.addParam(string);

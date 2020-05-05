@@ -1,4 +1,4 @@
-package com.example.shopmall.shopmall1710a.search;
+package com.example.shopmall.shopmall1710a.search.view;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.util.Log;

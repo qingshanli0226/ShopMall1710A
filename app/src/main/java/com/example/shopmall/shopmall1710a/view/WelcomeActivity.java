@@ -1,4 +1,4 @@
-package com.example.shopmall.shopmall1710a;
+package com.example.shopmall.shopmall1710a.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.example.shopmall.shopmall1710a.R;
 
 public class WelcomeActivity extends AppCompatActivity {
     private ImageView welcomePic;

@@ -17,7 +17,7 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.shopmall.common.Constant;
 import com.example.shopmall.shopmall1710a.R;
-import com.example.shopmall.shopmall1710a.recommend.RecommendActivity;
+import com.example.shopmall.shopmall1710a.product.RecommendActivity;
 import com.example.shopmall.shopmall1710a.home.base.ResultBean;
 import com.youth.banner.Banner;
 import com.youth.banner.loader.ImageLoader;

@@ -12,9 +12,8 @@ import android.widget.Toast;
 import com.example.shopmall.common.ErrorBean;
 import com.example.shopmall.framework.base.IBaseView;
 import com.example.shopmall.framework.manager.ShopUserManager;
-import com.example.shopmall.shopmall1710a.MainActivity;
+import com.example.shopmall.shopmall1710a.view.MainActivity;
 import com.example.shopmall.shopmall1710a.R;
-import com.example.shopmall.shopmall1710a.login.model.LoginBean;
 import com.example.shopmall.shopmall1710a.login.presenter.LoginPresenter;
 import com.example.shopmall.shopmall1710a.regist.RegistActivity;
 

@@ -1,4 +1,4 @@
-package com.example.shopmall.shopmall1710a;
+package com.example.shopmall.shopmall1710a.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +14,7 @@ import com.example.shopmall.buy.CarFragment;
 import com.example.shopmall.framework.manager.CacheManager;
 import com.example.shopmall.framework.view.BottomBar;
 import com.example.shopmall.framework.view.ButtonInfo;
+import com.example.shopmall.shopmall1710a.R;
 import com.example.shopmall.shopmall1710a.find.FindFragment;
 import com.example.shopmall.shopmall1710a.home.HomeFragment;
 import com.example.shopmall.shopmall1710a.mine.MineFragment;

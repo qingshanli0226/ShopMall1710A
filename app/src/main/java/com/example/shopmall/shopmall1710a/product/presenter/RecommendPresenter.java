@@ -1,4 +1,4 @@
-package com.example.shopmall.shopmall1710a.recommend.presenter;
+package com.example.shopmall.shopmall1710a.product.presenter;
 
 import com.example.shopmall.framework.base.BasePresenter;
 import com.example.shopmall.net.BaseBean;
