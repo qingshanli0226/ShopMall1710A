@@ -15,8 +15,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.LinearInterpolator;
 import android.widget.*;
-import androidx.annotation.StringRes;
-import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.shopmall.common.Constant;
 import com.example.shopmall.common.ErrorBean;

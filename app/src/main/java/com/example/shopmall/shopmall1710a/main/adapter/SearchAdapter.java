@@ -11,15 +11,15 @@ import com.example.shopmall.shopmall1710a.main.bean.SearchBean;
 
 import java.util.List;
 
-public class SearchAdapter extends BaseQuickAdapter<SearchBean.ResultBean.HotProductListBean, BaseViewHolder> {
-    public SearchAdapter(int layoutResId, @Nullable List<SearchBean.ResultBean.HotProductListBean> data) {
+public class SearchAdapter extends BaseQuickAdapter<SearchBean, BaseViewHolder> {
+    public SearchAdapter(int layoutResId, @Nullable List<SearchBean> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, SearchBean.ResultBean.HotProductListBean item) {
-        helper.setText(R.id.item_search_title, item.getName());
-        helper.setText(R.id.item_search_price, "￥" + item.getCover_price());
+    protected void convert(BaseViewHolder helper, SearchBean item) {
+        helper.setText(R.id.item_search_title, item.getSaying());
+        helper.setText(R.id.item_search_price, "￥" + item.getPost_id() + ".00");
         Glide.with(mContext).load(Constant.BASE_URL_IMG + item.getFigure())
                 .into((ImageView) helper.getView(R.id.item_search_imv));
     }

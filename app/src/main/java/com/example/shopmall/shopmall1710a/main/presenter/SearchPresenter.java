@@ -1,6 +1,7 @@
 package com.example.shopmall.shopmall1710a.main.presenter;
 
 import com.example.shopmall.framework.base.presenter.BasePresenter;
+import com.example.shopmall.net.BaseBean;
 import com.example.shopmall.shopmall1710a.main.bean.SearchBean;
 import com.google.gson.reflect.TypeToken;
 import okhttp3.MediaType;
@@ -9,8 +10,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-public class SearchPresenter extends BasePresenter {
+public class SearchPresenter extends BasePresenter<SearchBean> {
+
+
     @Override
     protected String getPath() {
         return "search";
@@ -18,21 +24,16 @@ public class SearchPresenter extends BasePresenter {
 
 
     public void addParams(String string) {
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("name", string);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        Map<String, String> map = new HashMap<>();
+        map.put("name", string);
 
-        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json;charset=utf-8"), jsonObject.toString());
-        setRequestBody(requestBody);
+        updateParamsMap(map);
 
     }
 
     @Override
     public Type getBeanType() {
-        return new TypeToken<SearchBean>() {
+        return new TypeToken<BaseBean<List<SearchBean>>>() {
         }.getType();
     }
 
