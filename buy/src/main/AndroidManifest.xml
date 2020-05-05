@@ -4,5 +4,6 @@
 >
     <application>
         <activity android:name=".shopcar.view.OrderInfoActivity"/>
+        <activity android:name=".shopcar.view.ShopcarActivity"/>
     </application>
 </manifest>

@@ -14,7 +14,7 @@ import com.example.shopmall.buy.shopcar.IShopcarEventListener;
 import com.example.shopmall.framework.bean.ShopCartBean;
 import com.example.shopmall.framework.manager.CacheManager;
 
-import static com.example.shopmall.buy.shopcar.ShopcarFragment.PAY_VIEW_TYPE;
+import static com.example.shopmall.buy.shopcar.view.ShopcarFragment.PAY_VIEW_TYPE;
 
 //让该view去实现接口，当其他模块事件发生时，可以通过这个接口，去获取事件
 public class ShopcarPayView extends LinearLayout implements IShopcarEventListener, View.OnClickListener {

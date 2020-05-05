@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
@@ -18,13 +17,12 @@ import com.example.shopmall.buy.R;
 import com.example.shopmall.buy.shopcar.IShopcarEventListener;
 import com.example.shopmall.common.Constant;
 import com.example.shopmall.framework.bean.ShopCartBean;
-import okhttp3.Interceptor;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.shopmall.buy.shopcar.ShopcarFragment.PAY_VIEW_TYPE;
-import static com.example.shopmall.buy.shopcar.ShopcarFragment.RECYCLERVIEW_VIEW_TYPE;
+import static com.example.shopmall.buy.shopcar.view.ShopcarFragment.PAY_VIEW_TYPE;
+import static com.example.shopmall.buy.shopcar.view.ShopcarFragment.RECYCLERVIEW_VIEW_TYPE;
 
 public class ShopcarRecylerview extends RecyclerView implements IShopcarEventListener {
     private IShopcarEventListener iShopcarEventListener;

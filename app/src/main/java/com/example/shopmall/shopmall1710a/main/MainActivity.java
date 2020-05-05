@@ -1,21 +1,16 @@
 package com.example.shopmall.shopmall1710a.main;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
-import com.example.shopmall.buy.shopcar.ShopcarFragment;
+import com.example.shopmall.buy.shopcar.view.ShopcarFragment;
 import com.example.shopmall.common.ErrorBean;
 import com.example.shopmall.framework.base.BaseActivity;
 import com.example.shopmall.framework.base.IPresenter;
-import com.example.shopmall.framework.manager.CacheManager;
 import com.example.shopmall.framework.view.BottomBar;
 import com.example.shopmall.shopmall1710a.R;
 

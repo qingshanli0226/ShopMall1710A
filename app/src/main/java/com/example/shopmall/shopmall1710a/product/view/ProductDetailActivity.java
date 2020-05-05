@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
+import com.example.shopmall.buy.shopcar.view.ShopcarActivity;
 import com.example.shopmall.common.Constant;
 import com.example.shopmall.framework.base.BaseActivity;
 import com.example.shopmall.framework.base.IPresenter;
@@ -73,6 +74,7 @@ public class ProductDetailActivity extends BaseActivity<Object> implements View.
         productPriceTv.setText(productPrice);
 
         findViewById(R.id.addProduct).setOnClickListener(this);
+        findViewById(R.id.productDetailShopcar).setOnClickListener(this);
     }
 
     @Override
@@ -99,6 +101,8 @@ public class ProductDetailActivity extends BaseActivity<Object> implements View.
             //第二步检查商品是否有库存
             checkOneProductInventoryPresenter.addParms(productId);
             checkOneProductInventoryPresenter.postHttpData(100);
+        } else if (v.getId() == R.id.productDetailShopcar) {
+            ShopcarActivity.launch(this);
         }
     }
 

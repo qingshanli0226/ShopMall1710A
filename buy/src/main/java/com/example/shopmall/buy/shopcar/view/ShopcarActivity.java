@@ -1,16 +1,15 @@
-package com.example.shopmall.buy.shopcar;
+package com.example.shopmall.buy.shopcar.view;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Toast;
 import com.example.shopmall.buy.R;
+import com.example.shopmall.buy.shopcar.IShopcarEventListener;
 import com.example.shopmall.buy.shopcar.mode.InventoryBean;
 import com.example.shopmall.buy.shopcar.mode.OrderInfoBean;
 import com.example.shopmall.buy.shopcar.presenter.*;
-import com.example.shopmall.buy.shopcar.view.OrderInfoActivity;
-import com.example.shopmall.buy.shopcar.view.ShopcarPayView;
-import com.example.shopmall.buy.shopcar.view.ShopcarRecylerview;
-import com.example.shopmall.framework.base.BaseFragment;
+import com.example.shopmall.framework.base.BaseActivity;
 import com.example.shopmall.framework.base.IPresenter;
 import com.example.shopmall.framework.bean.ShopCartBean;
 import com.example.shopmall.framework.manager.CacheManager;
@@ -19,7 +18,7 @@ import com.example.shopmall.framework.manager.ShopUserManager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShopcarFragment extends BaseFragment<Object> implements IShopcarEventListener, CacheManager.IShopcarDataRecevedLisener {
+public class ShopcarActivity extends BaseActivity<Object> implements IShopcarEventListener, CacheManager.IShopcarDataRecevedLisener {
     private AddShopcarPresenter addShopcarPresenter;
     private UpdateProductSelectPresenter updateProductSelectPresenter;
     private UpdateProductNumPresenter updateProductNumPresenter;
@@ -73,19 +72,13 @@ public class ShopcarFragment extends BaseFragment<Object> implements IShopcarEve
     }
 
     @Override
-    protected void initView(View rootView) {
-        shopcarPayView = rootView.findViewById(R.id.shopcarPayView);
+    protected void initView() {
+        shopcarPayView = findViewById(R.id.shopcarPayView);
         shopcarPayView.setShopcarEventListener(this);//注册lis可以tener，当shopcarview里面的button被点击时，可以通过回调接收点击事件
         shopcarEventListenerList.add((IShopcarEventListener)shopcarPayView);//当其他模块的事件发生时，可以通过这个列表将事件通知shopcarpayview
-        shopcarRecylerview=rootView.findViewById(R.id.shopcarRv);
+        shopcarRecylerview=findViewById(R.id.shopcarRv);
         shopcarEventListenerList.add((IShopcarEventListener)(shopcarRecylerview));
         shopcarRecylerview.setiShopcarEventListener(this);
-    }
-
-    @Override
-    protected void initToolBar(View rootView) {
-        super.initToolBar(rootView);
-        toolBar.showLeft(false);
     }
 
     @Override
@@ -103,13 +96,13 @@ public class ShopcarFragment extends BaseFragment<Object> implements IShopcarEve
     @Override
     public void onHtttpReceived(int requestCode, Object data) {
         if (requestCode == 100) {
-             //代表服务端购物车的选择完成
-             //修改购物车缓存中的该产品的选择值
+            //代表服务端购物车的选择完成
+            //修改购物车缓存中的该产品的选择值
             shopcarData.setProductSelected(productSelected);//先改变内存类的他的值
             CacheManager.getInstance().updateShopcarProductSelected(shopcarData);
         } else if (requestCode == 200) {
             shopcarData.setProductNum(String.valueOf(productCount));
-            CacheManager.getInstance().updateShopcarProductNum(getActivity(),shopcarData.getProductId(),shopcarData);
+            CacheManager.getInstance().updateShopcarProductNum(this,shopcarData.getProductId(),shopcarData);
         } else if (requestCode == 400) {
             if (productAllSelectedType == -1) {
                 return;
@@ -117,7 +110,7 @@ public class ShopcarFragment extends BaseFragment<Object> implements IShopcarEve
             //告诉我们的缓存数据是全选还是全不选
             CacheManager.getInstance().selectAllProduct(productAllSelectedType==1?true:false);
         } else if (requestCode == 500) {
-            Toast.makeText(getActivity(), "删除成功",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "删除成功",Toast.LENGTH_SHORT).show();
             CacheManager.getInstance().removeManyProducts(shopcarRecylerview.getShopcarDelteDataList());
         } else if (requestCode == 600) {//检查购物车库存
             List<InventoryBean> inventoryBeanList = (List<InventoryBean>)data;
@@ -126,16 +119,21 @@ public class ShopcarFragment extends BaseFragment<Object> implements IShopcarEve
             }
 
         } else if (requestCode == 700) {//生成订单信息
-            Toast.makeText(getActivity(), "生成订单成功",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "生成订单成功",Toast.LENGTH_SHORT).show();
             //生成点单后，需要把列表选择的商品从购物车列表中删除
             CacheManager.getInstance().removeManyProducts(CacheManager.getInstance().getSelectedProducts());
 
             OrderInfoBean orderInfoBean = (OrderInfoBean)data;
-            OrderInfoActivity.launch(getActivity(), orderInfoBean.getOrderInfo(),orderInfoBean.getOutTradeNo());
+            OrderInfoActivity.launch(this, orderInfoBean.getOrderInfo(),orderInfoBean.getOutTradeNo());
 
             //显示订单详情页面，并且把参数传递过去
 
         }
+    }
+
+    @Override
+    protected void destroy() {
+
     }
 
     //需要手动比较库存是否充足
@@ -145,7 +143,7 @@ public class ShopcarFragment extends BaseFragment<Object> implements IShopcarEve
             for(ShopCartBean.ShopcarData shopcarData:CacheManager.getInstance().getSelectedProducts()) {
                 if (item.getProductId().equals(shopcarData.getProductId())) {
                     if (!item.getProductNum().equals(shopcarData.getProductNum())) {
-                        Toast.makeText(getActivity(), "库存不足，无法生成订单",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "库存不足，无法生成订单",Toast.LENGTH_SHORT).show();
                         flag = false;
                     }
                 }
@@ -240,11 +238,11 @@ public class ShopcarFragment extends BaseFragment<Object> implements IShopcarEve
     //监听获取购物车的数据，将数据添加购物车列表中，并且更新购物车价格
     @Override
     public void onShopcarDataReceived(int conunt, final ShopCartBean shopCartBean, final int index) {
-        getActivity().runOnUiThread(new Runnable() {
+        runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 if (index == -1) {//当index为-1时，代表的刷新全部列表，否则只刷新某一个itemview
-                    ShopcarFragment.this.shopCartBean = shopCartBean;
+                    ShopcarActivity.this.shopCartBean = shopCartBean;
                     shopcarRecylerview.addShopcarData(shopCartBean.getResult());
                 } else {
                     shopcarRecylerview.updateOneData(shopcarData, index);
@@ -273,5 +271,11 @@ public class ShopcarFragment extends BaseFragment<Object> implements IShopcarEve
                 listener.onAllSelectChanged(false,RECYCLERVIEW_VIEW_TYPE);
             }
         }
+    }
+
+    public static void launch(Activity activity) {
+        Intent intent = new Intent();
+        intent.setClass(activity, ShopcarActivity.class);
+        activity.startActivity(intent);
     }
 }
