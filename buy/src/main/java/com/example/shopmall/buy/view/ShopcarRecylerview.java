@@ -22,13 +22,18 @@ import com.example.shopmall.framework.base.ShopCartBean;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.shopmall.buy.view.ShopcarFragment.PAY_VIEW_TYPE;
+import static com.example.shopmall.buy.view.ShopcarFragment.RECYCLERVIEW_VIEW_TYPE;
+
 
 public class ShopcarRecylerview extends RecyclerView implements IShopcarEventListener {
     private IShopcarEventListener iShopcarEventListener;
     private ShopcarAdapter shopcarAdapter;
     private boolean isEdit = false;
+
     private List<ShopCartBean.ShopcarData> shopcarDataList = new ArrayList<>();
     private List<ShopCartBean.ShopcarData> shopcarDelteDataList = new ArrayList<>();
+
     public void addShopcarData(List<ShopCartBean.ShopcarData> shopcardataList) {
         shopcarDataList.clear();
         shopcarDataList.addAll(shopcardataList);
@@ -68,6 +73,7 @@ public class ShopcarRecylerview extends RecyclerView implements IShopcarEventLis
     public void setiShopcarEventListener(IShopcarEventListener iShopcarEventListener) {
         this.iShopcarEventListener = iShopcarEventListener;
     }
+
     //定义一个接口，让Fragment可以获取删除的列表，删除该列表
     public List<ShopCartBean.ShopcarData> getShopcarDelteDataList() {
         return shopcarDelteDataList;
@@ -75,7 +81,9 @@ public class ShopcarRecylerview extends RecyclerView implements IShopcarEventLis
 
     @Override
     public void onEditChange(boolean isEdit) {
-
+        //收到是否处于编辑状态
+        this.isEdit = isEdit;
+        shopcarAdapter.notifyDataSetChanged();//刷新UI
     }
 
     @Override
@@ -90,8 +98,16 @@ public class ShopcarRecylerview extends RecyclerView implements IShopcarEventLis
 
 
     @Override
-    public void onAllSelectChanged(boolean isAllSelected) {
-
+    public void onAllSelectChanged(boolean isAllSelected,int viewType) {
+        if (isEdit && viewType == PAY_VIEW_TYPE) {
+            if (isAllSelected) {
+                shopcarDelteDataList.clear();
+                shopcarDelteDataList.addAll(shopcarDataList);
+            } else {
+                shopcarDelteDataList.clear();
+            }
+            shopcarAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -109,7 +125,7 @@ public class ShopcarRecylerview extends RecyclerView implements IShopcarEventLis
 
     }
 
-    private class ShopcarAdapter extends Adapter<ShopcarViewHolder> {
+    private class ShopcarAdapter extends RecyclerView.Adapter<ShopcarViewHolder> {
 
         @NonNull
         @Override
@@ -122,8 +138,9 @@ public class ShopcarRecylerview extends RecyclerView implements IShopcarEventLis
         @Override
         public void onBindViewHolder(@NonNull final ShopcarViewHolder shopcarViewHolder, final int i) {
 
+
             if (!isEdit) {//处于非编辑状态
-                shopcarViewHolder.productCheckBox.setOnClickListener(new View.OnClickListener() {
+                shopcarViewHolder.productCheckBox.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         iShopcarEventListener.onProductSelectChanged(!shopcarDataList.get(i).isProductSelected(),
@@ -145,12 +162,12 @@ public class ShopcarRecylerview extends RecyclerView implements IShopcarEventLis
                             //添加到删除列表中
                             shopcarDelteDataList.add(shopcarDataList.get(i));
                             if (shopcarDelteDataList.size() == shopcarDataList.size()) {
-                                iShopcarEventListener.onAllSelectChanged(true);
+                                iShopcarEventListener.onAllSelectChanged(true,RECYCLERVIEW_VIEW_TYPE);
                             }
                         } else {
                             if (shopcarDelteDataList.contains(shopcarDataList.get(i))) {
                                 shopcarDelteDataList.remove(shopcarDataList.get(i));
-                                iShopcarEventListener.onAllSelectChanged(false);
+                                iShopcarEventListener.onAllSelectChanged(false,RECYCLERVIEW_VIEW_TYPE);
                             }
                         }
                     }
@@ -163,38 +180,39 @@ public class ShopcarRecylerview extends RecyclerView implements IShopcarEventLis
 
             }
 
-            shopcarViewHolder.productCount.setText(shopcarDataList.get(i).getProductNum());
-            Glide.with(shopcarViewHolder.productImageView.getContext()).load(Constant.BASE_IMAGE_URL+
-                    shopcarDataList.get(i).getUrl()).into(shopcarViewHolder.productImageView);
-            shopcarViewHolder.productPrice.setText(shopcarDataList.get(i).getProductPrice());
-            shopcarViewHolder.productName.setText(shopcarDataList.get(i).getProductName());
+             shopcarViewHolder.productCount.setText(shopcarDataList.get(i).getProductNum());
+             Glide.with(shopcarViewHolder.productImageView.getContext()).load(Constant.BASE_IMAGE_URL+
+             shopcarDataList.get(i).getUrl()).into(shopcarViewHolder.productImageView);
+             shopcarViewHolder.productPrice.setText(shopcarDataList.get(i).getProductPrice());
+             shopcarViewHolder.productName.setText(shopcarDataList.get(i).getProductName());
 
 
 
 
-            shopcarViewHolder.btnAdd.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int num = Integer.valueOf(shopcarDataList.get(i).getProductNum());
-                    //当等于1时，值不能再改变
-                    int newNum = num +1;
-                    iShopcarEventListener.onProductCountChanged(shopcarDataList.get(i),newNum);
-                }
-            });
+             shopcarViewHolder.btnAdd.setOnClickListener(new OnClickListener() {
+                 @Override
+                 public void onClick(View v) {
+                     int num = Integer.valueOf(shopcarDataList.get(i).getProductNum());
+                     //当等于1时，值不能再改变
 
-            shopcarViewHolder.btnSub.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int num = Integer.valueOf(shopcarDataList.get(i).getProductNum());
-                    //当等于1时，值不能再改变
-                    if (num <= 1) {
-                        return;
-                    }
+                     int newNum = num +1;
+                     iShopcarEventListener.onProductCountChanged(shopcarDataList.get(i),newNum);
+                 }
+             });
 
-                    int newNum = num -1;
-                    iShopcarEventListener.onProductCountChanged(shopcarDataList.get(i),newNum);
-                }
-            });
+             shopcarViewHolder.btnSub.setOnClickListener(new OnClickListener() {
+                 @Override
+                 public void onClick(View v) {
+                     int num = Integer.valueOf(shopcarDataList.get(i).getProductNum());
+                     //当等于1时，值不能再改变
+                      if (num <= 1) {
+                          return;
+                      }
+
+                      int newNum = num -1;
+                      iShopcarEventListener.onProductCountChanged(shopcarDataList.get(i),newNum);
+                 }
+             });
 
         }
 
@@ -204,7 +222,7 @@ public class ShopcarRecylerview extends RecyclerView implements IShopcarEventLis
         }
     }
 
-    public static class ShopcarViewHolder extends ViewHolder {
+    public static class ShopcarViewHolder extends RecyclerView.ViewHolder {
         public ImageView productImageView;
         public CheckBox productCheckBox;
         public TextView productCount;

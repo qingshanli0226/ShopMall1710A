@@ -10,7 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.shopmall.buy.CarFragment;
+import com.example.shopmall.buy.view.ShopcarFragment;
 import com.example.shopmall.framework.manager.CacheManager;
 import com.example.shopmall.framework.view.BottomBar;
 import com.example.shopmall.framework.view.ButtonInfo;
@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private HomeFragment homeFragment;
     private MineFragment mineFragment;
-    private CarFragment carFragment;
+    private ShopcarFragment carFragment;
     private TypeFragment typeFragment;
     private FindFragment findFragment;
     private List<Fragment> list = new ArrayList<>();
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         homeFragment=new HomeFragment();
         typeFragment=new TypeFragment();
         findFragment=new FindFragment();
-        carFragment=new CarFragment();
+        carFragment=new ShopcarFragment();
         mineFragment=new MineFragment();
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         CacheManager.getInstance().spCache.savetlastOpen(System.currentTimeMillis());

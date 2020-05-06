@@ -3,26 +3,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
 >
+
     <com.example.shopmall.framework.view.ToorBar
-            android:background="#FF5722"
-            android:id="@+id/toor_bar"
             android:layout_width="match_parent"
-            android:layout_height="60dp">
+            android:layout_height="60dp"
+             android:id="@+id/toor_bar"
+    android:layout_alignParentTop="true">
 
     </com.example.shopmall.framework.view.ToorBar>
-    <com.example.shopmall.buy.view.ShopcarRecylerview
-            android:layout_below="@id/toor_bar"
-            android:layout_above="@id/shopcarPayView"
-            android:id="@+id/shopcarRv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+
+    <com.example.shopmall.buy.view.ShopcarRecylerview android:layout_width="match_parent"
+                                                              android:layout_height="match_parent"
+    android:layout_below="@id/toor_bar"
+    android:layout_above="@id/shopcarPayView"
+    android:id="@+id/shopcarRv">
 
     </com.example.shopmall.buy.view.ShopcarRecylerview>
 
-
-    <com.example.shopmall.buy.view.ShopcarPayView
-            android:layout_width="match_parent"
-              android:layout_height="60dp"
+    <com.example.shopmall.buy.view.ShopcarPayView android:layout_width="match_parent"
+                                                          android:layout_height="@dimen/tool_bar_height"
     android:id="@+id/shopcarPayView"
     android:layout_alignParentBottom="true">
 

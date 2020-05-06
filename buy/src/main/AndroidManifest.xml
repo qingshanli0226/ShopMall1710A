@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.example.shopmall.buy">
 
-    <application></application>
+    <application>
+        <activity android:name=".view.OrderInfoActivity"/>
+        <activity android:name=".view.ShopcarActivity"/>
+    </application>
 
 </manifest>

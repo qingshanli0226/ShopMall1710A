@@ -15,15 +15,15 @@ import com.example.shopmall.buy.R;
 import com.example.shopmall.framework.base.ShopCartBean;
 import com.example.shopmall.framework.manager.CacheManager;
 
-
 //让该view去实现接口，当其他模块事件发生时，可以通过这个接口，去获取事件
 public class ShopcarPayView extends LinearLayout implements IShopcarEventListener, View.OnClickListener {
     private IShopcarEventListener iShopcarEventListener;
-
+    public static final int PAY_VIEW_TYPE = 1;
     private RelativeLayout normalLayout;
     private RelativeLayout editLayout;
     private CheckBox allSelectCheckbox;
     private CheckBox allEditSelectCheckbox;
+    float sumValue;
     private TextView payVlaue;
     private boolean isEdit;
     public ShopcarPayView(Context context) {
@@ -72,18 +72,18 @@ public class ShopcarPayView extends LinearLayout implements IShopcarEventListene
     }
 
     @Override
-    public void onProductSelectChanged(boolean isSelected, ShopCartBean.ShopcarData shopcarData) {
-
-    }
-
-    @Override
     public void onProductCountChanged(ShopCartBean.ShopcarData shopcarData, int count) {
 
     }
 
+    @Override
+    public void onProductSelectChanged(boolean isSelected, ShopCartBean.ShopcarData shopcarData) {
+
+    }
+
 
     @Override
-    public void onAllSelectChanged(boolean isAllSelected) {
+    public void onAllSelectChanged(boolean isAllSelected, int viewType) {
         if (!isEdit) {
             allSelectCheckbox.setChecked(isAllSelected);
         } else {
@@ -113,9 +113,9 @@ public class ShopcarPayView extends LinearLayout implements IShopcarEventListene
         }
         if (v.getId() == R.id.allSelect) {
             if (allSelectCheckbox.isChecked()) {
-                iShopcarEventListener.onAllSelectChanged(true);
+                iShopcarEventListener.onAllSelectChanged(true,PAY_VIEW_TYPE);
             } else {
-                iShopcarEventListener.onAllSelectChanged(false);
+                iShopcarEventListener.onAllSelectChanged(false,PAY_VIEW_TYPE);
             }
 
         } else if (v.getId() == R.id.payBtn) {
@@ -132,7 +132,7 @@ public class ShopcarPayView extends LinearLayout implements IShopcarEventListene
 
     //通知payview去更新价格,每次更新价格时，都是去缓存中获取数据，对已选择的产品进行价格累计.
     public void notifyMoneyChanged() {
-        float sumValue = 0;
+         sumValue = 0;
         for(ShopCartBean.ShopcarData item: CacheManager.getInstance().getShopCartBean().getResult()) {
             if (!item.isProductSelected()) {
                 continue;
@@ -144,5 +144,9 @@ public class ShopcarPayView extends LinearLayout implements IShopcarEventListene
         }
 
         payVlaue.setText(sumValue+"");
+    }
+
+    public String getTotalPrice() {
+        return sumValue+"";
     }
 }

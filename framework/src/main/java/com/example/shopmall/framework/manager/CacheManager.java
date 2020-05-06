@@ -11,6 +11,7 @@ import com.example.shopmall.common.util.SpUtil;
 import com.example.shopmall.framework.base.ShopCartBean;
 import com.example.shopmall.framework.service.ShopMoreService;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -114,6 +115,29 @@ public class CacheManager {
         }
     }
 
+    //删除产品
+    public void removeManyProducts(List<ShopCartBean.ShopcarData> shopcarDataList) {
+        for(ShopCartBean.ShopcarData item:shopcarDataList) {
+            if (shopCartBean.getResult().contains(item)) {
+                shopCartBean.getResult().remove(item);
+            }
+        }
+
+        //第二步，需要做什么事情?
+        for(IShopcarDataRecevedLisener lisener:shopCountRecevedLisenerList) {
+            lisener.onShopcarDataReceived(shopCartBean.getResult().size(),shopCartBean,-1);
+        }
+    }
+    //获取购物车选择的商品
+    public List<ShopCartBean.ShopcarData> getSelectedProducts() {
+        List<ShopCartBean.ShopcarData> selectedShopcarDataList = new ArrayList<>();
+        for(ShopCartBean.ShopcarData item:shopCartBean.getResult()) {
+            if (item.isProductSelected()) {
+                selectedShopcarDataList.add(item);
+            }
+        }
+        return selectedShopcarDataList;
+    }
     public void updateShopcarProductNum(Context context,String productId, ShopCartBean.ShopcarData newShopcarData) {
         int index = 0;
         for(ShopCartBean.ShopcarData shopcarData:CacheManager.getInstance().getShopCartBean().getResult()) {

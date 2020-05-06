@@ -11,8 +11,7 @@
               android:layout_centerVertical="true"
               android:id="@+id/productSelect"/>
 
-    <ImageView android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+    <ImageView android:layout_width="wrap_content" android:layout_height="match_parent"
     android:layout_centerVertical="true"
     android:layout_toRightOf="@id/productSelect"
     android:layout_marginLeft="@dimen/tool_bar_left_right_margin_size"
