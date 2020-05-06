@@ -55,5 +55,5 @@ dependencies {
 
     implementation 'com.github.bumptech.glide:glide:4.3.1'
 
-    implementation (name: 'alipaySdk-15.5.9-20181123210601', ext: 'aar')
+    implementation (name: 'alipaySdk-15.7.5-20200422171619', ext: 'aar')
 }

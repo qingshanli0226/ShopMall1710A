@@ -7,6 +7,9 @@ import android.content.ServiceConnection;
 import android.os.IBinder;
 import com.example.shopmall.common.util.SpUtil;
 import com.example.shopmall.framework.bean.ShopCartBean;
+import com.example.shopmall.framework.greendao.DaoMaster;
+import com.example.shopmall.framework.greendao.DaoSession;
+import com.example.shopmall.framework.greendao.ShopMallMessageDao;
 import com.example.shopmall.framework.service.ShopMallService;
 
 import java.util.ArrayList;
@@ -104,6 +107,11 @@ public class CacheManager {
 
             }
         });
+
+        DaoMaster.OpenHelper openHelper = new DaoMaster.DevOpenHelper(context, "shop.db");
+        DaoMaster daoMaster = new DaoMaster(openHelper.getWritableDb());
+        DaoSession daoSession = daoMaster.newSession();
+        ShopMallMessageDao shopMallMessageDao = daoSession.getShopMallMessageDao();
     }
 
     public void addNewShopcardata(Context context, int addNum, ShopCartBean.ShopcarData shopcarData) {

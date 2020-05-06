@@ -12,6 +12,7 @@ import com.example.shopmall.buy.R;
 import com.example.shopmall.buy.shopcar.presenter.ConfirmResultPresenter;
 import com.example.shopmall.framework.base.BaseActivity;
 import com.example.shopmall.framework.base.IPresenter;
+import com.example.shopmall.framework.manager.ShopServiceManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,8 +95,8 @@ public class OrderInfoActivity extends BaseActivity<Boolean> implements View.OnC
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                       /* Intent intent = new Intent();
-                        startActivity(intent);*/
+                        ShopServiceManager.getInstance().getAppServieInterface().openMainActivity(OrderInfoActivity.this,1);
+                        finish();//加上finish更好，避免MainActivity被系统回收后，再次创建MainActivity。如果这种情况下，不调用finish的话，该Activity将不会destory
                     }
                 });
             } else {

@@ -1,6 +1,8 @@
 package com.example.shopmall.shopmall1710a.main;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -26,13 +28,25 @@ public class MainActivity extends BaseActivity<Object> {
     }
 
     @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Intent intent = getIntent();//获取启动MainActivity的intent
+        int index = intent.getIntExtra("index", -1);
+        Log.d("LQS", "onCreate index......................................." + index);
+        if (index == -1 || index > 3) {//代表着启动的该界面，并且进入默认HomeFragment
+            switchFragment(0);//默认进入HomeFragment
+        }else {//代表着启动该界面，并且要求MainActivity进入到相应的Fragment下
+            switchFragment(index);
+        }
+    }
+
+    @Override
     protected List<IPresenter<Object>> getPresenter() {
         return null;
     }
 
     @Override
     protected void initView() {
-        switchFragment(0);//默认进入HomeFragment
         BottomBar bottomBar= findViewById(R.id.bottomBar);
         bottomBar.setTabCheckedListener(new BottomBar.IBottomBarTabCheckedListener() {
             @Override
@@ -90,10 +104,15 @@ public class MainActivity extends BaseActivity<Object> {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        Log.d("LQS", "onNewIntent.......................................");
 
         int index = intent.getIntExtra("index", -1);
-        switchFragment(index);
+        Log.d("LQS", "onNewIntent index......................................." + index);
+
+        if (index == -1 || index  > 3) {
+            switchFragment(0);
+        } else {
+            switchFragment(index);
+        }
 
     }
 }

@@ -52,7 +52,7 @@ public class HomeFragment extends BaseFragment<Object> implements CacheManager.I
     protected void initView(View rootView) {
         countTV = rootView.findViewById(R.id.count);
         recyclerView = rootView.findViewById(R.id.recyclerView);
-        homeAdapter = new HomeAdapter();
+        homeAdapter = new HomeAdapter(this);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
         recyclerView.setAdapter(homeAdapter);
     }

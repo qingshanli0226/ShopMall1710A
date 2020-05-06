@@ -20,6 +20,11 @@ import java.util.List;
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder> {
 
     private List<HomeBean.ResultBean.HotInfoBean> hotInfoBeanList = new ArrayList<>();
+    private HomeFragment homeFragment;
+
+    public HomeAdapter(HomeFragment homeFragment) {
+        this.homeFragment = homeFragment;
+    }
 
     public void addData(List<HomeBean.ResultBean.HotInfoBean> hotInfoBeans) {
         hotInfoBeanList.clear();
@@ -50,6 +55,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
                 intent.putExtra("productId", hotInfoBeanList.get(i).getProduct_id());
                 homeViewHolder.imageView.getContext().startActivity(intent);
                 Toast.makeText(homeViewHolder.imageView.getContext(), "点击", Toast.LENGTH_SHORT).show();
+                homeFragment.getActivity().finish();
             }
         });
     }
