@@ -1,6 +1,7 @@
 package com.example.shopmall.shopmall1710a.main.view.fragment;
 
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.*;
 import androidx.annotation.NonNull;
@@ -12,8 +13,11 @@ import com.example.shopmall.common.ErrorBean;
 import com.example.shopmall.common.util.SpUtill;
 import com.example.shopmall.framework.base.bean.ShopCartBean;
 import com.example.shopmall.framework.base.view.BaseFragment;
+import com.example.shopmall.framework.manager.CacheManager;
 import com.example.shopmall.shopmall1710a.R;
 import com.example.shopmall.shopmall1710a.main.adapter.CartAdapter;
+import com.example.shopmall.shopmall1710a.main.presenter.OrderInfoPresenter;
+import com.example.shopmall.shopmall1710a.main.view.activity.OrderInfoActivity;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -22,6 +26,7 @@ import java.util.List;
 public class CarFrag extends BaseFragment implements View.OnClickListener {
 
 
+    private OrderInfoPresenter orderInfoPresenter;
     private TextView tvShopcartEdit;
     private RecyclerView recyclerview;
     private LinearLayout llCheckAll;
@@ -60,6 +65,10 @@ public class CarFrag extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void initView() {
+
+        orderInfoPresenter = new OrderInfoPresenter();
+        orderInfoPresenter.attachView(this);
+
         spUtill = new SpUtill(getContext());
         tvShopcartEdit = (TextView) findViewById(R.id.tv_shopcart_edit);
         recyclerview = (RecyclerView) findViewById(R.id.recyclerview);
@@ -86,7 +95,7 @@ public class CarFrag extends BaseFragment implements View.OnClickListener {
         checkboxAll.setOnClickListener(this);
         cbAll.setOnClickListener(this);
         btnDelete.setOnClickListener(this);
-
+        btnCheckOut.setOnClickListener(this);
 
     }
 
@@ -233,6 +242,15 @@ public class CarFrag extends BaseFragment implements View.OnClickListener {
                 }
 
                 cartAdapter.notifyDataSetChanged();
+                break;
+
+            case R.id.btn_check_out:
+                orderInfoPresenter.addParams("buy", tvShopcartTotal.getText().toString(), list);
+                orderInfoPresenter.postHttpDataWithJson(700);
+
+                Intent intent = new Intent(getActivity(), OrderInfoActivity.class);
+
+                startActivity(intent);
                 break;
         }
     }

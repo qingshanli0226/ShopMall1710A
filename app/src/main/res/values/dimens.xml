@@ -11,7 +11,7 @@
     <dimen name="margin_9">45dp</dimen>
     <dimen name="margin_10">50dp</dimen>
 
-
+    <dimen name="shop_car_text_size">15sp</dimen>
     <dimen name="ts_1">5sp</dimen>
     <dimen name="ts_2">10sp</dimen>
     <dimen name="ts_3">15sp</dimen>

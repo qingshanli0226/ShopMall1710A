@@ -29,6 +29,8 @@
         </activity>
         <activity android:name=".main.view.activity.GoodDetailActivity"/>
         <activity android:name=".main.view.activity.SearchActicvity"/>
+        <activity android:name=".main.view.activity.OrderInfoActivity"/>
+        <activity android:name=".main.view.activity.FailOrderActivity"/>
         <service android:name="com.example.shopmall.framework.services.ShopMallService"/>
 
     </application>

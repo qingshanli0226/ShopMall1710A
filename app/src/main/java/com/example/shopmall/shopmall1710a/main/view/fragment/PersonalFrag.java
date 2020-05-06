@@ -10,6 +10,7 @@ import com.example.shopmall.common.ErrorBean;
 import com.example.shopmall.framework.base.view.BaseFragment;
 import com.example.shopmall.shopmall1710a.R;
 import com.example.shopmall.shopmall1710a.login.view.BetterLoginActivity;
+import com.example.shopmall.shopmall1710a.main.view.activity.FailOrderActivity;
 
 public class PersonalFrag extends BaseFragment implements View.OnClickListener {
 
@@ -70,6 +71,7 @@ public class PersonalFrag extends BaseFragment implements View.OnClickListener {
         ibUserMessage = (ImageButton) findViewById(R.id.ib_user_message);
 
         ibUserIconAvator.setOnClickListener(this);
+        tvUserPay.setOnClickListener(this);
 
     }
 
@@ -110,6 +112,10 @@ public class PersonalFrag extends BaseFragment implements View.OnClickListener {
             case R.id.ib_user_icon_avator:
                 Intent intent = new Intent(getActivity(), BetterLoginActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.tv_user_pay:
+                Intent intent1 = new Intent(getActivity(), FailOrderActivity.class);
+                startActivity(intent1);
                 break;
         }
     }
