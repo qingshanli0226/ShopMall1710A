@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import com.example.shopmall.framework.manager.ShopServiceManager;
+import com.example.shopmall.shopmall1710a.login.view.BetterLoginActivity;
 import com.example.shopmall.shopmall1710a.main.MainActivity;
 
 public class AppModule {
@@ -16,6 +17,13 @@ public class AppModule {
             intent.putExtra("index", index);
             intent.setClass(activity, MainActivity.class);
             activity.startActivity(intent);
+        }
+
+        @Override
+        public void openLoginActivity(Context context) {
+            Intent intent = new Intent();
+            intent.setClass(context, BetterLoginActivity.class);
+            context.startActivity(intent);
         }
     };
     //初始化方法，注册该接口实现的功能

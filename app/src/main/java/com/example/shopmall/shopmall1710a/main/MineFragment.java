@@ -36,6 +36,7 @@ public class MineFragment extends Fragment {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             Intent intent = new Intent(getActivity(), BetterLoginActivity.class);
+            intent.putExtra("flag", "home");//在个人中心登录成功后，需要跳转到home页面
             getActivity().startActivity(intent);
         }
     };

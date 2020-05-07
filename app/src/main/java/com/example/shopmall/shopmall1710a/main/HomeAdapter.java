@@ -55,7 +55,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
                 intent.putExtra("productId", hotInfoBeanList.get(i).getProduct_id());
                 homeViewHolder.imageView.getContext().startActivity(intent);
                 Toast.makeText(homeViewHolder.imageView.getContext(), "点击", Toast.LENGTH_SHORT).show();
-                homeFragment.getActivity().finish();
+                //homeFragment.getActivity().finish();
             }
         });
     }

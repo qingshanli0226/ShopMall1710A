@@ -8,6 +8,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.widget.TextView;
+import com.example.shopmall.framework.manager.CacheManager;
+import com.example.shopmall.framework.manager.ShopUserManager;
 import com.example.shopmall.shopmall1710a.main.MainActivity;
 
 public class WelcomeActivity extends AppCompatActivity {
@@ -20,6 +22,8 @@ public class WelcomeActivity extends AppCompatActivity {
         textView.setText("欢迎页");
         textView.setGravity(Gravity.CENTER);
         setContentView(textView);
+        CacheManager.getInstance().init(this);
+        ShopUserManager.getInstance().init(this);
         new Handler(){
             @Override
             public void handleMessage(Message msg) {
@@ -28,7 +32,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
-        }.sendEmptyMessageDelayed(0, 3000);
+        }.sendEmptyMessageDelayed(0, 1000);
 
     }
 }

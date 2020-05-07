@@ -25,6 +25,8 @@ public class BetterLoginActivity extends BaseActivity<Object> implements View.On
     private BetterLoginPresenter loginPresenter;
     private BetterLogoutPresenter logoutPresenter;
 
+    private String flag;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_login;
@@ -51,7 +53,8 @@ public class BetterLoginActivity extends BaseActivity<Object> implements View.On
 
     @Override
     protected void initData() {
-
+        Intent intent = getIntent();
+        flag = intent.getStringExtra("flag");
     }
 
     @Override
@@ -85,9 +88,11 @@ public class BetterLoginActivity extends BaseActivity<Object> implements View.On
         Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
 
         if (requstCode == 0) {
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.putExtra("index", 0);
-            startActivity(intent);
+            if (flag!=null&&flag.equals("home")) {//当flag为home时，代表登录成功后，跳转到首页面
+                Intent intent = new Intent(this, MainActivity.class);
+                intent.putExtra("index", 0);
+                startActivity(intent);
+            }
             //登录成功后，需要把登录信息存储到UserManager中，方便集中管理登录用户信息.
             //因为类型问题，存储时将data，强制转换成framework中ResultBean。因为字段一样，不会出现错误
             com.example.shopmall.framework.bean.LoginBean.ResultBean resultBean = (com.example.shopmall.framework.bean.LoginBean.ResultBean)data;

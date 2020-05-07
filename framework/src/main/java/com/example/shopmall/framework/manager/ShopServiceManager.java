@@ -1,6 +1,7 @@
 package com.example.shopmall.framework.manager;
 
 import android.app.Activity;
+import android.content.Context;
 import io.reactivex.annotations.NonNull;
 
 //单例，定义各个模块的接口，并且维护实现接口的实例,并且提供方法，让其他模块调用实现这些接口的实例.
@@ -32,6 +33,8 @@ public class ShopServiceManager {
     public interface IAppServieInterface {
         //显示MainActivity，并且跳转到对应的Fragment。index定义跳转到那个Fragment.
         void openMainActivity(Activity activity, int index);
+        //显示登录页面
+        void openLoginActivity(Context context);
     }
 
 

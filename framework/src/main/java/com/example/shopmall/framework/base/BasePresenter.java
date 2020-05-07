@@ -1,7 +1,10 @@
 package com.example.shopmall.framework.base;
 
 
+import com.example.shopmall.common.exception.BusinessException;
 import com.example.shopmall.common.util.ErrorUtil;
+import com.example.shopmall.framework.manager.CacheManager;
+import com.example.shopmall.framework.manager.ShopServiceManager;
 import com.example.shopmall.net.*;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -65,7 +68,14 @@ public abstract class BasePresenter<T> implements IPresenter {
                     //onError是所有错误的入口
                     @Override
                     public void onError(Throwable e) {
-                        iBaseView.onHttpReceivedFailed(requestCode, ErrorUtil.handleError(e));//将结果返回给UI层
+                        if ((e instanceof BusinessException)) {
+                            BusinessException businessException = (BusinessException)e;
+                            if (businessException.getCode() == 1006) {//Token失效,显示登录页面，无需在UI上显示该错误
+                                ShopServiceManager.getInstance().getAppServieInterface().openLoginActivity(CacheManager.getInstance().applicationContext);
+                            }
+                        } else {
+                            iBaseView.onHttpReceivedFailed(requestCode, ErrorUtil.handleError(e));//将结果返回给UI层
+                        }
                     }
 
                 });
@@ -111,7 +121,12 @@ public abstract class BasePresenter<T> implements IPresenter {
                     //onError是所有错误的入口
                     @Override
                     public void onError(Throwable e) {
-                        if (iBaseView!=null) {
+                        if ((e instanceof BusinessException)) {
+                            BusinessException businessException = (BusinessException)e;
+                            if (businessException.getCode() == 1006) {//Token失效,显示登录页面，无需在UI上显示该错误
+                                ShopServiceManager.getInstance().getAppServieInterface().openLoginActivity(CacheManager.getInstance().applicationContext);
+                            }
+                        } else {
                             iBaseView.onHttpReceivedFailed(requestCode, ErrorUtil.handleError(e));//将结果返回给UI层
                         }
                     }
@@ -154,7 +169,14 @@ public abstract class BasePresenter<T> implements IPresenter {
                     //onError是所有错误的入口
                     @Override
                     public void onError(Throwable e) {
-                        iBaseView.onHttpReceivedFailed(requestCode, ErrorUtil.handleError(e));//将结果返回给UI层
+                        if ((e instanceof BusinessException)) {
+                            BusinessException businessException = (BusinessException)e;
+                            if (businessException.getCode() == 1006) {//Token失效,显示登录页面，无需在UI上显示该错误
+                                ShopServiceManager.getInstance().getAppServieInterface().openLoginActivity(CacheManager.getInstance().applicationContext);
+                            }
+                        } else {
+                            iBaseView.onHttpReceivedFailed(requestCode, ErrorUtil.handleError(e));//将结果返回给UI层
+                        }
                     }
 
                 });

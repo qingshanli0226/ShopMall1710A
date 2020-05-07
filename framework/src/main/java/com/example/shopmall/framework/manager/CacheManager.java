@@ -21,6 +21,7 @@ public class CacheManager {
     private IHomeDataListener iHomeDataListener;
     private ShopMallService shopMallService;
     private ShopCartBean shopCartBean;
+    public Context applicationContext;//这个地方不能存放Activity的上下文，是因为使用Activity上下文的话，会导致内存泄漏.
 
     private List<IShopcarDataRecevedLisener> shopCountRecevedLisenerList = new LinkedList<>();
 
@@ -55,6 +56,7 @@ public class CacheManager {
 
     //初始化函数
     public void init(final Context context) {
+        applicationContext = context;
                 //在初始化方法里去启动并且绑定service
         Intent intent = new Intent();
         intent.setClass(context, ShopMallService.class);

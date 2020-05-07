@@ -1,5 +1,7 @@
 package com.example.shopmall.shopmall1710a.main;
 
+import android.app.Notification;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,10 +15,13 @@ import com.example.shopmall.buy.shopcar.view.ShopcarFragment;
 import com.example.shopmall.common.ErrorBean;
 import com.example.shopmall.framework.base.BaseActivity;
 import com.example.shopmall.framework.base.IPresenter;
+import com.example.shopmall.framework.manager.CacheManager;
+import com.example.shopmall.framework.manager.ShopUserManager;
 import com.example.shopmall.framework.view.BottomBar;
 import com.example.shopmall.shopmall1710a.R;
 
 import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends BaseActivity<Object> {
 
@@ -113,6 +118,5 @@ public class MainActivity extends BaseActivity<Object> {
         } else {
             switchFragment(index);
         }
-
     }
 }
