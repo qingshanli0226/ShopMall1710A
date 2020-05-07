@@ -24,12 +24,12 @@
                         android:layout_height="@dimen/dp_170"
                         android:background="@drawable/new_user_icon_background" />
 
-                <ImageButton
+                <ImageView
                         android:id="@+id/ib_user_icon_avator"
                         android:layout_width="@dimen/dp_50"
                         android:layout_height="@dimen/dp_50"
                         android:layout_centerInParent="true"
-                        android:background="@drawable/new_user_icon" />
+                        android:src="@drawable/community_default_user_icon" />
 
                 <TextView
                         android:id="@+id/tv_username"
@@ -136,12 +136,70 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_10"
                     android:background="#eee" />
-
             <TextView
-                    android:id="@+id/tv_user_location"
-                    style="@style/TextStyle"
-                    android:drawableLeft="@drawable/user_channel_icon_address"
-                    android:text="收货地址" />
+                    android:text="相机拍照  换头像"
+                    android:id="@+id/camera"
+                    style="@style/TextStyle" />
+            <TextView
+                    android:text="图库  换头像"
+                    android:id="@+id/imgs"
+                    style="@style/TextStyle" />
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <TextView
+
+                        style="@style/TextStyle"
+                        android:text="绑定手机号" />
+                <EditText
+                        android:background="#fff"
+                        android:layout_weight="1"
+                        android:id="@+id/phoneEdit"
+                        style="@style/TextStyle"
+                        android:hint="请输入"  />
+                <Button
+                        android:id="@+id/bindPhone"
+                        android:text="绑定"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"></Button>
+            </LinearLayout>
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <TextView
+                        style="@style/TextStyle"
+                        android:text="邮箱" />
+                <EditText
+                        android:background="#fff"
+                        android:layout_weight="1"
+                        android:id="@+id/emailEdit"
+                        style="@style/TextStyle"
+                        android:hint="请输入" />
+                <Button
+                        android:id="@+id/bindEmile"
+                        android:text="绑定"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"></Button>
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <TextView
+                        style="@style/TextStyle"
+                        android:text="收货地址" />
+                <EditText
+                        android:background="#fff"
+                        android:layout_weight="1"
+                        android:id="@+id/adressEdit"
+                        style="@style/TextStyle"
+                        android:hint="请输入" />
+                <Button
+                        android:id="@+id/bindAdress"
+                        android:text="绑定"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"></Button>
+            </LinearLayout>
 
             <View
                     android:layout_width="match_parent"
@@ -275,5 +333,9 @@
                 android:layout_alignParentRight="true"
                 android:background="@drawable/new_message_icon" />
     </RelativeLayout>
-
+    <ProgressBar
+            android:layout_centerInParent="true"
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></ProgressBar>
 </RelativeLayout>

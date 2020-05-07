@@ -3,7 +3,9 @@
         package="com.example.shopmall.shopmall1710a">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+    <uses-permission android:name="android.permission.CAMERA"></uses-permission>
     <application
             android:name=".application.MyApplication"
             android:allowBackup="true"
@@ -12,6 +14,16 @@
             android:roundIcon="@drawable/atguigu_logo"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <provider
+                android:exported="false"
+                android:grantUriPermissions="true"
+                android:authorities="com.guofeng"
+                android:name="android.support.v4.content.FileProvider">
+            <!--meta-data fileprovider操作的文件的路径  name：名字 写死   resource：xml文件定义路径-->
+            <meta-data
+                    android:name="android.support.FILE_PROVIDER_PATHS"
+                    android:resource="@xml/paths"></meta-data>
+        </provider>
         <activity android:name=".search.view.SearchActivity" android:launchMode="singleTop"></activity>
         <activity android:name=".product.RecommendActivity" android:launchMode="singleTop"></activity>
         <activity android:name=".regist.RegistActivity" />

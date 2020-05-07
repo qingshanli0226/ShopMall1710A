@@ -88,9 +88,9 @@ public class TypeFragment extends BaseFragment<Object> {
             List<DataBean> data1 = (List<DataBean>) data;
             Log.e("TAG", "onHtttpReceived: "+data1.get(0).getChild().size() );
             dataBean = data1.get(0);
-            dataAdapter = new DataAdapter(getContext(),dataBean);
-            productShow.setLayoutManager(new LinearLayoutManager(getContext()));
-            productShow.setAdapter(dataAdapter);
+//            dataAdapter = new DataAdapter(getContext(),dataBean);
+//            productShow.setLayoutManager(new LinearLayoutManager(getContext()));
+//            productShow.setAdapter(dataAdapter);
         }
     }
 

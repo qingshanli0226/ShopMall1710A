@@ -64,4 +64,27 @@ public class SpUtil {
         return sharedPreferences.getString("historyRecord",null);
     }
 
+    public static void saveEmail(Context context, String email) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("myInfo", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor =  sharedPreferences.edit();
+        editor.putString("email",email);
+        editor.commit();
+    }
+
+    public static String getEmile(Context context){
+        SharedPreferences sharedPreferences = context.getSharedPreferences("myInfo", Context.MODE_PRIVATE);
+        return sharedPreferences.getString("email",null);
+    }
+
+    public static void savePhone(Context context, String phone) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("myInfo", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor =  sharedPreferences.edit();
+        editor.putString("phone",phone);
+        editor.commit();
+    }
+
+    public static String getPhone(Context context){
+        SharedPreferences sharedPreferences = context.getSharedPreferences("myInfo", Context.MODE_PRIVATE);
+        return sharedPreferences.getString("phone",null);
+    }
 }
