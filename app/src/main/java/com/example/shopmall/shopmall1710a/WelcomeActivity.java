@@ -22,8 +22,8 @@ public class WelcomeActivity extends AppCompatActivity {
         textView.setText("欢迎页");
         textView.setGravity(Gravity.CENTER);
         setContentView(textView);
-        CacheManager.getInstance().init(this);
-        ShopUserManager.getInstance().init(this);
+        CacheManager.getInstance().init(ShopMallApplication.instance);
+        ShopUserManager.getInstance().init(ShopMallApplication.instance);
         new Handler(){
             @Override
             public void handleMessage(Message msg) {

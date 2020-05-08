@@ -169,6 +169,11 @@ public class ToolBar extends LinearLayout implements View.OnClickListener {
         rightTv.setText(getContext().getResources().getString(contentId));
     }
 
+    //通过字符串刷新右侧数据
+    public void setRightTvContent(String content) {
+        rightTv.setText(content);
+    }
+
     //让右侧显示图片
     public void showRightImage() {
         rightImg.setVisibility(VISIBLE);

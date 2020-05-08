@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.example.shopmall.framework.base.BaseFragment;
 import com.example.shopmall.framework.base.IPresenter;
 import com.example.shopmall.framework.bean.ShopCartBean;
+import com.example.shopmall.framework.message.ShopMallMessage;
 import com.example.shopmall.framework.manager.CacheManager;
 import com.example.shopmall.framework.manager.ShopUserManager;
 import com.example.shopmall.shopmall1710a.R;
@@ -19,7 +20,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.util.List;
 
-public class HomeFragment extends BaseFragment<Object> implements CacheManager.IShopcarDataRecevedLisener,CacheManager.IHomeDataListener {
+public class HomeFragment extends BaseFragment<Object> implements CacheManager.IShopcarDataRecevedLisener,CacheManager.IHomeDataListener, CacheManager.IShopMessageChangedListener {
     private TextView countTV;
     private RecyclerView recyclerView;
     private HomeAdapter homeAdapter;
@@ -39,6 +40,12 @@ public class HomeFragment extends BaseFragment<Object> implements CacheManager.I
             processHomeBean(homeDataStr);
         }
 
+        //先获取一下未读的消息数据
+        int countUnreadMessage = CacheManager.getInstance().getCountUnReadMessage();
+        updateUnReadCountTv(countUnreadMessage);
+        //去监听消息数据的变化
+        CacheManager.getInstance().registerShopMessageChangedListener(this);
+
         CacheManager.getInstance().registerIHomeDataListener(this);
 
     }
@@ -55,6 +62,12 @@ public class HomeFragment extends BaseFragment<Object> implements CacheManager.I
         homeAdapter = new HomeAdapter(this);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
         recyclerView.setAdapter(homeAdapter);
+    }
+
+    @Override
+    protected void initToolBar(View rootView) {
+        super.initToolBar(rootView);
+        toolBar.showRightTv(false);
     }
 
     @Override
@@ -78,6 +91,7 @@ public class HomeFragment extends BaseFragment<Object> implements CacheManager.I
         super.onDestroy();
         CacheManager.getInstance().unRegisterShopCountListener(this);
         CacheManager.getInstance().unRegisterIHomeDataListener();
+        CacheManager.getInstance().unRegisterShopMessageChangedListener(this);
     }
 
     @Override
@@ -100,4 +114,39 @@ public class HomeFragment extends BaseFragment<Object> implements CacheManager.I
             }
         });
     }
+
+    @Override
+    public void onShopMessageChanged(List<ShopMallMessage> shopMallMessageList, int unReadCount, int index) {
+        updateUnReadCountTv(unReadCount);
+    }
+
+    @Override
+    public void onShopMessageAdded(ShopMallMessage shopMallMessage, int unReadCount, int index) {
+        updateUnReadCountTv(unReadCount);
+    }
+
+    @Override
+    public void onShopMessageDelted(ShopMallMessage shopMallMessage, int unReadCount, int index) {
+        updateUnReadCountTv(unReadCount);
+    }
+
+    @Override
+    public void onShopMessageUpdated(ShopMallMessage shopMallMessage, int unReadCount, int index) {
+        updateUnReadCountTv(unReadCount);
+    }
+
+    private void updateUnReadCountTv(final int unReadCount){
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (unReadCount!=0) {
+                    toolBar.showRightTv(true);
+                    toolBar.setRightTvContent(unReadCount+"");
+                } else {
+                    toolBar.showRightTv(false);
+                }
+            }
+        });
+    }
+
 }
