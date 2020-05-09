@@ -6,4 +6,5 @@
     <string name="fragment_type_content">类型</string>
     <string name="fragment_mine_content">个人中心</string>
     <string name="fragment_shopcar_content">购物车</string>
+    <string name="message">消息</string>
 </resources>

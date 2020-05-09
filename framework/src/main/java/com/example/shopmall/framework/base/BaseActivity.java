@@ -28,7 +28,7 @@ public abstract class BaseActivity<T> extends AppCompatActivity implements IBase
         initData();//初始化数据
     }
 
-    private void initToolBar() {
+    public void initToolBar() {
         toolBar = findViewById(R.id.toolBar);
         toolBar.setToolBarClickListener(this);
     }

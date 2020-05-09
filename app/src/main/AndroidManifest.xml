@@ -52,8 +52,6 @@
         <activity android:name=".main.MainActivity"
         android:launchMode="singleTask"/>
 
-        <service android:name="com.example.shopmall.framework.service.ShopMallService"/>
-
         <activity android:name=".login.view.BetterLoginActivity"
         android:launchMode="singleTop"/>
         <activity android:name=".product.view.ProductDetailActivity"
@@ -77,6 +75,8 @@
             <category android:name="com.example.shopmall.shopmall1710a" />
         </intent-filter>
     </receiver>
+
+        <activity android:name=".message.ShopMallMessageActivity"/>
 
     </application>
 

@@ -135,7 +135,7 @@ public class CacheManager {
             @Override
             public void run() {
                 //从数据中读出数据，数据按照时间戳的降序排列
-                shopMallMessageList = shopMallMessageDao.queryBuilder().list();
+                shopMallMessageList = shopMallMessageDao.queryBuilder().orderDesc(ShopMallMessageDao.Properties.Time).list();
                 countUnReadMessage = 0;
                 for(ShopMallMessage message:shopMallMessageList) {
                     if (!message.getIsRead()) {
@@ -332,7 +332,7 @@ public class CacheManager {
         }
         //更新数据库
         //将链表中的数据未读状态变成已读
-        shopMallMessage.setIsRead(false);
+        shopMallMessage.setIsRead(true);
         shopMallMessageDao.update(shopMallMessage);
         int index = shopMallMessageList.indexOf(shopMallMessage);
         countUnReadMessage--;
@@ -340,7 +340,6 @@ public class CacheManager {
             listener.onShopMessageUpdated(shopMallMessage, countUnReadMessage, index);
         }
     }
-
     //查找所有数据
     public List<ShopMallMessage> findAllMessage() {
         return shopMallMessageDao.queryBuilder().orderDesc(ShopMallMessageDao.Properties.Time).list();

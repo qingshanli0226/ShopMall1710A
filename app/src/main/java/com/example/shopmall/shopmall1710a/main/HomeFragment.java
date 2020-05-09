@@ -15,6 +15,7 @@ import com.example.shopmall.framework.manager.CacheManager;
 import com.example.shopmall.framework.manager.ShopUserManager;
 import com.example.shopmall.shopmall1710a.R;
 import com.example.shopmall.shopmall1710a.main.bean.HomeBean;
+import com.example.shopmall.shopmall1710a.message.ShopMallMessageActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -103,7 +104,6 @@ public class HomeFragment extends BaseFragment<Object> implements CacheManager.I
             }
         });
     }
-
     @Override
     public void onHomeDataReceived(final String homeDataJson) {
         getActivity().runOnUiThread(new Runnable() {
@@ -113,6 +113,12 @@ public class HomeFragment extends BaseFragment<Object> implements CacheManager.I
                 processHomeBean(homeDataJson);
             }
         });
+    }
+
+    @Override
+    public void onRightClick() {
+        super.onRightClick();
+        ShopMallMessageActivity.launch(getActivity());
     }
 
     @Override

@@ -13,12 +13,14 @@ import com.example.shopmall.framework.base.BaseActivity;
 import com.example.shopmall.framework.base.IPresenter;
 import com.example.shopmall.framework.bean.ShopCartBean;
 import com.example.shopmall.framework.manager.CacheManager;
+import com.example.shopmall.framework.manager.ShopServiceManager;
 import com.example.shopmall.framework.manager.ShopUserManager;
+import com.example.shopmall.framework.message.ShopMallMessage;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShopcarActivity extends BaseActivity<Object> implements IShopcarEventListener, CacheManager.IShopcarDataRecevedLisener {
+public class ShopcarActivity extends BaseActivity<Object> implements IShopcarEventListener, CacheManager.IShopcarDataRecevedLisener, CacheManager.IShopMessageChangedListener {
     private AddShopcarPresenter addShopcarPresenter;
     private UpdateProductSelectPresenter updateProductSelectPresenter;
     private UpdateProductNumPresenter updateProductNumPresenter;
@@ -82,6 +84,25 @@ public class ShopcarActivity extends BaseActivity<Object> implements IShopcarEve
     }
 
     @Override
+    public void initToolBar() {
+        super.initToolBar();
+        toolBar.showRightMessage(true);
+        //先获取一下未读的消息数据
+        int countUnreadMessage = CacheManager.getInstance().getCountUnReadMessage();
+        updateUnReadCountTv(countUnreadMessage);
+        //去监听消息数据的变化
+        CacheManager.getInstance().registerShopMessageChangedListener(this);
+
+        toolBar.setMessageListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //跳转到消息详情页面
+                ShopServiceManager.getInstance().getAppServieInterface().openMessageActivity(ShopcarActivity.this);
+            }
+        });
+    }
+
+    @Override
     public void onRightClick() {
         super.onRightClick();
         isEdit = !isEdit;
@@ -121,10 +142,10 @@ public class ShopcarActivity extends BaseActivity<Object> implements IShopcarEve
         } else if (requestCode == 700) {//生成订单信息
             Toast.makeText(this, "生成订单成功",Toast.LENGTH_SHORT).show();
             //生成点单后，需要把列表选择的商品从购物车列表中删除
+            OrderInfoBean orderInfoBean = (OrderInfoBean)data;
+            OrderInfoActivity.launch(this, orderInfoBean.getOrderInfo(),orderInfoBean.getOutTradeNo(),shopcarPayView.getTotalPrice());
             CacheManager.getInstance().removeManyProducts(CacheManager.getInstance().getSelectedProducts());
 
-            OrderInfoBean orderInfoBean = (OrderInfoBean)data;
-            OrderInfoActivity.launch(this, orderInfoBean.getOrderInfo(),orderInfoBean.getOutTradeNo());
 
             //显示订单详情页面，并且把参数传递过去
 
@@ -277,5 +298,38 @@ public class ShopcarActivity extends BaseActivity<Object> implements IShopcarEve
         Intent intent = new Intent();
         intent.setClass(activity, ShopcarActivity.class);
         activity.startActivity(intent);
+    }
+
+    @Override
+    public void onShopMessageChanged(List<ShopMallMessage> shopMallMessageList, int unReadCount, int index) {
+        updateUnReadCountTv(unReadCount);
+    }
+
+    @Override
+    public void onShopMessageAdded(ShopMallMessage shopMallMessage, int unReadCount, int index) {
+        updateUnReadCountTv(unReadCount);
+    }
+
+    @Override
+    public void onShopMessageDelted(ShopMallMessage shopMallMessage, int unReadCount, int index) {
+        updateUnReadCountTv(unReadCount);
+    }
+
+    @Override
+    public void onShopMessageUpdated(ShopMallMessage shopMallMessage, int unReadCount, int index) {
+        updateUnReadCountTv(unReadCount);
+    }
+
+    private void updateUnReadCountTv(final int unReadCount){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (unReadCount!=0) {
+                    toolBar.setMessageText(unReadCount+"");
+                } else {
+                    toolBar.setMessageText(getResources().getString(R.string.message));
+                }
+            }
+        });
     }
 }

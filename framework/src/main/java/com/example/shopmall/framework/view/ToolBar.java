@@ -23,6 +23,7 @@ public class ToolBar extends LinearLayout implements View.OnClickListener {
     private TextView  titleTv;
     private ImageView leftImg;
     private ImageView rightImg;
+    private TextView messageTv;
 
     private int toolBarTitleId;
     private int leftImgSrcId;
@@ -69,6 +70,7 @@ public class ToolBar extends LinearLayout implements View.OnClickListener {
         leftLayout = rootView.findViewById(R.id.leftLayout);
         rightLayout = rootView.findViewById(R.id.rightLayout);
         rootLayout = rootView.findViewById(R.id.toolBarRoot);
+        messageTv = rootView.findViewById(R.id.message);
 
         leftLayout.setOnClickListener(this);
         rightLayout.setOnClickListener(this);
@@ -202,6 +204,18 @@ public class ToolBar extends LinearLayout implements View.OnClickListener {
         } else {
             titleTv.setVisibility(GONE);
         }
+    }
+
+    public void showRightMessage(boolean isShow) {
+        messageTv.setVisibility(isShow?VISIBLE:GONE);
+    }
+
+    public void setMessageText(String text) {
+        messageTv.setText(text);
+    }
+
+    public void setMessageListener(OnClickListener onClickListener) {
+        messageTv.setOnClickListener(onClickListener);
     }
 
     public interface ToolBarListener{

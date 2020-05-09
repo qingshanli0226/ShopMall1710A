@@ -1,5 +1,6 @@
 package com.example.shopmall.shopmall1710a.product.view;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
@@ -166,5 +167,15 @@ public class ProductDetailActivity extends BaseActivity<Object> implements View.
             }
         });
 
+    }
+
+    public static void launch(Activity activity, String productId, String productName, String productPrice, String productImageUrl) {
+        Intent intent = new Intent();
+        intent.setClass(activity, ProductDetailActivity.class);
+        intent.putExtra("productId", productId);
+        intent.putExtra("productName", productName);
+        intent.putExtra("productPrice", productPrice);
+        intent.putExtra("productImageUrl", productImageUrl);
+        activity.startActivity(intent);
     }
 }

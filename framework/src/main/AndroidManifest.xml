@@ -1,2 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.example.shopmall.framework"/>
+          package="com.example.shopmall.framework">
+    <application>
+        <service android:name="com.example.shopmall.framework.service.ShopMallService"/>
+    </application>
+</manifest>
+
+

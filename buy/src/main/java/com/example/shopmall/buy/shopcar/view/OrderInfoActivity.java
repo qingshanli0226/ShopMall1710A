@@ -12,7 +12,10 @@ import com.example.shopmall.buy.R;
 import com.example.shopmall.buy.shopcar.presenter.ConfirmResultPresenter;
 import com.example.shopmall.framework.base.BaseActivity;
 import com.example.shopmall.framework.base.IPresenter;
+import com.example.shopmall.framework.manager.CacheManager;
 import com.example.shopmall.framework.manager.ShopServiceManager;
+import com.example.shopmall.framework.message.Constant;
+import com.example.shopmall.framework.message.ShopMallMessage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +24,7 @@ import java.util.Map;
 public class OrderInfoActivity extends BaseActivity<Boolean> implements View.OnClickListener {
     private String orderInfo;
     private String outTradeNo;
+    private String totalPrice;
     private ConfirmResultPresenter confirmResultPresenter;
 
     @Override
@@ -28,6 +32,7 @@ public class OrderInfoActivity extends BaseActivity<Boolean> implements View.OnC
        Intent intent = getIntent();
        orderInfo = intent.getStringExtra("orderInfo");
        outTradeNo = intent.getStringExtra("tradeNo");
+       totalPrice = intent.getStringExtra("totalPrice");
     }
 
     @Override
@@ -92,6 +97,7 @@ public class OrderInfoActivity extends BaseActivity<Boolean> implements View.OnC
         if (requestCode == 100) {
             if (success) {
                 Toast.makeText(this, "服务端确认支付宝支付成功",Toast.LENGTH_SHORT).show();
+                addOneMessage();
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -106,10 +112,27 @@ public class OrderInfoActivity extends BaseActivity<Boolean> implements View.OnC
         }
     }
 
-    public static void launch(Activity activity, String orderInfo, String tradeNo) {
+    //给用户在消息列表中，展示一条支付消息
+    private void addOneMessage() {
+        final ShopMallMessage shopMallMessage = new ShopMallMessage();
+        shopMallMessage.setTime(System.currentTimeMillis());
+        shopMallMessage.setType(Constant.MESSAGE_TYPE_ZHIFU);
+        shopMallMessage.setTitle(getResources().getString(R.string.zhifu));
+        shopMallMessage.setContent("支付总额:"+totalPrice);
+
+        CacheManager.getInstance().executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                CacheManager.getInstance().addShopMessage(shopMallMessage);
+            }
+        });
+    }
+
+    public static void launch(Activity activity, String orderInfo, String tradeNo, String totalPrice) {
         Intent intent = new Intent();
         intent.putExtra("orderInfo", orderInfo);
         intent.putExtra("tradeNo", tradeNo);
+        intent.putExtra("totalPrice", totalPrice);
         intent.setClass(activity,OrderInfoActivity.class);
         activity.startActivity(intent);
     }

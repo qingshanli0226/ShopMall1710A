@@ -128,7 +128,7 @@ public class ShopcarFragment extends BaseFragment<Object> implements IShopcarEve
             CacheManager.getInstance().removeManyProducts(CacheManager.getInstance().getSelectedProducts());
 
             OrderInfoBean orderInfoBean = (OrderInfoBean)data;
-            OrderInfoActivity.launch(getActivity(), orderInfoBean.getOrderInfo(),orderInfoBean.getOutTradeNo());
+            OrderInfoActivity.launch(getActivity(), orderInfoBean.getOrderInfo(),orderInfoBean.getOutTradeNo(), shopcarPayView.getTotalPrice());
 
             //显示订单详情页面，并且把参数传递过去
 

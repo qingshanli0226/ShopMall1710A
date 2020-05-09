@@ -9,4 +9,7 @@
     <string name="fragment_mine_content">个人中心</string>
     <string name="product_detail">商品详情</string>
     <string name="add_one_product">添加一个产品到购物车</string>
+    <string name="message_detail">消息</string>
+    <string name="readead">已读</string>
+    <string name="unRead">未读</string>
 </resources>

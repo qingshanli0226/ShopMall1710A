@@ -35,6 +35,8 @@ public class ShopServiceManager {
         void openMainActivity(Activity activity, int index);
         //显示登录页面
         void openLoginActivity(Context context);
+        //显示消息页面
+        void openMessageActivity(Activity activity);
     }
 
 
