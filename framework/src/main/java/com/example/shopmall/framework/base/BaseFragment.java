@@ -10,11 +10,13 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import com.example.shopmall.common.ErrorBean;
 import com.example.shopmall.framework.R;
+import com.example.shopmall.framework.manager.CacheManager;
+import com.example.shopmall.framework.manager.ConnectManager;
 import com.example.shopmall.framework.view.ToolBar;
 
 import java.util.List;
 
-public abstract class BaseFragment <T> extends Fragment implements IBaseView<T>,ToolBar.ToolBarListener {
+public abstract class BaseFragment <T> extends Fragment implements IBaseView<T>,ToolBar.ToolBarListener, ConnectManager.IConnectChangeListener {
     protected ProgressBar loadingBar;
     protected ToolBar toolBar;
     @Nullable
@@ -27,6 +29,7 @@ public abstract class BaseFragment <T> extends Fragment implements IBaseView<T>,
         loadingBar = rootView.findViewById(R.id.loadingBar);//子类Activity定义loadingBar这个控件,不定义的话，页面将崩溃
         initToolBar(rootView);
         initData();
+        ConnectManager.getInstance().registerConnectChangeListener(this);
         return rootView;
     }
 
@@ -96,5 +99,16 @@ public abstract class BaseFragment <T> extends Fragment implements IBaseView<T>,
         for(IPresenter<T> item : presenterList) {
             item.detachView();
         }
+        ConnectManager.getInstance().unRegisterConnectChangeListener(this);
+    }
+
+    @Override
+    public void onConnected() {
+
+    }
+
+    @Override
+    public void onDisconnect() {
+
     }
 }

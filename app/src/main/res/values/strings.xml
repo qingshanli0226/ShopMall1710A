@@ -12,4 +12,5 @@
     <string name="message_detail">消息</string>
     <string name="readead">已读</string>
     <string name="unRead">未读</string>
+    <string name="connect_failed">网络连接失败</string>
 </resources>

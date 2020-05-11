@@ -8,12 +8,13 @@ import android.view.View;
 import android.widget.ProgressBar;
 import com.example.shopmall.common.ErrorBean;
 import com.example.shopmall.framework.R;
+import com.example.shopmall.framework.manager.ConnectManager;
 import com.example.shopmall.framework.view.ToolBar;
 
 import java.util.List;
 
 //实现Activity的基类,定义Activity调用逻辑，调用函数的时序，定义一些通用的功能，这些功能，子类会使用
-public abstract class BaseActivity<T> extends AppCompatActivity implements IBaseView<T>,ToolBar.ToolBarListener {
+public abstract class BaseActivity<T> extends AppCompatActivity implements IBaseView<T>,ToolBar.ToolBarListener, ConnectManager.IConnectChangeListener {
     protected ProgressBar loadingBar;
     protected ToolBar toolBar;
 
@@ -26,6 +27,8 @@ public abstract class BaseActivity<T> extends AppCompatActivity implements IBase
         initView();//初始化控件
         initPresenter();//初始化presenter
         initData();//初始化数据
+
+        ConnectManager.getInstance().registerConnectChangeListener(this);
     }
 
     public void initToolBar() {
@@ -82,6 +85,7 @@ public abstract class BaseActivity<T> extends AppCompatActivity implements IBase
         super.onDestroy();
         destroy();
         destroyPresenter();
+        ConnectManager.getInstance().unRegisterConnectChangeListener(this);
     }
 
     //强制presenter去调用detachView,把presenter对页面的引用置成空，避免内存泄漏
@@ -111,4 +115,13 @@ public abstract class BaseActivity<T> extends AppCompatActivity implements IBase
     }
 
 
+    @Override
+    public void onConnected() {
+
+    }
+
+    @Override
+    public void onDisconnect() {
+
+    }
 }

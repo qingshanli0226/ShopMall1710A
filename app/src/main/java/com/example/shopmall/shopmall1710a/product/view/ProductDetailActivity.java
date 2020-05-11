@@ -159,7 +159,7 @@ public class ProductDetailActivity extends BaseActivity<Object> implements View.
     }
 
     @Override
-    public void onShopcarDataReceived(final int count, ShopCartBean shopCartBean, int index) {
+    public void onShopcarDataReceived(final int count, final ShopCartBean shopCartBean, int index) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {

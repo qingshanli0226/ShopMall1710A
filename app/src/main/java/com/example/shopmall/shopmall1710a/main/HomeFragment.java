@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.example.shopmall.framework.base.BaseFragment;
 import com.example.shopmall.framework.base.IPresenter;
 import com.example.shopmall.framework.bean.ShopCartBean;
+import com.example.shopmall.framework.manager.ConnectManager;
 import com.example.shopmall.framework.message.ShopMallMessage;
 import com.example.shopmall.framework.manager.CacheManager;
 import com.example.shopmall.framework.manager.ShopUserManager;
@@ -25,6 +26,7 @@ public class HomeFragment extends BaseFragment<Object> implements CacheManager.I
     private TextView countTV;
     private RecyclerView recyclerView;
     private HomeAdapter homeAdapter;
+    private TextView connectFailedTv;
 
     @Override
     protected List<IPresenter<Object>> getPresenter() {
@@ -49,6 +51,11 @@ public class HomeFragment extends BaseFragment<Object> implements CacheManager.I
 
         CacheManager.getInstance().registerIHomeDataListener(this);
 
+        //一进来先进行网络判断
+        if (!ConnectManager.getInstance().isConnected()) {
+            connectFailedTv.setVisibility(View.VISIBLE);
+        }
+
     }
 
     public void processHomeBean(String homeDataJson) {
@@ -63,6 +70,7 @@ public class HomeFragment extends BaseFragment<Object> implements CacheManager.I
         homeAdapter = new HomeAdapter(this);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
         recyclerView.setAdapter(homeAdapter);
+        connectFailedTv = rootView.findViewById(R.id.connectFailedTv);
     }
 
     @Override
@@ -155,4 +163,13 @@ public class HomeFragment extends BaseFragment<Object> implements CacheManager.I
         });
     }
 
+    @Override
+    public void onConnected() {
+        connectFailedTv.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onDisconnect() {
+        connectFailedTv.setVisibility(View.VISIBLE);
+    }
 }

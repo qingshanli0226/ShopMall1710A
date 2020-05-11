@@ -1,6 +1,8 @@
 package com.example.shopmall.buy.shopcar.view;
 
+import android.net.ConnectivityManager;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.example.shopmall.buy.R;
 import com.example.shopmall.buy.shopcar.IShopcarEventListener;
@@ -11,6 +13,7 @@ import com.example.shopmall.framework.base.BaseFragment;
 import com.example.shopmall.framework.base.IPresenter;
 import com.example.shopmall.framework.bean.ShopCartBean;
 import com.example.shopmall.framework.manager.CacheManager;
+import com.example.shopmall.framework.manager.ConnectManager;
 import com.example.shopmall.framework.manager.ShopUserManager;
 
 import java.util.ArrayList;
@@ -37,6 +40,8 @@ public class ShopcarFragment extends BaseFragment<Object> implements IShopcarEve
     public static final int PAY_VIEW_TYPE = 1;
     public static final int TOOLBAR_VIEW_TYPE = 2;
     public static final int RECYCLERVIEW_VIEW_TYPE = 3;
+    private TextView shopcarConnectFailed;
+
     @Override
     protected List<IPresenter<Object>> getPresenter() {
         addShopcarPresenter = new AddShopcarPresenter();
@@ -67,6 +72,11 @@ public class ShopcarFragment extends BaseFragment<Object> implements IShopcarEve
             shopcarPayView.notifyMoneyChanged();
             updateAllSelectUI(shopCartBean);
         }
+        if (!ConnectManager.getInstance().isConnected()) {
+            shopcarConnectFailed.setVisibility(View.VISIBLE);
+            shopcarPayView.setVisibility(View.GONE);
+            shopcarRecylerview.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -77,6 +87,8 @@ public class ShopcarFragment extends BaseFragment<Object> implements IShopcarEve
         shopcarRecylerview=rootView.findViewById(R.id.shopcarRv);
         shopcarEventListenerList.add((IShopcarEventListener)(shopcarRecylerview));
         shopcarRecylerview.setiShopcarEventListener(this);
+
+        shopcarConnectFailed = rootView.findViewById(R.id.shop_car_connect_failed);
     }
 
     @Override
@@ -270,5 +282,19 @@ public class ShopcarFragment extends BaseFragment<Object> implements IShopcarEve
                 listener.onAllSelectChanged(false,RECYCLERVIEW_VIEW_TYPE);
             }
         }
+    }
+
+    @Override
+    public void onConnected() {
+        shopcarConnectFailed.setVisibility(View.GONE);
+        shopcarPayView.setVisibility(View.VISIBLE);
+        shopcarRecylerview.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onDisconnect() {
+        shopcarConnectFailed.setVisibility(View.VISIBLE);
+        shopcarPayView.setVisibility(View.GONE);
+        shopcarRecylerview.setVisibility(View.GONE);
     }
 }

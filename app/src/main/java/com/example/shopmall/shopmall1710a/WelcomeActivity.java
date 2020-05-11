@@ -22,8 +22,11 @@ public class WelcomeActivity extends AppCompatActivity {
         textView.setText("欢迎页");
         textView.setGravity(Gravity.CENTER);
         setContentView(textView);
+
+        //Manger放在欢迎页里初始化，是避免和极光推送冲突
         CacheManager.getInstance().init(ShopMallApplication.instance);
         ShopUserManager.getInstance().init(ShopMallApplication.instance);
+
         new Handler(){
             @Override
             public void handleMessage(Message msg) {

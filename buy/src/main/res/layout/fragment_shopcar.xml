@@ -13,6 +13,8 @@
 
     </com.example.shopmall.framework.view.ToolBar>
 
+
+
     <com.example.shopmall.buy.shopcar.view.ShopcarRecylerview android:layout_width="match_parent"
                                                               android:layout_height="match_parent"
     android:layout_below="@id/toolBar"
@@ -32,5 +34,14 @@
                  android:id="@+id/loadingBar"
                  android:layout_centerInParent="true"
                  android:visibility="gone"/>
+
+    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
+    android:gravity="center"
+    android:text="@string/shopcar_connect_failed"
+    android:textSize="@dimen/shop_car_text_size"
+              android:layout_centerInParent="true"
+    android:textColor="@android:color/holo_red_dark"
+              android:id="@+id/shop_car_connect_failed"
+    android:visibility="gone"/>
 
 </RelativeLayout>

@@ -13,4 +13,5 @@
     <string name="zhifubao">支付宝</string>
     <string name="zhifu">支付</string>
     <string name="order_info">订单详情</string>
+    <string name="shopcar_connect_failed">网络连接失败,购物车数据无法获取</string>
 </resources>

@@ -82,18 +82,22 @@ public class CacheManager {
              public void onServiceConnected(ComponentName name, IBinder service) {
                 ShopMallService.ShopMallBinder shopMallBinder = (ShopMallService.ShopMallBinder)service;
                 shopMallService = shopMallBinder.getService();
-                shopMallService.getHomeData(new ShopMallService.IHomeDataReceiveListener() {
-                    @Override
-                    public void onHomeDataReceived(String homeJsonStr) {
-                        //代表数据已经返回
-                        //1, 存储数据 2,通知MainActivity去刷新首页数据
-                        SpUtil.saveHomeData(context, homeJsonStr);
-                        if (iHomeDataListener == null) {
-                            return;
+                if (ConnectManager.getInstance().isConnected()) {
+                    shopMallService.getHomeData(new ShopMallService.IHomeDataReceiveListener() {
+                        @Override
+                        public void onHomeDataReceived(String homeJsonStr) {
+                            //代表数据已经返回
+                            //1, 存储数据 2,通知MainActivity去刷新首页数据
+                            SpUtil.saveHomeData(context, homeJsonStr);
+                            if (iHomeDataListener == null) {
+                                return;
+                            }
+                            iHomeDataListener.onHomeDataReceived(homeJsonStr);
                         }
-                        iHomeDataListener.onHomeDataReceived(homeJsonStr);
-                    }
-                });
+                    });
+                } else {
+                    //从sp中读取缓存数据，刷新UI
+                }
 
             }
 
@@ -119,8 +123,10 @@ public class CacheManager {
             }
 
             @Override
-            public void onLogoutSuccess() {
-
+            public void onLogout() {
+                //退出登录需要把购物车数据清空
+                shopCartBean = null;
+                //添加一个方法，去通知UI刷新
             }
         });
 
@@ -143,6 +149,19 @@ public class CacheManager {
                     }
                 }
                 notifyMessageChanged(-1);//-1代表全部刷新
+            }
+        });
+
+
+        ConnectManager.getInstance().registerConnectChangeListener(new ConnectManager.IConnectChangeListener() {
+            @Override
+            public void onConnected() {
+                //从未连接到连接，需要从服务端获取数据，刷新UI
+            }
+
+            @Override
+            public void onDisconnect() {
+
             }
         });
 
@@ -232,7 +251,7 @@ public class CacheManager {
 
 //获取购物车产品数量
     public int getShopcarCount() {
-        return shopCartBean.getResult().size();
+        return shopCartBean!=null?shopCartBean.getResult().size():0;
     }
 
     public interface IShopcarDataRecevedLisener {
