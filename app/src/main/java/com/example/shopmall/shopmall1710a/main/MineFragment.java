@@ -10,8 +10,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import com.example.shopmall.point.PointActivity;
 import com.example.shopmall.shopmall1710a.R;
-import com.example.shopmall.shopmall1710a.login.view.BetterLoginActivity;
 
 public class MineFragment extends Fragment {
 
@@ -21,13 +21,13 @@ public class MineFragment extends Fragment {
 
         super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.fragment_mine, container, false);
-
         rootView.findViewById(R.id.loginBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 handler.sendEmptyMessageDelayed(0, 1000);
             }
         });
+
         return rootView;
     }
 
@@ -35,9 +35,7 @@ public class MineFragment extends Fragment {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            Intent intent = new Intent(getActivity(), BetterLoginActivity.class);
-            intent.putExtra("flag", "home");//在个人中心登录成功后，需要跳转到home页面
-            getActivity().startActivity(intent);
+            PointActivity.launch(getActivity());
         }
     };
 }

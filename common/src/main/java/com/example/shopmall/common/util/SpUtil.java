@@ -52,4 +52,17 @@ public class SpUtil {
         return sharedPreferences.getInt("shopcarCount", -1);
     }
 
+    //获取字符串值
+    public static String getString(Context context, String key) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("shopmall", Context.MODE_PRIVATE);
+        return sharedPreferences.getString(key, "");
+    }
+
+    public static void saveString(Context context, String key, String value) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("shopmall", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor =  sharedPreferences.edit();
+        editor.putString(key, value);
+        editor.commit();
+    }
+
 }

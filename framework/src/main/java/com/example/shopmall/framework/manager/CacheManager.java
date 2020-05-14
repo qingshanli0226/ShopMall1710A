@@ -7,6 +7,7 @@ import android.content.ServiceConnection;
 import android.os.IBinder;
 import com.example.shopmall.common.util.SpUtil;
 import com.example.shopmall.framework.bean.ShopCartBean;
+import com.example.shopmall.framework.bean.StepBean;
 import com.example.shopmall.framework.greendao.DaoMaster;
 import com.example.shopmall.framework.greendao.DaoSession;
 import com.example.shopmall.framework.message.ShopMallMessage;
@@ -37,6 +38,13 @@ public class CacheManager {
     private int countUnReadMessage;//缓存的未读的消息数量
     private ShopMallMessageDao shopMallMessageDao;//操作消息数据的dao文件
     private List<IShopMessageChangedListener> shopMessageChangedListenerList = new LinkedList<>();
+
+
+    //计步的成员变量
+    public final String STEP_DATE = "step_date";//sp中存储的日期key
+    public final String STEP_CURRENT_DATA = "step_current_data";//sp中存储的当天计步数的key
+    public final String STEP_SYTEM_DATE = "step_system_date";   //sp中存储的当天系统返回数据key
+    private List<IStepChangeListener> iStepChangeListeners = new LinkedList<>();
 
     private static CacheManager instance;
     private CacheManager() {
@@ -375,4 +383,68 @@ public class CacheManager {
          void onShopMessageUpdated(ShopMallMessage shopMallMessage, int unReadCount, int index);
     }
     /**************************************消息缓存数据End*************************************************/
+
+
+    /**************************************计步缓存数据START*************************************************/
+
+
+    /*
+     * date这个参数，代表我们要获取那天的数据
+     */
+    public StepBean getCurrentDateStep(String date) {
+        //获取时间
+        String dateStr = SpUtil.getString(applicationContext, STEP_DATE);
+        if (date.equals(dateStr)) {//如果相等的话，代表着今天该应用之前已经存储过步数了
+            StepBean stepBean = new StepBean();
+            stepBean.setDate(SpUtil.getString(applicationContext, date));
+            stepBean.setCurrentStep(Integer.valueOf(SpUtil.getString(applicationContext, STEP_CURRENT_DATA)));
+            stepBean.setSystemStep(Integer.valueOf(SpUtil.getString(applicationContext, STEP_SYTEM_DATE)));
+            return stepBean;
+        } else {//代表当天第一次启动该应用
+             return null;
+        }
+
+    }
+
+    //存储计步数据
+    public void saveStepInfo(StepBean stepBean) {
+        SpUtil.saveString(applicationContext, STEP_DATE, stepBean.getDate());
+        SpUtil.saveString(applicationContext,STEP_CURRENT_DATA, stepBean.getCurrentStep() + "");
+        SpUtil.saveString(applicationContext, STEP_SYTEM_DATE, stepBean.getSystemStep() + "");
+
+        //在UI上实现步数的刷新
+        for(IStepChangeListener listener:iStepChangeListeners) {
+            listener.onStepChanged(stepBean);//通知UI，数据改变了，请刷新UI。
+        }
+
+        //按照算法，去计算这个积分数，并且将积分数上报给UI。
+        if (stepBean.getCurrentStep()%100 == 0) {
+            int point = stepBean.getCurrentStep()/100;
+            for(IStepChangeListener listener:iStepChangeListeners) {
+                listener.onPointChanged(point);//通知UI，数据改变了，请刷新UI。
+            }
+        }
+    }
+
+    public interface IStepChangeListener {
+        void onStepChanged(StepBean stepBean);
+        void onPointChanged(int point);
+    }
+
+    public void registeStepChangeListener(IStepChangeListener listener) {
+        if (iStepChangeListeners.contains(listener)) {
+            return;
+        } else {
+            iStepChangeListeners.add(listener);
+        }
+    }
+
+    public void unRegisteStepChangeListener(IStepChangeListener listener) {
+        if (iStepChangeListeners.contains(listener)) {
+            iStepChangeListeners.remove(listener);
+        }
+    }
+
+    /**************************************计步缓存数据END*************************************************/
+
 }

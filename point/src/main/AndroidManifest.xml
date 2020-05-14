@@ -1,2 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.example.shopmall.point"/>
+          package="com.example.shopmall.point">
+
+    <application>
+        <activity android:name=".PointActivity"/>
+    </application>
+</manifest>

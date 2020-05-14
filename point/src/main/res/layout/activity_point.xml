@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <com.example.shopmall.framework.view.ToolBar
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:id="@+id/toolBar"
+            app:toolbarTile="@string/point_detail"
+            app:toolBarRightDisplay="true"
+            app:toolBarRightSrc="@mipmap/icon_search_white"
+            app:isShowTitle="true"
+    />
+
+    <TextView android:layout_width="match_parent" android:layout_height="0dp"
+    android:layout_weight="1"
+    android:id="@+id/stepValue"
+    android:textSize="50sp"
+    android:gravity="center"/>
+    <TextView android:layout_width="match_parent" android:layout_height="0dp"
+              android:layout_weight="1"
+              android:id="@+id/pointValue"
+              android:textSize="50sp"
+              android:gravity="center"/>
+
+</LinearLayout>

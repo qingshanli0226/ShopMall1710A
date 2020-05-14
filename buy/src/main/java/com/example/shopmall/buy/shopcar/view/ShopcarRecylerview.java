@@ -66,6 +66,17 @@ public class ShopcarRecylerview extends RecyclerView implements IShopcarEventLis
         shopcarAdapter = new ShopcarAdapter();
         setLayoutManager(new LinearLayoutManager(context));
         setAdapter(shopcarAdapter);
+        setOnScrollListener(new OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
     }
 
     public void setiShopcarEventListener(IShopcarEventListener iShopcarEventListener) {
