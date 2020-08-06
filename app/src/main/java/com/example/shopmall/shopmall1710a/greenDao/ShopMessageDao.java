@@ -28,6 +28,10 @@ public class ShopMessageDao extends AbstractDao<ShopMessage, Void> {
         public final static Property ProductName = new Property(3, String.class, "productName", false, "PRODUCT_NAME");
     }
 
+
+    public ShopMessageDao(DaoConfig config) {
+        super(config);
+    }
     
     public ShopMessageDao(DaoConfig config, DaoSession daoSession) {
         super(config, daoSession);

@@ -10,6 +10,7 @@ import com.example.shopmall.common.util.SpUtil;
 import com.example.shopmall.framework.entity.ShopCartBean;
 import com.example.shopmall.framework.service.ShopMallService;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -103,6 +104,32 @@ public class CacheManager {
     }
 
 
+    public void selectAllProduct(boolean selected) {
+        for(ShopCartBean.ResultBean item:shopCartBean.getResult()) {
+            item.setProductSelected(selected);
+        }
+
+        //第二步，需要做什么事情?
+        for(IShopcarDataRecevedLisener lisener:shopCountRecevedLisenerList) {
+            lisener.onShopcarDataReceived(shopCartBean.getResult().size(),shopCartBean,-1);
+        }
+    }
+
+    //删除产品
+    public void removeManyProducts(List<ShopCartBean.ResultBean> shopcarDataList) {
+        for(ShopCartBean.ResultBean item:shopcarDataList) {
+            if (shopCartBean.getResult().contains(item)) {
+                shopCartBean.getResult().remove(item);
+            }
+        }
+
+        //第二步，需要做什么事情?
+        for(IShopcarDataRecevedLisener lisener:shopCountRecevedLisenerList) {
+            lisener.onShopcarDataReceived(shopCartBean.getResult().size(),shopCartBean,-1);
+        }
+    }
+
+
     public void addNewShopcardata(Context context, int addNum, ShopCartBean.ResultBean shopcarData) {
         //更新缓存的数据
         int sum = SpUtil.getShopcarCount(context) + addNum;
@@ -159,6 +186,17 @@ public class CacheManager {
             lisener.onShopcarDataSelectedReceived(shopCartBean, index);
         }
 
+    }
+
+    //获取购物车选择的商品
+    public List<ShopCartBean.ResultBean> getSelectedProducts() {
+        List<ShopCartBean.ResultBean> selectedShopcarDataList = new ArrayList<>();
+        for(ShopCartBean.ResultBean item:shopCartBean.getResult()) {
+            if (item.isProductSelected()) {
+                selectedShopcarDataList.add(item);
+            }
+        }
+        return selectedShopcarDataList;
     }
 
     //获取购物车产品数量

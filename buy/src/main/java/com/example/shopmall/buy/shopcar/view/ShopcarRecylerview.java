@@ -27,7 +27,7 @@ public class ShopcarRecylerview extends RecyclerView implements IShopcarEventLis
     public ShopcarAdapter shopcarAdapter;
 
     public List<ShopCartBean.ResultBean> shopcarDataList = new ArrayList<>();
-
+    private List<ShopCartBean.ResultBean> shopcarDelteDataList = new ArrayList<>();
     public void updateselect(boolean flag) {
         for (int i = 0; i < shopcarDataList.size(); i++) {
             shopcarDataList.get(i).setProductSelected(flag);
@@ -90,11 +90,11 @@ public class ShopcarRecylerview extends RecyclerView implements IShopcarEventLis
 
     }
 
-
     @Override
-    public void onAllSelectChanged(boolean isAllSelected) {
+    public void onAllSelectChanged(boolean isAllSelected, int viewType) {
 
     }
+
 
     @Override
     public void onPayEventChanged(float payValue) {
@@ -102,9 +102,10 @@ public class ShopcarRecylerview extends RecyclerView implements IShopcarEventLis
     }
 
     @Override
-    public void onProductDeleted(ShopCartBean.ResultBean shopcarData) {
+    public void onProductDeleted() {
 
     }
+
 
     @Override
     public void onProductSaved() {
@@ -197,4 +198,11 @@ public class ShopcarRecylerview extends RecyclerView implements IShopcarEventLis
             btnSub = rootView.findViewById(R.id.btnSub);
         }
     }
+
+    //定义一个接口，让Fragment可以获取删除的列表，删除该列表
+    public List<ShopCartBean.ResultBean> getShopcarDelteDataList() {
+        return shopcarDelteDataList;
+    }
+
+
 }

@@ -12,10 +12,10 @@ import java.lang.reflect.Type;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
-public class RemoveOneProductPresenter extends BasePresenter<String> {
+public class SelectAllProductPresenter extends BasePresenter<String> {
     @Override
     protected String getPath() {
-        return "removeOneProduct";
+        return "selectAllProduct";
     }
 
     @Override
@@ -23,14 +23,10 @@ public class RemoveOneProductPresenter extends BasePresenter<String> {
         return new TypeToken<BaseBean<String>>(){}.getType();
     }
 
-    public void addParams(String productId, String productNum,String productName, String imageUrl,String productPrice) {
+    public void addParams(boolean selected) {
         JSONObject object = new JSONObject();
         try {
-            object.put("productId", productId);
-            object.put("productNum", productNum);
-            object.put("productName", productName);
-            object.put("url", imageUrl);
-            object.put("productPrice", productPrice);
+            object.put("selected", selected);
         } catch (JSONException e) {
             e.printStackTrace();
         }

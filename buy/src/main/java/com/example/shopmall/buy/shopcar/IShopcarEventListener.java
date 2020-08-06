@@ -6,9 +6,9 @@ import com.example.shopmall.framework.entity.ShopCartBean;
 public interface IShopcarEventListener {
     void onEditChange(boolean isEdit);//编辑事件
     void onProductSelectChanged(boolean isSelected, ShopCartBean.ResultBean shopcarData);//产品选择事件
-    void onProductCountChanged(ShopCartBean.ResultBean shopcarData,int count);
-    void onAllSelectChanged(boolean isAllSelected);
+    void onProductCountChanged(ShopCartBean.ResultBean shopcarData, int count);
+    void onAllSelectChanged(boolean isAllSelected, int viewType);
     void onPayEventChanged(float payValue);
-    void onProductDeleted(ShopCartBean.ResultBean shopcarData);
+    void onProductDeleted();
     void onProductSaved();
 }
